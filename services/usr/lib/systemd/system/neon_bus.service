@@ -1,0 +1,20 @@
+[Unit]
+Description=Neon Message Bus
+PartOf=neon.service
+After=neon.service
+After=neon_bus.service
+
+[Service]
+Restart=always
+User=pi
+WorkingDirectory=/opt/neon
+# Shutdown container (if running) when unit is started
+ExecStartPre=/bin/bash /opt/neon/stop_bus.sh
+# Start container when unit is started
+ExecStart=/bin/bash /opt/neon/start_bus.sh
+# Stop container when unit is stopped
+ExecStop=/bin/bash /opt/neon/stop_bus.sh
+StandardOutput=file:/var/log/neon/bus.log
+StandardError=file:/var/log/neon/bus.error.log
+[Install]
+WantedBy=neon.service
