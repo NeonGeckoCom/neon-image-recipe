@@ -8,7 +8,7 @@ how to make a neon image from scratch
 ```bash
 git clone https://github.com/NeonGeckoCom/neon-image-recipe
 cd neon-image-recipe
-sudo bash ./install_requirements.sh
+sudo -E bash ./install_requirements.sh
 sudo bash ./setup_system.sh
 sudo bash ./host_configuration.sh
 sudo reboot now

@@ -6,7 +6,7 @@ fi
 
 # update base image
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get upgrade -y
 
 # install system packages
 sudo apt-get install -y  alsa-utils \
@@ -16,7 +16,7 @@ sudo apt-get install -y  alsa-utils \
      python3-pip network-manager swig libfann-dev gcc
 
 # Ubuntu Server Deps
-sudo apt install xorg openbox portaudio19-dev
+sudo apt install -y xorg openbox portaudio19-dev
 
 pip install --upgrade pip~=21.1
 pip install wheel
@@ -83,7 +83,6 @@ if [[ -f /etc/mycroft/mycroft.conf ]] ; then
 fi
 echo "Installation complete!"
 echo "To run, invoke:  mycroft-gui-app"
-exit 0
 
 rm -rf mycroft-gui
 sudo apt-get install libqt5multimedia5-plugins qml-module-qtmultimedia
