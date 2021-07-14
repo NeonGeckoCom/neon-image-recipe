@@ -95,6 +95,7 @@ export installServer="false"
 export sttModule="google_cloud_streaming"
 export ttsModule="amazon"
 export raspberryPi="true"
+pip install git+https://github.com/neongeckocom/neon-skill-utils@dev
 neon-config-import
 
 # Install Default Skills

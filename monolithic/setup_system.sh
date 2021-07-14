@@ -12,8 +12,8 @@ sudo cp ./etc/neon/holmes.conf /etc/neon/holmes.conf
 sudo cp ./etc/asound.conf /etc/asound.conf
 sudo cp ./etc/pulse/system.pa /etc/pulse/system.pa
 
-usermod -aG pulse pi
-usermod -aG pulse-access pi
+usermod -aG pulse neon
+usermod -aG pulse-access neon
 usermod -aG pulse root
 usermod -aG pulse-access root
 

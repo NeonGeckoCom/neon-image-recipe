@@ -3,7 +3,7 @@ Description=NeonAI service
 
 [Service]
 Restart=always
-User=pi
+User=neon
 Group=docker
 WorkingDirectory=/opt/neon
 # Shutdown processes (if running) when unit is started
