@@ -27,7 +27,6 @@ sudo cp -r ./opt/neon /opt
 chmod +x /opt/neon/*.sh
 
 # setup systemd
-# TODO one service per neon repo
 sudo cp ./usr/lib/systemd/system/*.service /usr/lib/systemd/system
 sudo cp ./usr/sbin/first_boot.sh /usr/sbin/first_boot.sh
 chmod +x /usr/sbin/first_boot.sh
