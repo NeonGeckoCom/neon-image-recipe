@@ -4,7 +4,7 @@ Description=NeonAI service
 [Service]
 Restart=always
 User=neon
-Group=docker
+Group=neon
 WorkingDirectory=/opt/neon
 # Shutdown processes (if running) when unit is started
 ExecStartPre=/bin/bash /opt/neon/stop_neon.sh
