@@ -22,7 +22,13 @@ sudo apt install -y xorg openbox portaudio19-dev
 
 pip install --upgrade pip~=21.1
 pip install wheel
-pip install "git+https://${GITHUB_TOKEN}@github.com/NeonDaniel/NeonCore@FEAT_PiSupport#egg=neon_core[remote,client,dev]"
+pip install "git+https://${GITHUB_TOKEN}@github.com/NeonDaniel/NeonCore@FEAT_PiSupport#egg=neon_core[pi,dev]"
+
+# Install mimic
+sudo apt install -y curl
+curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | sudo apt-key add - 2> /dev/null && echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | sudo tee /etc/apt/sources.list.d/mycroft-desktop.list
+sudo apt-get update
+sudo apt install mimic
 
 # mycroft-gui
 git clone https://github.com/mycroftai/mycroft-gui
@@ -95,13 +101,22 @@ export autoStart="true"
 export autoUpdate="false"
 export installServer="false"
 export sttModule="google_cloud_streaming"
-export ttsModule="amazon"
+export ttsModule="mimic"
 export raspberryPi="true"
+
+# TODO: Remove patched skill utils version
 pip install git+https://github.com/neongeckocom/neon-skill-utils@dev
+
 neon-config-import
+sudo cp -r /root/.local/share/neon /home/neon/.local/share/
+sudo chown neon:neon -R /home/neon/.local/share
 
 # Install Default Skills
 neon-install-default-skills
+sudo rm -rf /root/.local/share/neon
+
+# TODO: Remove patched skill utils version
+pip install git+https://github.com/neongeckocom/neon-skill-utils@dev
 
 # Setup Completed
 echo "Setup Complete"

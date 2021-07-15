@@ -6,8 +6,8 @@ Restart=always
 User=neon
 Group=neon
 WorkingDirectory=/opt/neon
-# Shutdown processes (if running) when unit is started
-ExecStartPre=/bin/bash /opt/neon/stop_neon.sh
+## Shutdown processes (if running) when unit is started
+#ExecStartPre=/bin/bash /opt/neon/stop_neon.sh
 # Start processes when unit is started
 ExecStart=/bin/bash /opt/neon/start_neon.sh
 # Stop processes when unit is stopped
