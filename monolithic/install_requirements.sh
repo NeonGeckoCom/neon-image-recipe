@@ -15,13 +15,14 @@ sudo apt-get install -y  alsa-utils \
      libasound2 libasound2-plugins \
      pulseaudio pulseaudio-utils \
      sox libsox-fmt-all \
-     python3-pip network-manager swig libfann-dev gcc
+     python3-pip network-manager swig libfann-dev gcc mpg123
 
 # Ubuntu Server Deps
 sudo apt install -y xorg openbox portaudio19-dev
 
 pip install --upgrade pip~=21.1
 pip install wheel
+# TODO: Install from default branch
 pip install "git+https://${GITHUB_TOKEN}@github.com/NeonDaniel/NeonCore@FEAT_PiSupport#egg=neon_core[pi,dev]"
 
 # Install mimic
@@ -108,12 +109,11 @@ export raspberryPi="true"
 pip install git+https://github.com/neongeckocom/neon-skill-utils@dev
 
 neon-config-import
-sudo cp -r /root/.local/share/neon /home/neon/.local/share/
-sudo chown neon:neon -R /home/neon/.local/share
-
-# Install Default Skills
 neon-install-default-skills
-sudo rm -rf /root/.local/share/neon
+
+# Move neon data from root to local user home directory and fix permissions
+sudo mv /root/.local/share/neon /home/neon/.local/share/
+sudo chown neon:neon -R /home/neon/.local/share
 
 # TODO: Remove patched skill utils version
 pip install git+https://github.com/neongeckocom/neon-skill-utils@dev
