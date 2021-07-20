@@ -76,6 +76,8 @@ export installServer="false"
 export sttModule="google_cloud_streaming"
 export ttsModule="mimic"
 export raspberryPi="true"
+# TODO: Update this to a Pi-specific list DM
+export skillRepo="https://raw.githubusercontent.com/NeonGeckoCom/neon-skills-submodules/dev/.utilities/DEFAULT-SKILLS-DEV"
 
 # TODO: Remove patched skill utils version
 pip install --upgrade --pre neon-utils
