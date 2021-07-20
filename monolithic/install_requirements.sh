@@ -29,7 +29,7 @@ pip install "git+https://${GITHUB_TOKEN}@github.com/NeonDaniel/NeonCore@FEAT_PiS
 sudo apt install -y curl
 curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | sudo apt-key add - 2> /dev/null && echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | sudo tee /etc/apt/sources.list.d/mycroft-desktop.list
 sudo apt-get update
-sudo apt install mimic
+sudo apt install -y mimic
 
 # mycroft-gui
 git clone https://github.com/mycroftai/mycroft-gui
@@ -38,7 +38,7 @@ cd mycroft-gui || exit 10
 TOP=$( pwd -L )
 sudo apt-get install -y git-core g++ cmake extra-cmake-modules gettext pkg-config qml-module-qtwebengine pkg-kde-tools \
      qtbase5-dev qtdeclarative5-dev libkf5kio-dev libqt5websockets5-dev libkf5i18n-dev libkf5notifications-dev \
-     libkf5plasma-dev libqt5webview5-dev qtmultimedia5-dev
+     libkf5plasma-dev libqt5webview5-dev qtmultimedia5-dev gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav
 
 echo "Building Mycroft GUI"
 if [[ ! -d build-testing ]] ; then
@@ -65,36 +65,8 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release   -DKDE_INSTALL_
 make
 sudo make install
 
-echo " "
-if [[ ! -f /etc/mycroft/mycroft.conf ]] ; then
-    if [[ ! -d /etc/mycroft ]] ; then
-        sudo mkdir /etc/mycroft
-    fi
-
-cat <<EOF | sudo tee /etc/mycroft/mycroft.conf
-{
-    "enclosure": {
-        "platform": "mycroft_mark_2"
-    }
-}
-EOF
-
-fi
-
-if [[ -f /etc/mycroft/mycroft.conf ]] ; then
-    echo "Found an existing Mycroft System Level Configuration at /etc/mycroft/mycroft.conf"
-    echo "Please add the following enclosure settings manually to existing configuration to ensure working setup:"
-    echo " "
-    echo '"enclosure": {'
-    echo '     "platform": "mycroft_mark_2"'
-    echo '}'
-    echo ""
-fi
-echo "Installation complete!"
-echo "To run, invoke:  mycroft-gui-app"
-
 rm -rf mycroft-gui
-sudo apt-get install libqt5multimedia5-plugins qml-module-qtmultimedia
+sudo apt-get install -y libqt5multimedia5-plugins qml-module-qtmultimedia
 
 # Export setup variables
 export devMode="false"
@@ -106,7 +78,7 @@ export ttsModule="mimic"
 export raspberryPi="true"
 
 # TODO: Remove patched skill utils version
-pip install git+https://github.com/neongeckocom/neon-skill-utils@dev
+pip install --upgrade --pre neon-utils
 
 neon-config-import
 neon-install-default-skills
@@ -114,9 +86,6 @@ neon-install-default-skills
 # Move neon data from root to local user home directory and fix permissions
 sudo mv /root/.local/share/neon /home/neon/.local/share/
 sudo chown neon:neon -R /home/neon/.local/share
-
-# TODO: Remove patched skill utils version
-pip install git+https://github.com/neongeckocom/neon-skill-utils@dev
 
 # Setup Completed
 echo "Setup Complete"
