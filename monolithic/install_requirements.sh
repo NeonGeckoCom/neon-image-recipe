@@ -1,5 +1,5 @@
 
-export GITHUB_TOKEN=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
+export GITHUB_TOKEN=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
 
 if [ -z "${GITHUB_TOKEN}" ]; then
   echo "GITHUB_TOKEN not specified!"
