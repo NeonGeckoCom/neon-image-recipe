@@ -88,9 +88,9 @@ sudo pip install --upgrade --pre neon-utils
 neon-config-import
 neon-install-default-skills
 
-# Move neon data from root to local user home directory and fix permissions
-sudo mv /root/.local/share/neon /home/neon/.local/share/
-sudo chown neon:neon -R /home/neon/.local/share
+## Move neon data from root to local user home directory and fix permissions
+#sudo mv /root/.local/share/neon /home/neon/.local/share/
+#sudo chown neon:neon -R /home/neon/.local/share
 
 # Setup Completed
 echo "Setup Complete"
