@@ -20,6 +20,9 @@ sudo apt-get install -y  alsa-utils \
 # Ubuntu Server Deps
 sudo apt install -y xorg openbox portaudio19-dev
 
+# Patch system-wide pyyaml
+sudo apt remove -y python3-yaml
+
 sudo pip install --upgrade pip~=21.1
 sudo pip install wheel
 # TODO: Install from default branch
@@ -67,9 +70,6 @@ sudo make install
 
 rm -rf mycroft-gui
 sudo apt-get install -y libqt5multimedia5-plugins qml-module-qtmultimedia
-
-# Patch system-wide pyyaml
-sudo apt remove -y python3-yaml
 
 # Export setup variables
 export devMode="false"

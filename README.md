@@ -9,8 +9,10 @@ Installation should be performed by the user `neon`.
 ```bash
 git clone https://github.com/NeonGeckoCom/neon-image-recipe
 cd neon-image-recipe/monolithic
-sudo bash ./setup_system.sh
 sudo -E bash ./install_requirements.sh
+sudo reboot
+# Configure auto-login, disable screen off
+sudo bash ./setup_system.sh
 sudo bash ./host_configuration.sh
 sudo reboot now
 ```
