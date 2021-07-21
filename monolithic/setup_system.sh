@@ -44,3 +44,10 @@ sudo systemctl daemon-reload
 sudo systemctl enable pulseaudio.service 
 sudo systemctl enable neon.service
 sudo systemctl enable neon_firstboot.service
+
+# Configure desktop settings
+sudo gsettings set org.gnome.desktop.screensaver lock-enabled false
+sudo gsettings set org.gnome.desktop.session idle-delay 0
+echo -e"[SeatDefaults]\nautologin-user=neon" | sudo tee /etc/lightdm/lightdm.conf.d/50-myconfig.conf
+echo "mycroft-gui-app --hideTextInput --maximize" | sudo tee /etc/profile.d/start_gui.sh
+sudo chmod ugo+x /etc/profile.d/start_gui.sh
