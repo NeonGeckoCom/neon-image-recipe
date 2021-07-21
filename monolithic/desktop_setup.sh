@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Ubuntu Server Deps
+sudo apt update
 sudo apt install -y xorg openbox portaudio19-dev
 
 # Configure desktop settings
