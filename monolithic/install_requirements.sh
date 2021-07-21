@@ -23,7 +23,7 @@ sudo apt install -y xorg openbox portaudio19-dev
 sudo pip install --upgrade pip~=21.1
 sudo pip install wheel
 # TODO: Install from default branch
-sudo pip install "git+https://${GITHUB_TOKEN}@github.com/NeonDaniel/NeonCore@FEAT_PiSupport#egg=neon_core[pi,dev]"
+sudo -E pip install "git+https://${GITHUB_TOKEN}@github.com/NeonDaniel/NeonCore@FEAT_PiSupport#egg=neon_core[pi,dev]"
 
 # Install mimic
 sudo apt install -y curl
