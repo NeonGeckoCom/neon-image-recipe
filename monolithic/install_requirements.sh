@@ -68,6 +68,9 @@ sudo make install
 rm -rf mycroft-gui
 sudo apt-get install -y libqt5multimedia5-plugins qml-module-qtmultimedia
 
+# Patch system-wide pyyaml
+sudo apt remove -y python3-yaml
+
 # Export setup variables
 export devMode="false"
 export autoStart="true"
@@ -80,7 +83,7 @@ export raspberryPi="true"
 export skillRepo="https://raw.githubusercontent.com/NeonGeckoCom/neon-skills-submodules/dev/.utilities/DEFAULT-SKILLS-DEV"
 
 # TODO: Remove patched skill utils version
-pip install --upgrade --pre neon-utils
+sudo pip install --upgrade --pre neon-utils
 
 neon-config-import
 neon-install-default-skills
