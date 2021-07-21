@@ -20,10 +20,10 @@ sudo apt-get install -y  alsa-utils \
 # Ubuntu Server Deps
 sudo apt install -y xorg openbox portaudio19-dev
 
-pip install --upgrade pip~=21.1
-pip install wheel
+sudo pip install --upgrade pip~=21.1
+sudo pip install wheel
 # TODO: Install from default branch
-pip install "git+https://${GITHUB_TOKEN}@github.com/NeonDaniel/NeonCore@FEAT_PiSupport#egg=neon_core[pi,dev]"
+sudo pip install "git+https://${GITHUB_TOKEN}@github.com/NeonDaniel/NeonCore@FEAT_PiSupport#egg=neon_core[pi,dev]"
 
 # Install mimic
 sudo apt install -y curl

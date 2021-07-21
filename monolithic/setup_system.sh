@@ -1,5 +1,10 @@
+# create user
+sudo adduser neon --gecos "" --disabled-password
+echo "neon:neon" | sudo chpasswd
+sudo chage -d 0 neon
+
 # create directories
-sudo mkdir -p /var/log/neon
+#sudo mkdir -p /var/log/neon
 sudo mkdir -p /opt/neon
 sudo mkdir -p /etc/neon
 
