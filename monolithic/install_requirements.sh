@@ -17,9 +17,6 @@ sudo apt-get install -y  alsa-utils \
      sox libsox-fmt-all \
      python3-pip network-manager swig libfann-dev gcc mpg123
 
-# Ubuntu Server Deps
-sudo apt install -y lightdm xorg openbox portaudio19-dev
-
 # Patch system-wide pyyaml
 sudo apt remove -y python3-yaml
 
