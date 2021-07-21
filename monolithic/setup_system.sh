@@ -1,9 +1,9 @@
-# create user
-if [ "${USER}" != "neon" ]; then
-  sudo adduser neon --gecos "" --disabled-password
-  echo "neon:neon" | sudo chpasswd
-  sudo chage -d 0 neon
-fi
+## create user
+#if [ "${USER}" != "neon" ]; then
+#  sudo adduser neon --gecos "" --disabled-password
+#  echo "neon:neon" | sudo chpasswd
+#  sudo chage -d 0 neon
+#fi
 
 # create directories
 #sudo mkdir -p /var/log/neon
