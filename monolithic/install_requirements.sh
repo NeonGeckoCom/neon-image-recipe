@@ -19,8 +19,8 @@ sudo apt-get install -y  alsa-utils \
 
 # This will break networking! (Even upon re-installing apt package)
 #sudo apt remove -y python3-yaml
-python3 -m venv venv
-. venv/bin/activate
+python3 -m venv "/home/neon/venv"
+. /home/neon/venv/bin/activate
 pip install --upgrade pip~=21.1
 pip install wheel
 # TODO: Install from default branch and resolve PyYAML errors
