@@ -23,7 +23,7 @@ sudo apt-get install -y  alsa-utils \
 sudo pip install --upgrade pip~=21.1
 sudo pip install wheel
 # TODO: Install from default branch
-sudo -E pip install "git+https://${GITHUB_TOKEN}@github.com/NeonDaniel/NeonCore@FEAT_PiSupport#egg=neon_core[pi,dev]"
+sudo -E pip install "git+https://${GITHUB_TOKEN}@github.com/NeonDaniel/NeonCore@FEAT_PiSupport#egg=neon_core[pi,dev]" --ignore-installed
 
 # Install mimic
 sudo apt install -y curl
@@ -66,6 +66,8 @@ make
 sudo make install
 
 rm -rf mycroft-gui
+
+# Install extra GUI dependencies not in dev_setup.sh
 sudo apt-get install -y libqt5multimedia5-plugins qml-module-qtmultimedia
 
 # Export setup variables
