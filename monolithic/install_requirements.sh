@@ -17,8 +17,8 @@ sudo apt-get install -y  alsa-utils \
      sox libsox-fmt-all \
      python3-pip network-manager swig libfann-dev gcc mpg123
 
-# Patch system-wide pyyaml
-sudo apt remove -y python3-yaml
+# This will break networking! (Even upon re-installing apt package)
+#sudo apt remove -y python3-yaml
 
 sudo pip install --upgrade pip~=21.1
 sudo pip install wheel
@@ -83,7 +83,7 @@ export skillRepo="https://raw.githubusercontent.com/NeonGeckoCom/neon-skills-sub
 sudo pip install --upgrade --pre neon-utils
 
 neon-config-import
-neon-install-default-skills
+#neon-install-default-skills
 
 ## Move neon data from root to local user home directory and fix permissions
 #sudo mv /root/.local/share/neon /home/neon/.local/share/
