@@ -15,15 +15,16 @@ sudo apt-get install -y  alsa-utils \
      libasound2 libasound2-plugins \
      pulseaudio pulseaudio-utils \
      sox libsox-fmt-all \
-     python3-pip network-manager swig libfann-dev gcc mpg123
+     python3-pip python3-venv network-manager swig libfann-dev gcc mpg123
 
 # This will break networking! (Even upon re-installing apt package)
 #sudo apt remove -y python3-yaml
-
-sudo pip install --upgrade pip~=21.1
-sudo pip install wheel
-# TODO: Install from default branch
-sudo -E pip install "git+https://${GITHUB_TOKEN}@github.com/NeonDaniel/NeonCore@FEAT_PiSupport#egg=neon_core[pi,dev]" --ignore-installed
+python3 -m venv venv
+. venv/bin/activate
+pip install --upgrade pip~=21.1
+pip install wheel
+# TODO: Install from default branch and resolve PyYAML errors
+pip install "git+https://${GITHUB_TOKEN}@github.com/NeonDaniel/NeonCore@FEAT_PiSupport#egg=neon_core[pi,dev]"
 
 # Install mimic
 sudo apt install -y curl
@@ -82,14 +83,14 @@ export raspberryPi="true"
 export skillRepo="https://raw.githubusercontent.com/NeonGeckoCom/neon-skills-submodules/dev/.utilities/DEFAULT-SKILLS-DEV"
 
 # TODO: Remove patched skill utils version
-sudo pip install --upgrade --pre neon-utils
+pip install --upgrade --pre neon-utils
 
 neon-config-import
 #neon-install-default-skills
 
 ## Move neon data from root to local user home directory and fix permissions
 #sudo mv /root/.local/share/neon /home/neon/.local/share/
-#sudo chown neon:neon -R /home/neon/.local/share
+sudo chown neon:neon -R /home/neon/.local/share
 
 # Setup Completed
 echo "Setup Complete"
