@@ -38,13 +38,15 @@ sudo cp ./usr/lib/systemd/system/*.service /usr/lib/systemd/system
 sudo cp ./usr/sbin/first_boot.sh /usr/sbin/first_boot.sh
 chmod +x /usr/sbin/first_boot.sh
 chmod +x /usr/lib/systemd/system/neon*
-chmod +x /usr/lib/systemd/system/pulseaudio.service
+
+# setup X desktop environment
+sudo cp ./etc/profile.d/configure_x.sh /etc/profile.d/configure_x.sh
+chmod +x /etc/profile.d/configure_x.sh
 
 sudo systemctl daemon-reload
 sudo systemctl enable pulseaudio.service 
 sudo systemctl enable neon.service
 #sudo systemctl enable neon_firstboot.service
 
-# GUI auto-launch
-echo -e "xset -dpms\nxset s off\nxset s noblank\nmycroft-gui-app --hideTextInput --maximize" | sudo tee /etc/profile.d/start_gui.sh
-sudo chmod ugo+x /etc/profile.d/start_gui.sh
+# GUI auto-launch and other openbox config
+sudo cp ./home/.config/openbox /home/neon/.config/
