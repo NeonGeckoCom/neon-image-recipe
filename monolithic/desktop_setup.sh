@@ -11,4 +11,4 @@ sudo sed -i "s/#  AutomaticLoginEnable = true/  AutomaticLoginEnable = true/" /e
 sudo sed -i "s/#  AutomaticLogin = user1/  AutomaticLogin = neon/" /etc/gdm3/custom.conf
 # TODO: Need to configure power settings manually
 echo "Change Default DE and Power Settings after reboot"
-#echo -e"[SeatDefaults]\nautologin-user=neon" | sudo tee /etc/lightdm/lightdm.conf.d/50-myconfig.conf
+#echo -e "[SeatDefaults]\nautologin-user=neon" | sudo tee /etc/lightdm/lightdm.conf.d/50-myconfig.conf

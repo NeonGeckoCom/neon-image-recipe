@@ -46,5 +46,5 @@ sudo systemctl enable neon.service
 sudo systemctl enable neon_firstboot.service
 
 # GUI auto-launch
-echo -e"xset -dpms\nxset s off\nxset s noblank\nmycroft-gui-app --hideTextInput --maximize" | sudo tee /etc/profile.d/start_gui.sh
+echo -e "xset -dpms\nxset s off\nxset s noblank\nmycroft-gui-app --hideTextInput --maximize" | sudo tee /etc/profile.d/start_gui.sh
 sudo chmod ugo+x /etc/profile.d/start_gui.sh
