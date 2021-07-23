@@ -15,7 +15,7 @@ sudo apt-get install -y  alsa-utils \
      libasound2 libasound2-plugins \
      pulseaudio pulseaudio-utils \
      sox libsox-fmt-all \
-     python3-pip python3-venv network-manager swig libfann-dev gcc mpg123
+     python3-pip python3-venv network-manager swig libfann-dev gcc mpg123 wireless-tools
 
 # This will break networking! (Even upon re-installing apt package)
 #sudo apt remove -y python3-yaml

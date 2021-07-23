@@ -43,7 +43,7 @@ chmod +x /usr/lib/systemd/system/pulseaudio.service
 sudo systemctl daemon-reload
 sudo systemctl enable pulseaudio.service 
 sudo systemctl enable neon.service
-sudo systemctl enable neon_firstboot.service
+#sudo systemctl enable neon_firstboot.service
 
 # GUI auto-launch
 echo -e "xset -dpms\nxset s off\nxset s noblank\nmycroft-gui-app --hideTextInput --maximize" | sudo tee /etc/profile.d/start_gui.sh
