@@ -10,16 +10,19 @@ fi
 sudo apt-get update
 sudo apt-get upgrade -y
 
+sudo add-apt-repository -y ppa:deadsnakes/ppa
+
 # install system packages
 sudo apt-get install -y  alsa-utils \
      libasound2 libasound2-plugins \
      pulseaudio pulseaudio-utils \
      sox libsox-fmt-all \
-     python3-pip python3-venv network-manager swig libfann-dev gcc mpg123 wireless-tools
+     python3.7 python3-pip python3.7-venv network-manager swig libfann-dev gcc mpg123 wireless-tools
 
 # This will break networking! (Even upon re-installing apt package)
 #sudo apt remove -y python3-yaml
-python3 -m venv "/home/neon/venv"
+
+python3.7 -m venv "/home/neon/venv"
 . /home/neon/venv/bin/activate
 pip install --upgrade pip~=21.1
 pip install wheel

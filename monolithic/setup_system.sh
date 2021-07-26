@@ -49,4 +49,4 @@ sudo systemctl enable neon.service
 #sudo systemctl enable neon_firstboot.service
 
 # GUI auto-launch and other openbox config
-sudo cp ./home/.config/openbox /home/neon/.config/
+cp -r ./home/.config/openbox /home/neon/.config/
