@@ -50,3 +50,6 @@ sudo systemctl enable neon.service
 
 # GUI auto-launch and other openbox config
 cp -r ./home/.config/openbox /home/neon/.config/
+
+# Shell customizations
+cp -f ./home/.bashrc /home/neon/
