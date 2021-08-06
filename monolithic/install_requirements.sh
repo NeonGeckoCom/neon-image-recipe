@@ -6,11 +6,11 @@ if [ -z "${GITHUB_TOKEN}" ]; then
   exit 1
 fi
 
+sudo add-apt-repository -y ppa:deadsnakes/ppa
+
 # update base image
 sudo apt-get update
 sudo apt-get upgrade -y
-
-sudo add-apt-repository -y ppa:deadsnakes/ppa
 
 # install system packages
 sudo apt-get install -y  alsa-utils \
@@ -26,8 +26,7 @@ python3.7 -m venv "/home/neon/venv"
 . /home/neon/venv/bin/activate
 pip install --upgrade pip~=21.1
 pip install wheel
-# TODO: Install from default branch and resolve PyYAML errors
-pip install "git+https://${GITHUB_TOKEN}@github.com/NeonDaniel/NeonCore@FEAT_PiSupport#egg=neon_core[pi,dev]"
+pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCoret#egg=neon_core[pi,dev,client]"
 
 # Install mimic
 sudo apt install -y curl
@@ -82,6 +81,8 @@ export installServer="false"
 export sttModule="deepspeech_stream_local"
 export ttsModule="neon_tts_mimic"
 export raspberryPi="true"
+
+# TODO: Update to install from default branch
 export skillRepo="https://raw.githubusercontent.com/NeonGeckoCom/neon-skills-submodules/dev/.utilities/DEFAULT-SKILLS-PI"
 
 # TODO: Remove patched skill utils version
