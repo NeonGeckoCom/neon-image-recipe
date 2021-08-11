@@ -26,7 +26,7 @@ python3.7 -m venv "/home/neon/venv"
 . /home/neon/venv/bin/activate
 pip install --upgrade pip~=21.1
 pip install wheel
-pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCore#egg=neon_core[pi,dev,client]"
+pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCore#egg=neon_core[pi,dev,client]" || exit 1
 
 # Install mimic
 sudo apt install -y curl
