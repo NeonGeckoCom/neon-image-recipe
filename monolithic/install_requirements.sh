@@ -81,6 +81,7 @@ export installServer="false"
 export sttModule="deepspeech_stream_local"
 export ttsModule="neon_tts_mimic"
 export raspberryPi="true"
+export devType="neonPi"
 
 # TODO: Update to install from default branch
 export skillRepo="https://raw.githubusercontent.com/NeonGeckoCom/neon-skills-submodules/dev/.utilities/DEFAULT-SKILLS-PI"
