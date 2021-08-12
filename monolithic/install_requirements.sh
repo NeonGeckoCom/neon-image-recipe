@@ -85,9 +85,6 @@ export raspberryPi="true"
 # TODO: Update to install from default branch
 export skillRepo="https://raw.githubusercontent.com/NeonGeckoCom/neon-skills-submodules/dev/.utilities/DEFAULT-SKILLS-PI"
 
-# TODO: Remove patched skill utils version
-pip install --upgrade --pre neon-utils
-
 neon-config-import
 #neon-install-default-skills
 
