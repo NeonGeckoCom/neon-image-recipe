@@ -15,10 +15,15 @@ sudo depmod -a
 cd .. || exit 10
 sudo cp xvf3510.dtbo /boot/firmware/overlays
 
-
 # Copy required overlay files
 cd -P "$( dirname "${BASH_SOURCE[0]}" )" || exit 10
 sudo cp -r overlay/* /
 sudo chmod -R ugo+x /usr/bin
+
+# Overwrite Pulse Config
+sudo rm /etc/pulse/system.pa
+sudo rm /etc/pulse/daemon.conf
+sudo ln -s /etc/pulse/mycroft-sj201-daemon.conf /etc/pulse/daemon.conf
+sudo ln -s /etc/pulse/mycroft-sj201-default.pa /etc/pulse/system.pa
 
 echo "Add 'dtoverlay=xvf3510' line to /boot/firmware/config.txt"
