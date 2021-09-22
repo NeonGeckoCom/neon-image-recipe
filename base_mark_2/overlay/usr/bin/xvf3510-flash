@@ -179,8 +179,6 @@ def send_image(bin_filename, verbose=False, max_spi_speed_mhz = 5, block_transfe
         bus.write_byte_data(0x20, 7, data_to_write)
 
 
-
-
 if __name__ == "__main__":
     start_time = time.time()
     parser = argparse.ArgumentParser(description='Load an image via SPI slave from an RPi')
