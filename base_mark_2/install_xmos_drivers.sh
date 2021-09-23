@@ -2,6 +2,7 @@
 
 kernel="5.4.0-1028-raspi"
 kernel="5.11.0-1007-raspi"
+
 # Install system dependencies
 sudo apt install -y gcc make python3-pip i2c-tools libraspberrypi-bin
 sudo CFLAGS="-fcommon" pip install smbus smbus2 spidev rpi.gpio
@@ -23,6 +24,7 @@ cd .. || exit 10
 sudo cp -r overlay/* /
 sudo chmod -R ugo+x /usr/bin
 sudo chmod -R ugo+x /usr/sbin
+sudo chmod ugo+x /opt/neon/configure_audio_on_boot.sh
 
 # Overwrite Pulse Config
 sudo rm /etc/pulse/system.pa
@@ -30,3 +32,13 @@ sudo rm /etc/pulse/daemon.conf
 sudo ln -s /etc/pulse/mycroft-sj201-daemon.conf /etc/pulse/daemon.conf
 sudo ln -s /etc/pulse/mycroft-sj201-default.pa /etc/pulse/system.pa
 
+# Ensure python bin exists for added scripts
+if [ ! -f "/usr/bin/python" ]; then
+  sudo ln -s /usr/bin/python3 /usr/bin/python
+fi
+
+# Configure audio and associated service
+sudo /opt/neon/configure_audio_on_boot.sh
+sudo systemctl enable sj201
+
+echo "Setup Complete"
