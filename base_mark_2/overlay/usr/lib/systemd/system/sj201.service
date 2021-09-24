@@ -5,4 +5,4 @@ Description=SJ201 Service
 ExecStart=/bin/bash /opt/neon/configure_audio_on_boot.sh
 
 [Install]
-WantedBy=pulseaudio-enable-autospawn.service
+WantedBy=multi-user.target

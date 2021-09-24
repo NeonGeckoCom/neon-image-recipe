@@ -56,14 +56,10 @@ load-module module-rescue-streams
 ### Make sure we always have a sink around, even if it is a null sink.
 load-module module-always-sink
 
-### Automatically suspend sinks/sources that become idle for too long
-load-module module-suspend-on-idle
-
 ### Enable positioned event sounds
 load-module module-position-event-sounds
 
 ### OpenVoiceOS Audio Settings
-unload-module module-suspend-on-idle
 load-module module-role-ducking
 load-module module-combine-sink sink_name=OpenVoiceOS
 load-module module-remap-source source_name=VF_ASR_L source_properties="device.description='VocalFusion ASR recording'" master=alsa_input.platform-asoc-simple-card.0.stereo-fallback remix=no master_channel_map=front-left channel_map=mono
