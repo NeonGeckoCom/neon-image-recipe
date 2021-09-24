@@ -20,5 +20,5 @@ echo "neon:neon" | sudo chpasswd
 sudo usermod -aG sudo neon
 echo "Added sudo user 'neon' remove Ubuntu user on next boot"
 
-echo "Verify Default DE after reboot"
-#echo -e "[SeatDefaults]\nautologin-user=neon" | sudo tee /etc/lightdm/lightdm.conf.d/50-myconfig.conf
+sudo cp -r ./var /var
+sudo cp -r ./usr /usr
