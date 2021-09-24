@@ -20,5 +20,5 @@ echo "neon:neon" | sudo chpasswd
 sudo usermod -aG sudo neon
 echo "Added sudo user 'neon' remove Ubuntu user on next boot"
 
-sudo cp -r ./var /var
-sudo cp -r ./usr /usr
+sudo cp -r ./var /
+sudo cp -r ./usr /
