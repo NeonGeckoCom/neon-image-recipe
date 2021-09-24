@@ -12,7 +12,7 @@ sudo sed -i "s/#  AutomaticLogin = user1/  AutomaticLogin = neon/" /etc/gdm3/cus
 
 # setup X desktop environment
 sudo cp ./etc/profile.d/configure_x.sh /etc/profile.d/configure_x.sh
-chmod +x /etc/profile.d/configure_x.sh
+sudo chmod +x /etc/profile.d/configure_x.sh
 
 # Add 'neon' user
 sudo adduser neon --gecos "" --disabled-password
