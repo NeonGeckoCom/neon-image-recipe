@@ -9,19 +9,25 @@ fi
 
 sudo add-apt-repository -y ppa:deadsnakes/ppa
 
+# Add mimic repo
+sudo apt install -y curl
+curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | sudo apt-key add - 2> /dev/null && \
+echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | sudo tee /etc/apt/sources.list.d/mycroft-desktop.list
+
 # update base image
 sudo apt-get update
-sudo apt-get upgrade -y
+#sudo apt-get upgrade -y
 
 # install system packages
 sudo apt-get install -y  alsa-utils \
      libasound2 libasound2-plugins \
      pulseaudio pulseaudio-utils \
-     sox libsox-fmt-all \
-     python3.7 python3-pip python3.7-venv python3.7-dev network-manager swig libfann-dev gcc mpg123 wireless-tools || \
+     sox libsox-fmt-all mimic \
+     python3.7 python3-pip python3.7-venv python3.7-dev \
+     network-manager swig libfann-dev gcc mpg123 wireless-tools || \
      exit 1
 
-# This will break networking! (Even upon re-installing apt package)
+# This will break cloud-init networking! (Even upon re-installing apt package)
 #sudo apt remove -y python3-yaml
 
 python3.7 -m venv "/home/neon/venv" || exit 10
@@ -29,13 +35,6 @@ python3.7 -m venv "/home/neon/venv" || exit 10
 pip install --upgrade pip~=21.1.0
 pip install wheel
 pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCore#egg=neon_core[pi,dev,client]" --use-deprecated=legacy-resolver || exit 1
-
-# Install mimic
-sudo apt install -y curl
-curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | sudo apt-key add - 2> /dev/null && \
-echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | sudo tee /etc/apt/sources.list.d/mycroft-desktop.list
-sudo apt-get update
-sudo apt install -y mimic
 
 # mycroft-gui
 git clone https://github.com/mycroftai/mycroft-gui
