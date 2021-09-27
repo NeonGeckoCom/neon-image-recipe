@@ -18,20 +18,22 @@ sudo apt-get install -y  alsa-utils \
      libasound2 libasound2-plugins \
      pulseaudio pulseaudio-utils \
      sox libsox-fmt-all \
-     python3.7 python3-pip python3.7-venv python3.7-dev network-manager swig libfann-dev gcc mpg123 wireless-tools
+     python3.7 python3-pip python3.7-venv python3.7-dev network-manager swig libfann-dev gcc mpg123 wireless-tools || \
+     exit 1
 
 # This will break networking! (Even upon re-installing apt package)
 #sudo apt remove -y python3-yaml
 
-python3.7 -m venv "/home/neon/venv"
+python3.7 -m venv "/home/neon/venv" || exit 10
 . /home/neon/venv/bin/activate
-pip install --upgrade pip~=21.1
+pip install --upgrade pip~=21.1.0
 pip install wheel
-pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCore#egg=neon_core[pi,dev,client]" || exit 1
+pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCore#egg=neon_core[pi,dev,client]" --use-deprecated=legacy-resolver || exit 1
 
 # Install mimic
 sudo apt install -y curl
-curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | sudo apt-key add - 2> /dev/null && echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | sudo tee /etc/apt/sources.list.d/mycroft-desktop.list
+curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | sudo apt-key add - 2> /dev/null && \
+echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | sudo tee /etc/apt/sources.list.d/mycroft-desktop.list
 sudo apt-get update
 sudo apt install -y mimic
 
@@ -92,7 +94,7 @@ neon-config-import
 
 ## Move neon data from root to local user home directory and fix permissions
 #sudo mv /root/.local/share/neon /home/neon/.local/share/
-sudo chown neon:neon -R /home/neon/.local/share
+#sudo chown neon:neon -R /home/neon/.local/share
 
 # Setup Completed
 echo "Setup Complete"

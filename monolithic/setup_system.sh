@@ -19,10 +19,12 @@ sudo cp ./etc/neon/holmes.conf /etc/neon/holmes.conf
 sudo cp ./etc/asound.conf /etc/asound.conf
 sudo cp ./etc/pulse/system.pa /etc/pulse/system.pa
 
+# Configure user groups
 usermod -aG pulse neon
 usermod -aG pulse-access neon
 usermod -aG pulse root
 usermod -aG pulse-access root
+usermod -aG i2c neon
 
 # setup network manager
 sudo cp ./etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
@@ -44,7 +46,7 @@ sudo cp ./etc/profile.d/configure_x.sh /etc/profile.d/configure_x.sh
 chmod +x /etc/profile.d/configure_x.sh
 
 sudo systemctl daemon-reload
-sudo systemctl enable pulseaudio.service 
+#sudo systemctl enable pulseaudio.service
 sudo systemctl enable neon.service
 #sudo systemctl enable neon_firstboot.service
 

@@ -3,6 +3,9 @@ how to make a neon image from scratch
 
 - monolithic -> old style, single script launches everything
 
+## base_neon_core
+Installs the base Neon core and dependencies
+
 # Usage
 Installation should be performed by the user `neon`.
 
