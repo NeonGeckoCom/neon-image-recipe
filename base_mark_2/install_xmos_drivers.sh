@@ -18,6 +18,9 @@ sudo depmod -a
 cd .. || exit 10
 sudo cp xvf3510.dtbo /boot/firmware/overlays
 
+# Add gpio group for rules
+sudo groupadd gpio
+
 # Copy required overlay files
 cd .. || exit 10
 sudo cp -r overlay/* /
