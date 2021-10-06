@@ -13,7 +13,7 @@ Installation should be performed by the user `neon`.
 git clone https://github.com/NeonGeckoCom/neon-image-recipe
 cd neon-image-recipe/monolithic
 bash ./install_requirements.sh
-sudo bash ./setup_system.sh
+bash ./setup_system.sh
 sudo bash ./host_configuration.sh
 sudo reboot now
 ```
