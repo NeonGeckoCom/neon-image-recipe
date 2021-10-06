@@ -19,6 +19,7 @@ sudo chmod +x /etc/profile.d/configure_x.sh
 sudo adduser neon --gecos "" --disabled-password
 echo "neon:neon" | sudo chpasswd
 sudo usermod -aG sudo neon
+sudo usermod -aG gpio neon
 echo "Added sudo user 'neon' remove Ubuntu user on next boot"
 
 sudo cp -r ./var /
