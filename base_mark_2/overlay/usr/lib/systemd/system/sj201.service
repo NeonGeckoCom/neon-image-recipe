@@ -2,7 +2,7 @@
 Description=SJ201 Service
 
 [Service]
-ExecStart=/bin/bash /opt/neon/configure_audio_on_boot.sh
+ExecStart=/bin/bash /opt/neon/configure_sj201_on_boot.sh
 
 [Install]
 WantedBy=multi-user.target

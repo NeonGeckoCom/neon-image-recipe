@@ -1,7 +1,6 @@
 #!/bin/bash
 
-kernel="5.4.0-1028-raspi"
-#kernel="5.11.0-1007-raspi"
+kernel=$(uname -r)
 
 # Install system dependencies
 sudo apt install -y gcc make python3-pip i2c-tools libraspberrypi-bin pulseaudio pulseaudio-module-zeroconf
@@ -11,8 +10,8 @@ sudo CFLAGS="-fcommon" pip install smbus smbus2 spidev rpi.gpio
 git clone https://github.com/OpenVoiceOS/vocalfusiondriver
 cd vocalfusiondriver/driver || exit 10
 make all
-sudo mkdir /lib/modules/${kernel}/kernel/drivers/vocalfusion
-sudo cp vocalfusion* /lib/modules/${kernel}/kernel/drivers/vocalfusion || exit 10
+sudo mkdir "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
+sudo cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 10
 # /usr/lib/modules/5.4.0-1028-raspi/extra/
 sudo depmod -a
 # modinfo vocalfusion-soundcard should show the module info now
@@ -24,7 +23,7 @@ cd .. || exit 10
 sudo cp -r overlay/* /
 sudo chmod -R ugo+x /usr/bin
 sudo chmod -R ugo+x /usr/sbin
-sudo chmod ugo+x /opt/neon/configure_audio_on_boot.sh
+sudo chmod ugo+x /opt/neon/configure_sj201_on_boot.sh
 
 # Overwrite Pulse Config
 sudo mv /etc/pulse/default.pa /etc/pulse/default.pa.bak
@@ -38,7 +37,7 @@ if [ ! -f "/usr/bin/python" ]; then
 fi
 
 # Configure audio and associated service
-sudo /opt/neon/configure_audio_on_boot.sh
+sudo /opt/neon/configure_sj201_on_boot.sh
 sudo systemctl enable sj201
 
 echo "Setup Complete"

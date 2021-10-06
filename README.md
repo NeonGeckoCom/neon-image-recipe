@@ -8,6 +8,9 @@ For SJ201 board support, the included script will build/install drivers, add req
 packages, and add a systemd service to flash the SJ201 chip on boot. This will modify pulseaudio and potentially overwrite 
 any previous settings.
 
+>*Note:* Running this scripts grants GPIO permissions to the `gpio` group. Any user that interfaces with the SJ201 board
+> should be a member of the `gpio` group. Group permissions are not modified by this script
+
 ```shell
 cd base_mark_2
 bash ./install_xmos_drivers.sh
