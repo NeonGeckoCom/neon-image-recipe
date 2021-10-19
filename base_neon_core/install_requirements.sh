@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export GITHUB_TOKEN=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
+#export GITHUB_TOKEN=
 
 if [ -z "${GITHUB_TOKEN}" ]; then
   echo "GITHUB_TOKEN not specified!"
