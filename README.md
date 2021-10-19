@@ -29,13 +29,13 @@ cd base_mark_2
 bash ./install_xmos_drivers.sh
 ```
 
-# Usage
-
+## base_neon_core
+Installs the base Neon core and dependencies. Installation should be performed by the user `neon`.
 ```bash
 git clone https://github.com/NeonGeckoCom/neon-image-recipe
-cd neon-image-recipe
-sudo bash ./install_requirements.sh
-sudo bash ./setup_system.sh
-sudo bash ./host_configuration.sh
+cd neon-image-recipe/monolithic
+bash ./install_requirements.sh
+bash ./setup_system.sh
+#sudo bash ./host_configuration.sh
 sudo reboot now
 ```

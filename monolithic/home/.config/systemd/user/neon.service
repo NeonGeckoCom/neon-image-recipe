@@ -1,10 +1,10 @@
 [Unit]
-Description=NeonAI service
+Description=NeonAI user service
 
 [Service]
 Restart=always
-User=neon
-Group=neon
+#User=neon
+#Group=neon
 WorkingDirectory=/opt/neon
 ## Shutdown processes (if running) when unit is started
 #ExecStartPre=/bin/bash /opt/neon/stop_neon.sh
@@ -14,4 +14,4 @@ ExecStart=/bin/bash /opt/neon/start_neon.sh
 ExecStop=/bin/bash /opt/neon/stop_neon.sh
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target

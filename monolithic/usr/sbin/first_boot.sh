@@ -7,8 +7,8 @@
 #grep -q "gpu_mem=16" /boot/config.txt || \
 #  echo "gpu_mem=16" >> /boot/config.txt
 
-# expand filesystem
-sudo raspi-config --expand-rootfs
+## expand filesystem
+#sudo raspi-config --expand-rootfs
 
 # disable wifi power management
 sudo iwconfig wlan0 power off
