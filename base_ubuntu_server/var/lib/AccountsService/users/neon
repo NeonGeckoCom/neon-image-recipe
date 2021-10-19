@@ -1,0 +1,8 @@
+[User]
+Session=
+XSession=openbox
+Icon=/home/neon/.face
+SystemAccount=false
+
+[InputSource0]
+xkb=us
