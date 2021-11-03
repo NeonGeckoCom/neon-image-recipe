@@ -1,0 +1,9 @@
+[Unit]
+Description=Wifi Setup watcher
+Requires=network-manager
+
+[Service]
+ExecStart=/bin/bash /opt/neon/check_wifi_setup.sh
+
+[Install]
+WantedBy=multi-user.target

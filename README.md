@@ -3,6 +3,9 @@ how to make a neon image from scratch
 
 - monolithic -> old style, single script launches everything
 
+## base_network_manager
+Adds balena wifi-connect to enable a portal for connecting the Pi device to a wifi network.
+
 ## base_ubuntu_server
 For Ubuntu Server base images, the included scripts install the openbox DE, add a `neon` user with default `neon` password, 
 and configure the system to auto-login and disable sleep. `cleanup.sh` removes the `ubuntu` user, expires the `neon` user 
