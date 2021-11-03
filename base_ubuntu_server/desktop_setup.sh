@@ -2,7 +2,6 @@
 
 # Ubuntu Server Deps
 sudo apt update
-sudo apt upgrade -y
 sudo apt install -y xorg openbox portaudio19-dev
 
 # Configure desktop settings
@@ -16,6 +15,7 @@ sudo cp ./etc/profile.d/configure_x.sh /etc/profile.d/configure_x.sh
 sudo chmod +x /etc/profile.d/configure_x.sh
 
 # Add 'neon' user
+sudo groupadd gpio
 sudo adduser neon --gecos "" --disabled-password
 echo "neon:neon" | sudo chpasswd
 sudo usermod -aG sudo neon
