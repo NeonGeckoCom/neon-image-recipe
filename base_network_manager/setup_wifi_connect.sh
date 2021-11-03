@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sudo dpkg-reconfigure unattended-upgrades
-
 # Replace netplan with network-manager
 sudo apt update
 sudo apt purge -y netplan.io
@@ -16,12 +14,12 @@ sudo systemctl enable network-manager
 
 # Add wifi-connect binary
 sudo cp -r overlay/* /
-sudo chmod -R ugo+x /usr/sbin
+sudo chmod -R ugo+x /usr/local/sbin
 sudo chmod -R ugo+x /opt/neon
 
-# Add link for compatibility
-sudo ln /usr/sbin/wifi-connect /usr/local/sbin/wifi-connect
 
 # Configure networking check on startup and restart
 sudo systemctl enable wifi-setup.service
-sudo reboot
+
+sudo shutdown -r
+history -c

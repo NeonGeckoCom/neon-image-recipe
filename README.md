@@ -1,10 +1,24 @@
 # neon-image-recipe
-how to make a neon image from scratch
+Make a Pi image from scratch. It is recommended to disable automatic updates during this process:
 
+```shell
+sudo dpkg-reconfigure unattended-upgrades
+```
+- [Network Manager](#base_network_manager) - Configures networking to allow for wifi configuration via
+  [wifi-connect](https://github.com/balena-os/wifi-connect).
+- [Ubuntu Server](#base_ubuntu_server) - Configures a desktop environment, user account, and other system setting overrides.
+- [SJ201 Support](#base_mark_2) - Installs and configures drivers and scripts to run the SJ-201 HAT.
+- [Neon Core](#base_neon_core) - Installs Neon Core with dependencies.
 - monolithic -> old style, single script launches everything
 
 ## base_network_manager
-Adds balena wifi-connect to enable a portal for connecting the Pi device to a wifi network.
+Adds Balena wifi-connect to enable a portal for connecting the Pi device to a wifi network. After running the setup script,
+the Pi will restart and be ready to configure with SSID `Neon`.
+
+```shell
+cd base_network_manager
+bash ./setup_wifi_connect.sh
+```
 
 ## base_ubuntu_server
 For Ubuntu Server base images, the included scripts install the openbox DE, add a `neon` user with default `neon` password, 
