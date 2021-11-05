@@ -75,23 +75,21 @@ rm -rf mycroft-gui
 # Install extra GUI dependencies not in dev_setup.sh
 sudo apt-get install -y libqt5multimedia5-plugins qml-module-qtmultimedia
 
-# Export setup variables
-export devMode="false"
-export autoStart="true"
-export autoUpdate="false"
-export installServer="false"
-export sttModule="deepspeech_stream_local"
-export ttsModule="neon_tts_mimic"
-export raspberryPi="true"
-export devType="neonPi"
-export devType="mycroft_mark_2"
-# TODO: Check for Pi vs mk2
+# Copy overlay files (default configuration)
+cd ../../.. || exit 10
+sudo cp -rf overlay/* / || exit 2
+sudo chown -R neon:neon /home/neon
 
-# TODO: Update to install from default branch
-export skillRepo="https://raw.githubusercontent.com/NeonGeckoCom/neon-skills-submodules/dev/.utilities/DEFAULT-SKILLS-PI"
+neon-install-default-skills
 
-neon-config-import
-#neon-install-default-skills
+# Disable wifi service and let the skill handle it
+sudo systemctl disable wifi-setup.service
+echo "neon ALL = (ALL) NOPASSWD: /usr/local/sbin/wifi-connect" | sudo EDITOR='tee -a' visudo
+# TODO: Consider installing DS model here DM
+
+# TODO: This is a patch for ovos-core DM
+sudo mkdir -p /opt/mycroft
+sudo chown neon:neon /opt/mycroft
 
 # Setup Completed
 echo "Setup Complete"
