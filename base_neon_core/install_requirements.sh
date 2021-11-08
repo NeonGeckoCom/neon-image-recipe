@@ -22,7 +22,7 @@ sudo apt-get update
 sudo apt-get install -y  alsa-utils \
      libasound2 libasound2-plugins \
      pulseaudio pulseaudio-utils \
-     sox libsox-fmt-all mimic \
+     sox libsox-fmt-all mimic libpulse-dev \
      python3.7 python3-pip python3.7-venv python3.7-dev \
      network-manager swig libfann-dev gcc mpg123 wireless-tools || \
      exit 1
@@ -34,7 +34,7 @@ python3.7 -m venv "/home/neon/venv" || exit 10
 . /home/neon/venv/bin/activate
 pip install --upgrade pip~=21.1.0
 pip install wheel
-pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCore#egg=neon_core[pi,dev,client]" --use-deprecated=legacy-resolver || exit 1
+pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCore#egg=neon_core[pi,dev,client]" || exit 1
 
 # mycroft-gui
 git clone https://github.com/mycroftai/mycroft-gui

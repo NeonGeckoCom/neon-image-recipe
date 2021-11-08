@@ -1,7 +1,8 @@
 {"managed_by_skill": true,
   "ssid": "Neon",
   "psk": "",
-  "color": "#FF5722",
+  "url": "start dot neon dot ai",
+  "color": "#00FF00",
   "stop_on_internet": false,
   "timeout_after_internet": 90,
   "__mycroft_skill_firstrun": false}
