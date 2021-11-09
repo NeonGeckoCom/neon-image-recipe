@@ -2,6 +2,8 @@
 Description=Mycroft GUI
 
 [Service]
+User=neon
+WorkingDirectory=/home/neon
 Environment=QT_QPA_PLATFORM=eglfs
 Environment=QT_QPA_EGLFS_KMS_ATOMIC=1
 Environment=QT_QPA_PLATFORMTHEME=qt5ct
@@ -22,4 +24,4 @@ StandardOutput=null
 Restart=on-failure
 
 [Install]
-WantedBy=mycroft.service
+WantedBy=neon.service
