@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#export GITHUB_TOKEN=
-
 if [ -z "${GITHUB_TOKEN}" ]; then
   echo "GITHUB_TOKEN not specified!"
   exit 1
@@ -14,11 +12,8 @@ sudo apt install -y curl
 curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | sudo apt-key add - 2> /dev/null && \
 echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | sudo tee /etc/apt/sources.list.d/mycroft-desktop.list
 
-# update base image
-sudo apt-get update
-#sudo apt-get upgrade -y
-
 # install system packages
+sudo apt-get update
 sudo apt-get install -y  alsa-utils \
      libasound2 libasound2-plugins \
      pulseaudio pulseaudio-utils \
@@ -28,7 +23,7 @@ sudo apt-get install -y  alsa-utils \
      exit 1
 
 # This will break cloud-init networking! (Even upon re-installing apt package)
-#sudo apt remove -y python3-yaml
+#sudo apt remove -y python3-yaml  TODO: Consider removing this in wifi-setup step DM
 
 python3.7 -m venv "/home/neon/venv" || exit 10
 . /home/neon/venv/bin/activate
