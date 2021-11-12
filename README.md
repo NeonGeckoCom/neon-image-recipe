@@ -7,6 +7,7 @@ sudo dpkg-reconfigure unattended-upgrades
 - [Network Manager](#base_network_manager) - Configures networking to allow for wifi configuration via
   [wifi-connect](https://github.com/balena-os/wifi-connect).
 - [Ubuntu Server](#base_ubuntu_server) - Configures a desktop environment, user account, and other system setting overrides.
+- 
 - [SJ201 Support](#base_mark_2) - Installs and configures drivers and scripts to run the SJ-201 HAT.
 - [Neon Core](#base_neon_core) - Installs Neon Core with dependencies.
 - monolithic -> old style, single script launches everything
@@ -32,6 +33,15 @@ bash ./desktop_setup
 sudo cp /home/ubuntu/neon-image-recipe/base_ubuntu_server/cleanup.sh /tmp/cleanup.sh
 bash /tmp/cleanup.sh
 ```
+
+## base_embedded_shell
+Installs the embedded shell on top of a desktop environment. The included scripts assume the service will run as user `neon`.
+
+```shell
+cd base_embedded_shell
+bash ./install_gui_shell.sh
+```
+
 
 ## base_mark_2
 For SJ201 board support, the included script will build/install drivers, add required overlays, install required system 

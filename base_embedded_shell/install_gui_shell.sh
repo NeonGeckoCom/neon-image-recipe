@@ -4,7 +4,7 @@
 sudo apt-get install -y git-core g++ cmake extra-cmake-modules gettext pkg-config qml-module-qtwebengine pkg-kde-tools \
      qtbase5-dev qtdeclarative5-dev libkf5kio-dev libqt5websockets5-dev libkf5i18n-dev libkf5notifications-dev \
      libkf5plasma-dev libqt5webview5-dev qtmultimedia5-dev gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav \
-     qml-module-qtwayland-compositor libqt5multimedia5-plugins qml-module-qtmultimedia --no-install-recommends
+     qml-module-qtwayland-compositor libqt5multimedia5-plugins qml-module-qtmultimedia plasma-pa --no-install-recommends
 
 # Install embedded-shell
 git clone https://github.com/OpenVoiceOS/mycroft-embedded-shell
@@ -54,5 +54,4 @@ rm -rf mycroft-gui
 
 # Copy overlay files and enable gui service
 sudo cp -r overlay/* /
-sudo systemctl enable mycroft-gui.service
 
