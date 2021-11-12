@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#export GITHUB_TOKEN=
-
 if [ -z "${GITHUB_TOKEN}" ]; then
   echo "GITHUB_TOKEN not specified!"
   exit 1
@@ -14,27 +12,24 @@ sudo apt install -y curl
 curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | sudo apt-key add - 2> /dev/null && \
 echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | sudo tee /etc/apt/sources.list.d/mycroft-desktop.list
 
-# update base image
-sudo apt-get update
-#sudo apt-get upgrade -y
-
 # install system packages
+sudo apt-get update
 sudo apt-get install -y  alsa-utils \
      libasound2 libasound2-plugins \
      pulseaudio pulseaudio-utils \
-     sox libsox-fmt-all mimic \
+     sox libsox-fmt-all mimic libpulse-dev \
      python3.7 python3-pip python3.7-venv python3.7-dev \
      network-manager swig libfann-dev gcc mpg123 wireless-tools || \
      exit 1
 
 # This will break cloud-init networking! (Even upon re-installing apt package)
-#sudo apt remove -y python3-yaml
+#sudo apt remove -y python3-yaml  TODO: Consider removing this in wifi-setup step DM
 
 python3.7 -m venv "/home/neon/venv" || exit 10
 . /home/neon/venv/bin/activate
 pip install --upgrade pip~=21.1.0
 pip install wheel
-pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCore#egg=neon_core[pi,dev,client]" --use-deprecated=legacy-resolver || exit 1
+pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCore#egg=neon_core[pi,dev,client]" || exit 1
 
 # mycroft-gui
 git clone https://github.com/mycroftai/mycroft-gui
@@ -75,23 +70,21 @@ rm -rf mycroft-gui
 # Install extra GUI dependencies not in dev_setup.sh
 sudo apt-get install -y libqt5multimedia5-plugins qml-module-qtmultimedia
 
-# Export setup variables
-export devMode="false"
-export autoStart="true"
-export autoUpdate="false"
-export installServer="false"
-export sttModule="deepspeech_stream_local"
-export ttsModule="neon_tts_mimic"
-export raspberryPi="true"
-export devType="neonPi"
-export devType="mycroft_mark_2"
-# TODO: Check for Pi vs mk2
+# Copy overlay files (default configuration)
+cd ../../.. || exit 10
+sudo cp -rf overlay/* / || exit 2
+sudo chown -R neon:neon /home/neon
 
-# TODO: Update to install from default branch
-export skillRepo="https://raw.githubusercontent.com/NeonGeckoCom/neon-skills-submodules/dev/.utilities/DEFAULT-SKILLS-PI"
+neon-install-default-skills
 
-neon-config-import
-#neon-install-default-skills
+# Disable wifi service and let the skill handle it
+sudo systemctl disable wifi-setup.service
+echo "neon ALL = (ALL) NOPASSWD: /usr/local/sbin/wifi-connect" | sudo EDITOR='tee -a' visudo
+# TODO: Consider installing DS model here DM
+
+# TODO: This is a patch for ovos-core DM
+sudo mkdir -p /opt/mycroft
+sudo chown neon:neon /opt/mycroft
 
 # Setup Completed
 echo "Setup Complete"
