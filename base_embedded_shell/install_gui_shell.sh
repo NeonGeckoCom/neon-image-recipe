@@ -1,5 +1,8 @@
 #!/bin/bash
 
+BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${BASE_DIR}" || exit 10
+
 # Install gui base dependencies
 sudo apt-get install -y git-core g++ cmake extra-cmake-modules gettext pkg-config qml-module-qtwebengine pkg-kde-tools \
      qtbase5-dev qtdeclarative5-dev libkf5kio-dev libqt5websockets5-dev libkf5i18n-dev libkf5notifications-dev \
@@ -13,7 +16,7 @@ cmake .
 bash prefix.sh
 make mycroft-embedded-shell
 sudo make install mycroft-embedded-shell
-cd .. || exit 10
+cd "${BASE_DIR}" || exit 10
 rm -rf mycroft-embedded-shell
 
 # Install GUI
@@ -48,10 +51,9 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release   -DKDE_INSTALL_
 make
 sudo make install
 
-cd "${TOP}/.." || exit 10
-echo "$(pwd -L)" && exit 0 || exit 10
+cd "${BASE_DIR}" || exit 10
 rm -rf mycroft-gui
 
 # Copy overlay files and enable gui service
 sudo cp -r overlay/* /
-
+sudo chmod -R ugo+x /usr/bin
