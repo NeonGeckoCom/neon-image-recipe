@@ -5,6 +5,9 @@ if [ -z "${GITHUB_TOKEN}" ]; then
   exit 1
 fi
 
+BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${BASE_DIR}" || exit 10
+
 sudo add-apt-repository -y ppa:deadsnakes/ppa
 
 # Add mimic repo
@@ -32,7 +35,7 @@ pip install wheel
 pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCore#egg=neon_core[pi,dev,client]" || exit 1
 
 # Copy overlay files (default configuration)
-cd ../../.. || exit 10
+cd "${BASE_DIR}" || exit 10
 sudo cp -rf overlay/* / || exit 2
 sudo chown -R neon:neon /home/neon
 
