@@ -51,6 +51,7 @@ sudo systemctl enable neon_firstboot.service
 # Copy user config overlay files and enable user services
 cp -r ./home/.config/* /home/neon/.config
 systemctl --user enable neon.service
+systemctl --user enable neon-gui.service
 
 # Shell customizations
 cp -f ./home/.bashrc /home/neon/
