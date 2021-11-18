@@ -5,6 +5,9 @@ if [ -z "${GITHUB_TOKEN}" ]; then
   exit 1
 fi
 
+BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${BASE_DIR}" || exit 10
+
 sudo add-apt-repository -y ppa:deadsnakes/ppa
 
 # Add mimic repo
@@ -19,7 +22,7 @@ sudo apt-get install -y  alsa-utils \
      pulseaudio pulseaudio-utils \
      sox libsox-fmt-all mimic libpulse-dev \
      python3.7 python3-pip python3.7-venv python3.7-dev \
-     network-manager swig libfann-dev gcc mpg123 wireless-tools || \
+     network-manager swig libfann-dev gcc mpg123 wireless-tools portaudio19-dev|| \
      exit 1
 
 # This will break cloud-init networking! (Even upon re-installing apt package)
@@ -31,47 +34,8 @@ pip install --upgrade pip~=21.1.0
 pip install wheel
 pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCore#egg=neon_core[pi,dev,client]" || exit 1
 
-# mycroft-gui
-git clone https://github.com/mycroftai/mycroft-gui
-#bash mycroft-gui/dev_setup.sh
-cd mycroft-gui || exit 10
-TOP=$( pwd -L )
-sudo apt-get install -y git-core g++ cmake extra-cmake-modules gettext pkg-config qml-module-qtwebengine pkg-kde-tools \
-     qtbase5-dev qtdeclarative5-dev libkf5kio-dev libqt5websockets5-dev libkf5i18n-dev libkf5notifications-dev \
-     libkf5plasma-dev libqt5webview5-dev qtmultimedia5-dev gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav
-
-echo "Building Mycroft GUI"
-if [[ ! -d build-testing ]] ; then
-  mkdir build-testing
-fi
-cd build-testing || exit 10
-cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release   -DKDE_INSTALL_LIBDIR=lib -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
-make -j4
-sudo make install
-
-echo "Installing Lottie-QML"
-cd "$TOP" || exit 10
-if [[ ! -d lottie-qml ]] ; then
-    git clone https://github.com/kbroulik/lottie-qml
-    cd lottie-qml || exit 10
-    mkdir build
-else
-    cd lottie-qml || exit 10
-    git pull
-fi
-
-cd build || exit 10
-cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release   -DKDE_INSTALL_LIBDIR=lib -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
-make
-sudo make install
-
-rm -rf mycroft-gui
-
-# Install extra GUI dependencies not in dev_setup.sh
-sudo apt-get install -y libqt5multimedia5-plugins qml-module-qtmultimedia
-
 # Copy overlay files (default configuration)
-cd ../../.. || exit 10
+cd "${BASE_DIR}" || exit 10
 sudo cp -rf overlay/* / || exit 2
 sudo chown -R neon:neon /home/neon
 
