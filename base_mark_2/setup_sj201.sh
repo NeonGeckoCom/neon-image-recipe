@@ -1,8 +1,12 @@
 #!/bin/bash
 
+BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${BASE_DIR}" || exit 10
+
 kernel=$(uname -r)
 
 # Install system dependencies
+sudo apt update
 sudo apt install -y gcc make python3-pip i2c-tools libraspberrypi-bin pulseaudio pulseaudio-module-zeroconf
 sudo CFLAGS="-fcommon" pip install smbus smbus2 spidev rpi.gpio
 
@@ -33,14 +37,18 @@ sudo mv /etc/pulse/default.pa /etc/pulse/default.pa.bak
 sudo mv /etc/pulse/daemon.conf /etc/pulse/daemon.conf.bak
 sudo mv /etc/pulse/mycroft-sj201-daemon.conf /etc/pulse/daemon.conf
 sudo mv /etc/pulse/mycroft-sj201-default.pa /etc/pulse/default.pa
+sudo mv /etc/pulse/mycroft-sj201-default.pa /etc/pulse/system.pa
 
 # Ensure python bin exists for added scripts
 if [ ! -f "/usr/bin/python" ]; then
   sudo ln -s /usr/bin/python3 /usr/bin/python
 fi
 
-# Configure audio and associated service
+# Configure card 1x
 sudo /opt/neon/configure_sj201_on_boot.sh
+
+# Enable system services
 sudo systemctl enable sj201
+sudo systemctl enable pulseaudio
 
 echo "Setup Complete"
