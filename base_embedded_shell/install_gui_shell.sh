@@ -19,7 +19,7 @@ sudo apt-get install -y git-core g++ cmake extra-cmake-modules gettext pkg-confi
 git clone https://github.com/OpenVoiceOS/mycroft-embedded-shell
 
 # Add customized splash screen
-cp -f neon_logo.png mycroft-embedded-shell/application/qml/background.png
+cp -f neon_splashscreen.png mycroft-embedded-shell/application/qml/background.png
 
 cd mycroft-embedded-shell || exit 10
 cmake .
