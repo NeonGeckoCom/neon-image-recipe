@@ -39,12 +39,23 @@ cd "${BASE_DIR}" || exit 10
 sudo cp -rf overlay/* / || exit 2
 sudo chown -R neon:neon /home/neon
 
+# Ensure executable
+sudo chmod +x /opt/neon/*.sh
+sudo chmod +x /usr/sbin/*
+sudo chmod +x /usr/bin/*
+
 neon-install-default-skills
 
 # Disable wifi service and let the skill handle it
 sudo systemctl disable wifi-setup.service
 echo "neon ALL = (ALL) NOPASSWD: /usr/local/sbin/wifi-connect" | sudo EDITOR='tee -a' visudo
-# TODO: Consider installing DS model here DM
+
+# Download Deepspeech Models
+ver="0.9.3"
+curl https://github.com/mozilla/DeepSpeech/releases/download/v${ver}/deepspeech-${ver}-models.tflite \
+     -o /home/neon/.local/share/neon/deepepeech-${ver}-models.tflite
+curl https://github.com/mozilla/DeepSpeech/releases/download/v${ver}/deepspeech-${ver}-models.scorer \
+     -o /home/neon/.local/share/neon/deepepeech-${ver}-models.scorer
 
 # TODO: This is a patch for ovos-core DM
 sudo mkdir -p /opt/mycroft

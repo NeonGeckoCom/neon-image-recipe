@@ -24,19 +24,9 @@ sudo touch /etc/dhcpd.conf
 grep -q "denyinterfaces wlan0" /etc/dhcpcd.conf || \
   echo "denyinterfaces wlan0" | sudo tee -a /etc/dhcpcd.conf
 
-# setup launchers
-sudo chmod +x /opt/neon/*.sh
-
-# Ensure executable
-sudo chmod +x /usr/sbin/*
-
 sudo systemctl daemon-reload
-#sudo systemctl enable pulseaudio.service
 
 # Enable neon services
 sudo systemctl enable neon_firstboot.service
 sudo systemctl enable neon.service
 sudo systemctl enable neon-gui.service
-
-# Ensure home directory ownership
-sudo chown -R neon:neon /home/neon
