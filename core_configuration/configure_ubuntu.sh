@@ -17,5 +17,4 @@ sudo usermod -aG input neon
 sudo usermod -aG render neon
 
 sudo systemctl daemon-reload
-sudo touch /opt/neon/remove_ubuntu_user
-sudo systemctl start remove_ubuntu_user.service
+sudo systemctl enable remove_ubuntu_user.service

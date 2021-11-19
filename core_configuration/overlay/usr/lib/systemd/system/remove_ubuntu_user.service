@@ -5,8 +5,7 @@ ConditionPathExists=/opt/neon/remove_ubuntu_user
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/bin/bash
-ExecStop=/bin/bash /opt/neon/remove_ubuntu_user.sh
+ExecStart=/bin/bash /opt/neon/remove_ubuntu_user.sh
 
 [Install]
 WantedBy=multi-user.target
