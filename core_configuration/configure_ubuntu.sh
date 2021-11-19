@@ -16,5 +16,7 @@ sudo usermod -aG video neon
 sudo usermod -aG input neon
 sudo usermod -aG render neon
 
+# Enable new services
 sudo systemctl daemon-reload
 sudo systemctl enable remove_ubuntu_user.service
+sudo systemctl enable resize_fs.service
