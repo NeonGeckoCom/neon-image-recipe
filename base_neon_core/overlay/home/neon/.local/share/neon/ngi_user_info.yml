@@ -1,12 +1,12 @@
 user:
-  first_name: Demo
+  first_name: ''
   middle_name: ''
   last_name: ''
-  preferred_name: Demo
-  full_name: 'Demo  '
+  preferred_name: ''
+  full_name: ''
   dob: YYYY/MM/DD
   age: ''
-  email: test@neongecko.com
+  email: ''
   username: ''
   password: ''
   picture: ''
@@ -16,11 +16,9 @@ user:
   email_verified: false
 
 brands:
-  ignored_brands:
-    apple: 1
+  ignored_brands: {}
   favorite_brands: {}
-  specially_requested:
-    microsoft: 1
+  specially_requested: {}
 
 speech:
   stt_language: en
@@ -43,19 +41,16 @@ units:
   # imperial, metric
 
 location:
-  lat: 51.5073219
-  lng: -0.1276474
-  city: Westminster
-  state: England
-  country: United Kingdom
-  tz: Europe/London
-  utc: 1.0
+  lat: '47.4799078'
+  lng: '-122.2034496'
+  city: Renton
+  state: Washington
+  country: United States
+  tz: America/Los_Angeles
+  utc: '-8.0'
 
 response_mode:
-  speed_mode: quick
+  speed_mode: thoughtful
 
 privacy:
   save_audio: true
-listener:
-  wake_word: okay computer
-  phonemes: OW K AE Y . K OW M P AH T EH R
