@@ -49,6 +49,5 @@ sudo /opt/neon/configure_sj201_on_boot.sh
 
 # Enable system services
 sudo systemctl enable sj201
-sudo systemctl enable pulseaudio
 
 echo "Setup Complete"

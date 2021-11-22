@@ -61,6 +61,7 @@ curl https://github.com/mozilla/DeepSpeech/releases/download/v${ver}/deepspeech-
 sudo mkdir -p /opt/mycroft
 sudo chown neon:neon /opt/mycroft
 
+sudo systemctl enable pulseaudio.service
+
 # Setup Completed
 echo "Setup Complete"
-exit 0
