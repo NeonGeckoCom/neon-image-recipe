@@ -53,9 +53,9 @@ echo "neon ALL = (ALL) NOPASSWD: /usr/local/sbin/wifi-connect" | sudo EDITOR='te
 # Download Deepspeech Models
 ver="0.9.3"
 curl https://github.com/mozilla/DeepSpeech/releases/download/v${ver}/deepspeech-${ver}-models.tflite \
-     -o /home/neon/.local/share/neon/deepspeech-${ver}-models.tflite
+     -o /home/neon/.local/share/neon/deepspeech-${ver}-models.tflite -L
 curl https://github.com/mozilla/DeepSpeech/releases/download/v${ver}/deepspeech-${ver}-models.scorer \
-     -o /home/neon/.local/share/neon/deepspeech-${ver}-models.scorer
+     -o /home/neon/.local/share/neon/deepspeech-${ver}-models.scorer -L
 
 # TODO: This is a patch for ovos-core DM
 sudo mkdir -p /opt/mycroft
