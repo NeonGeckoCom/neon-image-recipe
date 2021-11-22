@@ -57,10 +57,6 @@ curl https://github.com/mozilla/DeepSpeech/releases/download/v${ver}/deepspeech-
 curl https://github.com/mozilla/DeepSpeech/releases/download/v${ver}/deepspeech-${ver}-models.scorer \
      -o /home/neon/.local/share/neon/deepspeech-${ver}-models.scorer -L
 
-# TODO: This is a patch for ovos-core DM
-sudo mkdir -p /opt/mycroft
-sudo chown neon:neon /opt/mycroft
-
 sudo systemctl enable pulseaudio.service
 
 # Setup Completed
