@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "Core stop is not supported in this package"
