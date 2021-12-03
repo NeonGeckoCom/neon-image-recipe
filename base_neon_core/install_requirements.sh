@@ -34,6 +34,12 @@ pip install --upgrade pip~=21.1.0
 pip install wheel
 pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCore#egg=neon_core[pi,dev,client]" || exit 1
 
+# TODO: Remove version patches
+pip install --upgrade "git+https://github.com/NeonGeckoCom/neon_speech@FIX_RestartSTTOnInternetConnection"
+
+# TODO: Remove after ovos_utils fix
+sudo mkdir -p /opt/mycroft/skills
+
 # Copy overlay files (default configuration)
 cd "${BASE_DIR}" || exit 10
 sudo cp -rf overlay/* / || exit 2
@@ -43,6 +49,9 @@ sudo chown -R neon:neon /home/neon
 sudo chmod +x /opt/neon/*.sh
 sudo chmod +x /usr/sbin/*
 sudo chmod +x /usr/bin/*
+
+# TODO: This is patching homescreen skill deps DM
+sudo apt install libjpeg-dev
 
 neon-install-default-skills
 

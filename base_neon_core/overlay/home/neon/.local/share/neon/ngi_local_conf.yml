@@ -101,10 +101,15 @@ skills:
   wait_for_internet: false
   debug: true
   blacklist: []
-  priority: [skill-balena-wifi-setup.openvoiceos, date-time.neon.neongeckocom, about.neon.neongeckocom,
-             skill-weather.neongeckocom, skill-homescreen.neongeckocom, device-control-center.neon.neongeckocom]
+  priority: [
+      "skill-about.neongeckocom",
+      "skill-date_time.neongeckocom",
+      "skill-weather.neongeckocom",
+      "skill-ovos-homescreen.openvoiceos",
+      "skill-balena-wifi-setup.openvoiceos"
+  ]
   essential_skills: []
-  default_skills: https://raw.githubusercontent.com/NeonGeckoCom/neon-skills-submodules/dev/.utilities/DEFAULT-SKILLS-PI
+  default_skills: https://raw.githubusercontent.com/NeonDaniel/neon_skills/FEAT_PiSpecificList/skill_lists/DEFAULT-SKILLS-PI
   skill_manager: osm
   # recommended osm, optional msm
   appstore_sync_interval: 6.0
