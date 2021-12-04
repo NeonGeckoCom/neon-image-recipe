@@ -1,0 +1,18 @@
+[Unit]
+Description=NeonAI Audio Service
+PartOf=neon.service
+After=neon.service
+After=neon-messagebus.service
+
+[Service]
+Restart=always
+User=neon
+Group=neon
+WorkingDirectory=/home/neon
+ExecStart=/home/neon/venv/bin/neon_audio_client
+Restart=on-failure
+StandardOutput=append:/var/log/neon/audio.log
+StandardError=file:/var/log/neon/audio.error.log
+
+[Install]
+WantedBy=neon.service

@@ -1,0 +1,18 @@
+[Unit]
+Description=NeonAI Speech Service
+PartOf=neon.service
+After=neon.service
+After=neon-messagebus.service
+
+[Service]
+Restart=always
+User=neon
+Group=neon
+WorkingDirectory=/home/neon
+ExecStart=/home/neon/venv/bin/neon_speech_client
+Restart=on-failure
+StandardOutput=append:/var/log/neon/voice.log
+StandardError=file:/var/log/neon/voice.error.log
+
+[Install]
+WantedBy=neon.service

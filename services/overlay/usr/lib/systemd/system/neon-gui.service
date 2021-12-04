@@ -1,0 +1,19 @@
+[Unit]
+Description=NeonAI GUI Service
+PartOf=neon.service
+After=neon.service
+After=neon-messagebus.service
+After=neon-skills.service
+
+[Service]
+Restart=always
+User=neon
+Group=neon
+WorkingDirectory=/home/neon
+ExecStart=/home/neon/venv/bin/neon_gui_service
+Restart=on-failure
+StandardOutput=append:/var/log/neon/gui.log
+StandardError=file:/var/log/neon/gui.error.log
+
+[Install]
+WantedBy=neon.service

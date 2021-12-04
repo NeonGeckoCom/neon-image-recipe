@@ -29,4 +29,4 @@ sudo systemctl daemon-reload
 # Enable neon services
 sudo systemctl enable neon_firstboot.service
 sudo systemctl enable neon.service
-sudo systemctl enable neon-gui.service
+sudo systemctl enable neon-gui-shell.service

@@ -1,0 +1,19 @@
+[Unit]
+Description=NeonAI Skills Service
+PartOf=neon.service
+After=neon.service
+After=neon-messagebus.service
+After=neon-audio.service
+
+[Service]
+Restart=always
+User=neon
+Group=neon
+WorkingDirectory=/home/neon
+ExecStart=/home/neon/venv/bin/neon_skills_service
+Restart=on-failure
+StandardOutput=append:/var/log/neon/skills.log
+StandardError=file:/var/log/neon/skills.error.log
+
+[Install]
+WantedBy=neon.service

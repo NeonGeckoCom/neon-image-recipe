@@ -1,39 +1,38 @@
+#!/bin/bash
+## create user
+#if [ "${USER}" != "neon" ]; then
+#  sudo adduser neon --gecos "" --disabled-password
+#  echo "neon:neon" | sudo chpasswd
+#  sudo chage -d 0 neon
+#fi
+
+BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${BASE_DIR}" || exit 10
+
 # create directories
-sudo mkdir -p /var/log/neon
-sudo mkdir -p /opt/neon
-sudo mkdir -p /etc/neon
+sudo cp -rf overlay/* / || exit 2
 
-# copy system configs
-sudo cp ./etc/neon/neon.conf /etc/neon/neon.conf
-sudo cp ./etc/neon/holmes.conf /etc/neon/holmes.conf
-
-
-# setup audio config files
-sudo cp ./etc/asound.conf /etc/asound.conf
-sudo cp ./etc/pulse/system.pa /etc/pulse/system.pa
-
-usermod -aG pulse pi
-usermod -aG pulse-access pi
-usermod -aG pulse root
-usermod -aG pulse-access root
+sudo usermod -aG pulse neon
+sudo usermod -aG pulse-access neon
+sudo usermod -aG pulse root
+sudo usermod -aG pulse-access root
+sudo usermod -aG i2c neon
+sudo usermod -aG input neon
 
 # setup network manager
-sudo cp ./etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf
+sudo touch /etc/dhcpd.conf
 grep -q "denyinterfaces wlan0" /etc/dhcpcd.conf || \
-  echo "denyinterfaces wlan0" >> /etc/dhcpcd.conf
-
-# setup launchers
-sudo cp -r ./opt/neon /opt
-chmod +x /opt/neon/*.sh
-
-# setup systemd
-sudo cp ./usr/lib/systemd/system/*.service /usr/lib/systemd/system
-sudo cp ./usr/sbin/first_boot.sh /usr/sbin/first_boot.sh
-chmod +x /usr/sbin/first_boot.sh
-chmod +x /usr/lib/systemd/system/neon*
-chmod +x /usr/lib/systemd/system/pulseaudio.service
+  echo "denyinterfaces wlan0" | sudo tee -a /etc/dhcpcd.conf
 
 sudo systemctl daemon-reload
-sudo systemctl enable pulseaudio.service 
-sudo systemctl enable neon.service
+
+# Enable neon services
 sudo systemctl enable neon_firstboot.service
+sudo systemctl enable neon.service
+sudo systemctl enable neon-audio.service
+sudo systemctl enable neon-enclosure.service
+sudo systemctl enable neon-gui.service
+sudo systemctl enable neon-messagebus.service
+sudo systemctl enable neon-skills.service
+sudo systemctl enable neon-speech.service
+sudo systemctl enable neon-gui-shell.service

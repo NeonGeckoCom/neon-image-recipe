@@ -1,0 +1,22 @@
+[Unit]
+Description=NeonAI Messagebus Service
+PartOf=neon.service
+After=neon.service
+StartLimitIntervalSec=5min
+StartLimitBurst=4
+
+[Service]
+Type=notify
+User=neon
+Group=neon
+Environment=PYTHONUNBUFFERED=1
+WorkingDirectory=/home/neon
+ExecStart=/home/neon/venv/bin/neon_messagebus_service
+TimeoutStartSec=1m
+TimeoutStopSec=1m
+Restart=on-failure
+StandardOutput=append:/var/log/neon/bus.log
+StandardError=file:/var/log/neon/bus.error.log
+
+[Install]
+WantedBy=neon.service

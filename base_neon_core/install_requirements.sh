@@ -39,6 +39,9 @@ cd "${BASE_DIR}" || exit 10
 sudo cp -rf overlay/* / || exit 2
 sudo chown -R neon:neon /home/neon
 
+# Ensure log readable
+sudo chmod ugo+r -R /var/log/neon
+
 # Ensure executable
 sudo chmod +x /opt/neon/*.sh
 sudo chmod +x /usr/sbin/*

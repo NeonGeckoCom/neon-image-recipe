@@ -1,0 +1,14 @@
+[Unit]
+Description=Neon AI Core Modules
+After=pulseaudio.service NetworkManager.service
+
+[Service]
+User=neon
+WorkingDirectory=/home/neon
+Type=oneshot
+ExecStart=/bin/true
+RemainAfterExit=yes
+ExecStop=/bin/bash /opt/neon/stop_neon.sh
+
+[Install]
+WantedBy=multi-user.target
