@@ -51,7 +51,7 @@ sudo chmod +x /usr/sbin/*
 sudo chmod +x /usr/bin/*
 
 # TODO: This is patching homescreen skill deps DM
-sudo apt install libjpeg-dev
+sudo apt install -y libjpeg-dev
 
 neon-install-default-skills
 
