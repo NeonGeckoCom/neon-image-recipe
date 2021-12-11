@@ -44,6 +44,9 @@ sudo chmod +x /opt/neon/*.sh
 sudo chmod +x /usr/sbin/*
 sudo chmod +x /usr/bin/*
 
+# TODO: This is patching homescreen skill deps DM
+sudo apt install -y libjpeg-dev
+
 neon-install-default-skills
 
 # Disable wifi service and let the skill handle it
