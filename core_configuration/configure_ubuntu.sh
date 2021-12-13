@@ -15,6 +15,12 @@ sudo usermod -aG gpio neon
 sudo usermod -aG video neon
 sudo usermod -aG input neon
 sudo usermod -aG render neon
+sudo usermod -aG pulse neon
+sudo usermod -aG pulse-access neon
+sudo usermod -aG i2c neon
+
+sudo usermod -aG pulse root
+sudo usermod -aG pulse-access root
 
 # Enable new services
 sudo systemctl daemon-reload

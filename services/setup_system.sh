@@ -12,12 +12,8 @@ cd "${BASE_DIR}" || exit 10
 # create directories
 sudo cp -rf overlay/* / || exit 2
 
-sudo usermod -aG pulse neon
-sudo usermod -aG pulse-access neon
-sudo usermod -aG pulse root
-sudo usermod -aG pulse-access root
-sudo usermod -aG i2c neon
-sudo usermod -aG input neon
+# Link log directory
+ln -s /var/log/neon /home/neon/neon_logs
 
 # setup network manager
 sudo touch /etc/dhcpd.conf

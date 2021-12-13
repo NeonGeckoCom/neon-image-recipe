@@ -14,13 +14,5 @@ sudo sed -i "s/#  AutomaticLogin = user1/  AutomaticLogin = neon/" /etc/gdm3/cus
 sudo cp ./etc/profile.d/configure_x.sh /etc/profile.d/configure_x.sh
 sudo chmod +x /etc/profile.d/configure_x.sh
 
-# Add 'neon' user
-sudo groupadd gpio
-sudo adduser neon --gecos "" --disabled-password
-echo "neon:neon" | sudo chpasswd
-sudo usermod -aG sudo neon
-sudo usermod -aG gpio neon
-echo "Added sudo user 'neon' remove Ubuntu user on next boot"
-
 sudo cp -r ./var /
 sudo cp -r ./usr /

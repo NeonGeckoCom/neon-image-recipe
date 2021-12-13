@@ -1,10 +1,10 @@
 [Unit]
-Description=Neon AI Core Modules
+Description=NeonAI Core Modules
 After=pulseaudio.service NetworkManager.service
 
 [Service]
 User=neon
-WorkingDirectory=/home/neon
+WorkingDirectory=/opt/neon
 Type=oneshot
 ExecStart=/bin/true
 RemainAfterExit=yes
