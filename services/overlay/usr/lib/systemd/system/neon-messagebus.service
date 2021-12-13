@@ -4,11 +4,10 @@ PartOf=neon.service
 After=neon.service
 
 [Service]
-Type=notify
 User=neon
 Group=neon
 Environment=PYTHONUNBUFFERED=1
-WorkingDirectory=/home/neon
+WorkingDirectory=/opt/neon
 ExecStart=/home/neon/venv/bin/neon_messagebus_service
 Restart=on-failure
 StandardOutput=append:/var/log/neon/bus.log
