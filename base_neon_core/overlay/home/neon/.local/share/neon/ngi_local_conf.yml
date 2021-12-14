@@ -197,7 +197,7 @@ dirVars:
   musicDir: ~/Music
   videoDir: ~/Videos/NeonGecko
   picsDir: ~/Pictures/NeonGecko
-  logsDir: ~/.local/share/neon/logs
+  logsDir: /var/log/neon
   repoDir: ~/.neon/skills-repo
   padatiousDir: ~/.neon/intent_cache
 

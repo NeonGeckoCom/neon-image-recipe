@@ -34,10 +34,19 @@ pip install --upgrade pip~=21.1.0
 pip install wheel
 pip install "git+https://${GITHUB_TOKEN}@github.com/NeonGeckoCom/NeonCore#egg=neon_core[pi,dev,client]" || exit 1
 
+# TODO: Remove version patches
+pip install --upgrade neon_speech --pre
+
+# TODO: Remove after ovos_utils fix
+sudo mkdir -p /opt/mycroft/skills
+
 # Copy overlay files (default configuration)
 cd "${BASE_DIR}" || exit 10
 sudo cp -rf overlay/* / || exit 2
 sudo chown -R neon:neon /home/neon
+
+# Ensure log readable
+sudo chmod ugo+r -R /var/log/neon
 
 # Ensure executable
 sudo chmod +x /opt/neon/*.sh
