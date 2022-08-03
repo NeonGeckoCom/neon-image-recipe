@@ -12,7 +12,7 @@ groupadd pulse
 groupadd pulse-access
 groupadd i2c
 adduser neon --gecos "" --disabled-password
-#echo "neon:neon" | chpasswd
+echo "neon:neon" | chpasswd
 passwd --expire neon
 usermod -aG sudo neon
 usermod -aG gpio neon
