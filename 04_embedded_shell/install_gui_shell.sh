@@ -22,7 +22,6 @@ git clone https://github.com/OpenVoiceOS/ovos-shell
 # Add customized splash screen
 cp -f neon_splashscreen.png ovos-shell/application/qml/background.png
 cp -f neon_logo.svg ovos-shell/application/icons/ovos-egg.svg
-rm ovos-shell/application/icons/ovos-wave.svg
 
 cd ovos-shell || exit 10
 cmake .
