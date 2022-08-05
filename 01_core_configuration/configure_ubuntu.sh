@@ -27,9 +27,9 @@ usermod -aG pulse root
 usermod -aG pulse-access root
 
 # Enable new services
-#systemctl daemon-reload
-#systemctl enable remove_ubuntu_user.service
 systemctl enable resize_fs.service
 
 rm /etc/resolv.conf
 echo "nameserver 1.1.1.1" | tee /etc/resolv.conf
+
+echo "Core Configuration Complete"
