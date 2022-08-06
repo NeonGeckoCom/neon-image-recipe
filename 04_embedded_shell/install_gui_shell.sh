@@ -9,11 +9,12 @@ apt install -y git-core g++ cmake extra-cmake-modules gettext pkg-config qml-mod
      qtbase5-dev qtdeclarative5-dev libkf5kio-dev libqt5websockets5-dev libkf5i18n-dev libkf5notifications-dev \
      libkf5plasma-dev libqt5webview5-dev qtmultimedia5-dev gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly \
      gstreamer1.0-libav qml-module-qtwayland-compositor libqt5multimedia5-plugins qml-module-qtmultimedia plasma-pa xorg \
-     qtwayland5 qml-module-qtquick-virtualkeyboard qtvirtualkeyboard-plugin qml-module-qtwebchannel \
+     qtwayland5 qml-module-qtwebchannel \
      qml-module-qt-labs-folderlistmodel qt5ct qml-module-qtquick-shapes qml-module-qtquick-particles2 \
      qml-module-qtquick-templates2 qml-module-qtquick-xmllistmodel qml-module-qtquick-localstorage \
      qml-module-qmltermwidget qml-module-qttest qml-module-qtlocation qml-module-qtpositioning \
-     qml-module-qtgraphicaleffects qml-module-qtqml-models2 kirigami2-dev \
+     qml-module-qtgraphicaleffects qml-module-qtqml-models2 kirigami2-dev breeze-icon-theme kdeconnect \
+#     qml-module-qtquick-virtualkeyboard qtvirtualkeyboard-plugin \
      --no-install-recommends
 
 # Install embedded-shell
@@ -70,7 +71,7 @@ rm -rf mycroft-gui
 cp -r overlay/* /
 chmod -R ugo+x /usr/bin
 
-systemctl enable neon-gui
+systemctl enable gui-shell
 
 # Fix tmp dir permissions
 mkdir -p /tmp/neon
