@@ -8,10 +8,12 @@ apt update
 apt purge -y netplan.io
 apt install -y network-manager
 
+# Remove leftover config
+rm -rf /etc/cloud
+
 # Setup all the services
 systemctl disable systemd-networkd.socket
 systemctl disable systemd-networkd
-systemctl enable network-manager
 
 # Add wifi-connect binary
 cp -r overlay/* /

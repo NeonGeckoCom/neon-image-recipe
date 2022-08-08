@@ -1,6 +1,6 @@
 [Unit]
 Description=Wifi Setup watcher
-Requires=network-manager
+Requires=network.target
 
 [Service]
 Restart=on-failure

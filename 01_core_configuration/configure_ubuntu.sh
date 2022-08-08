@@ -29,7 +29,9 @@ usermod -aG pulse-access root
 # Enable new services
 systemctl enable resize_fs.service
 
-rm /etc/resolv.conf
-echo "nameserver 1.1.1.1" | tee /etc/resolv.conf
+# Set TZ
+echo "America/Los_Angeles" > /etc/timezone
+rm /etc/localtime
+ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
 echo "Core Configuration Complete"
