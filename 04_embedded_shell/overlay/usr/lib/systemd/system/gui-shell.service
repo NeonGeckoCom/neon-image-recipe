@@ -13,6 +13,7 @@ Environment=QT_QUICK_CONTROLS_CONF=/home/neon/.config/qtquickcontrols2material.c
 Environment=QT_LOGGING_RULES='qt.qpa.ads=false,qt.plugins.debug=true'
 Environment=QT_FILE_SELECTORS=ovos
 Environment=QT_FONT_DPI=120
+Environment=QT_QUICK_CONTROLS_STYLE=OpenVoiceStyle
 Environment=XDG_RUNTIME_DIR=/tmp/neon
 Environment=XDG_DATA_DIRS=/usr/share:/usr/local/share:$XDG_DATA_DIRS
 Environment=XDG_CURRENT_DESKTOP=kde

@@ -38,7 +38,6 @@ git clone https://github.com/mycroftai/mycroft-gui
 cd mycroft-gui || exit 10
 TOP=$( pwd -L )
 
-
 echo "Building Mycroft GUI"
 if [[ ! -d build-testing ]] ; then
   mkdir build-testing
@@ -70,9 +69,7 @@ rm -rf mycroft-gui
 # Copy overlay files and enable gui service
 cp -r overlay/* /
 chmod -R ugo+x /usr/bin
-
+chown -R neon:neon /home/neon
 systemctl enable gui-shell
 
-# Fix tmp dir permissions
-mkdir -p /tmp/neon
-chmod 777 /tmp/neon
+echo "GUI Embedded Shell Configured"
