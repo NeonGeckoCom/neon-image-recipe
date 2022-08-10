@@ -9,36 +9,37 @@ Make a Pi image from scratch.
 - monolithic -> old style, single script launches everything
 
 
+## Getting Started
+The scripts and overlay files in this repository are designed to be applied to Ubuntu Server 22.04
+as the `root` user. It is recommended to apply these scripts to a clean image 
+[available here](https://cdimage.ubuntu.com/releases/22.04/release/). Instructions are available
+[at opensource.com](https://opensource.com/article/20/5/disk-image-raspberry-pi).
+
+> **Note**: The GUI shell is not installable under Ubuntu 20.04 and earlier
+
+For each step except [boot_overlay](#boot_overlay), the directory corresponding
+to the step should be copied to the mounted image and the script run from a terminal
+`chroot`-ed to the image. If running scripts from a booted image, they should be
+run as `root`.
+
+## Preparation
+From the host system where this repository is cloned, running `prepare.sh <base_image>`
+will copy boot overlay files, mount the image, mount DNS resolver config from the host system,
+copy all other image overlay files to `/tmp`, and `chroot` into the image. From here, you can
+run any/all of the following scripts to prepare the image before [cleaning up](#Clean-Up)
+
 ## core_configuration
 Configures user accounts and base functionality for RPi. `neon` user is created with proper permissions here.
 
-```shell
-bash neon-image-recipe/core_configuration/configure_ubuntu
-```
+At this stage, a booted image should resize its file system to fill the drive it is flashed to. Local login and 
+ssh connections should use `neon`/`neon` to authenticate and be prompted to change password on login.
 
-## base_network_manager
-Adds Balena wifi-connect to enable a portal for connecting the Pi device to a wifi network. After running the setup script,
-the Pi will restart and be ready to configure with SSID `Neon`.
+## network_manager
+Adds Balena wifi-connect to enable a portal for connecting the Pi device to a wifi network.
 
-```shell
-cd base_network_manager
-bash ./setup_wifi_connect.sh
-```
+A booted image will now be ready to connect to a network via SSID `Neon`.
 
-## base_ubuntu_server
-For Ubuntu Server base images, the included scripts install the openbox DE, add a `neon` user with default `neon` password, 
-and configure the system to auto-login and disable sleep. `cleanup.sh` removes the `ubuntu` user, expires the `neon` user 
-password, and schedules a device restart.
-
-```shell
-cd base_ubuntu_server
-bash ./desktop_setup
-# Reboot system and reconnect as 'neon' user
-sudo cp /home/ubuntu/neon-image-recipe/base_ubuntu_server/cleanup.sh /tmp/cleanup.sh
-bash /tmp/cleanup.sh
-```
-
-## base_mark_2
+## sj201
 For SJ201 board support, the included script will build/install drivers, add required overlays, install required system 
 packages, and add a systemd service to flash the SJ201 chip on boot. This will modify pulseaudio and potentially overwrite 
 any previous settings.
@@ -46,18 +47,33 @@ any previous settings.
 >*Note:* Running this scripts grants GPIO permissions to the `gpio` group. Any user that interfaces with the SJ201 board
 > should be a member of the `gpio` group. Group permissions are not modified by this script
 
+Audio devices should now show up with `pactl list`.
+Audio devices can be tested in the image by recording a short audio clip and playing it back.
+
 ```shell
-cd base_mark_2
-bash ./install_xmos_drivers.sh
+parecord test.wav
+paplay test.wav
 ```
 
-## base_neon_core
-Installs the base Neon core and dependencies. Installation should be performed by the user `neon`.
-```bash
-git clone https://github.com/NeonGeckoCom/neon-image-recipe
-cd neon-image-recipe/monolithic
-bash ./install_requirements.sh
-bash ./setup_system.sh
-#sudo bash ./host_configuration.sh
-sudo reboot now
-```
+## embedded_shell
+Installs ovos-shell and mycroft-gui-app. Adds and enables neon-gui.service to start the shell
+on system boot.
+
+The image should now boot to the GUI shell.
+
+## neon_core
+Installs `neon-core` and dependencies. Configures services for core modules.
+
+At this stage, the image is complete and when booted should start Neon.
+
+
+## Clean Up
+`cleanup.sh` removes any temporary files from the mounted image before unmounting it.
+After running `cleanup.sh`, the image is ready to burn to a drive and boot.
+
+# Deprecated Scripts
+
+## base_ubuntu_server
+For Ubuntu Server base images, the included scripts install the openbox DE, add a `neon` user with default `neon` password, 
+and configure the system to auto-login and disable sleep. `cleanup.sh` removes the `ubuntu` user, expires the `neon` user 
+password, and schedules a device restart.
