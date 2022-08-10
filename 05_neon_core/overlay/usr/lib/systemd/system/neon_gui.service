@@ -12,7 +12,7 @@ WorkingDirectory=/opt/neon
 ExecStart=/bin/bash /opt/neon/launch_service.sh neon_gui_service
 # Stop module when unit is stopped
 ExecStop=/bin/bash /opt/neon/kill_service.sh neon_gui_service
-StandardOutput=file:/home/neon/logs/gui.log
-StandardError=file:/home/neon/logs/gui.error.log
+StandardOutput=append:/home/neon/logs/gui.log
+StandardError=inherit
 [Install]
 WantedBy=neon.service

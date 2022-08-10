@@ -11,7 +11,7 @@ WorkingDirectory=/opt/neon
 ExecStart=/bin/bash /opt/neon/launch_service.sh neon_messagebus_service
 # Stop module when unit is stopped
 ExecStop=/bin/bash /opt/neon/kill_service.sh neon_messagebus_service
-StandardOutput=file:/home/neon/logs/bus.log
-StandardError=file:/home/neon/logs/bus.error.log
+StandardOutput=append:/home/neon/logs/bus.log
+StandardError=inherit
 [Install]
 WantedBy=neon.service

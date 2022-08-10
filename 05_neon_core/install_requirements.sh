@@ -9,7 +9,7 @@ apt install -y curl
 curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | apt-key add - 2> /dev/null && \
 echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | tee /etc/apt/sources.list.d/mycroft-desktop.list
 apt update
-apt install -y sox gcc libfann-dev swig libssl-dev portaudio19-dev git libpulse-dev python3.7-dev python3.7-venv mimic git-lfs espeak-ng || exit 1
+apt install -y sox gcc libfann-dev swig libssl-dev portaudio19-dev git libpulse-dev python3.7-dev python3.7-venv mimic espeak-ng || exit 1
 
 # Configure venv for deepspeech compat.
 python3.7 -m venv "/home/neon/venv" || exit 10
@@ -22,21 +22,22 @@ cd "${BASE_DIR}" || exit 10
 cp -rf overlay/* / || exit 2
 cd /home/neon
 
-# Install core
-pip install git+https://github.com/neongeckocom/neoncore@FEAT_PiImageCompat#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi,local]
+# Install core and skills
+pip install git+https://github.com/neongeckocom/neoncore@FEAT_PiImageCompat#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi,local] || exit 11
+echo "Core Installed"
+neon-install-default-skills && echo "Default git skills installed" || exit 2
 
 # Download model files
 mkdir -p /home/neon/.local/share/neon
 wget -O /home/neon/.local/share/neon/deepspeech-0.9.3-models.scorer https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.scorer
 wget -O /home/neon/.local/share/neon/deepspeech-0.9.3-models.tflite https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.tflite
+wget -O /home/neon/.local/share/neon/vosk-model-small-en-us-0.15.zip https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
+cd /home/neon/.local/share/neon || exit 10
+unzip vosk-model-small-en-us-0.15.zip
+rm vosk-model-small-en-us-0.15.zip
 
-#mkdir -p /home/neon/.cache/huggingface/hub
-#git clone https://huggingface.co/neongeckocom/tts-vits-ljspeech-en /tmp/tts_en
-#cd /tmp/tts_en
-#tag=$(git describe)
-#model_commit=$(git rev-parse HEAD)
-#mv /tmp/tts_en /home/neon/.cache/huggingface/hub/neongeckocom--tts-vits-ljspeech-en.${tag}.${model_commit}
-# TODO: Also looking for .../hub/models--neongeckocom--tts-vits-ljspeech-en/refs/${tag}
+# TODO: Download Coqui models?
+
 mkdir /home/neon/logs
 
 # Fix home directory permissions
@@ -55,6 +56,7 @@ systemctl enable neon_firstboot
 systemctl enable neon_gui
 systemctl enable neon_skills
 systemctl enable neon_speech
+systemctl enable neon_enclosure
 
 # Disable wifi service and let the skill handle it
 #systemctl disable wifi-setup.service
