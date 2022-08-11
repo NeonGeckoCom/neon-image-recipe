@@ -106,7 +106,7 @@ websocket:
   shared_connection: true
 gui:
   idle_display_skill: skill-ovos-homescreen.openvoiceos
-  extension: generic
+  extension: smartspeaker
   run_gui_file_server: false
   generic:
     homescreen_supported: true

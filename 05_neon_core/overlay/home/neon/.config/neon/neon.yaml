@@ -1,2 +1,1 @@
-gui:
-  idle_display_skill: skill-ovos-homescreen.openvoiceos
+# Any configuration here will override System and Default Configuration

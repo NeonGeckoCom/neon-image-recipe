@@ -61,7 +61,6 @@ systemctl enable neon_enclosure
 
 # Disable wifi service and let the skill handle it
 #systemctl disable wifi-setup.service
-echo "neon ALL = (ALL) NOPASSWD: /usr/local/sbin/wifi-connect" >> /etc/sudoers
 
 # Setup Completed
 echo "Setup Complete"
