@@ -122,7 +122,8 @@ signal:
 skills:
   run_gui_file_server: false
   wait_for_internet: false
-  extra_directories: []
+  extra_directories:
+    - /home/neon/.local/share/neon/skills
   upload_skill_manifest: false
   blacklisted_skills: []
   priority_skills: []

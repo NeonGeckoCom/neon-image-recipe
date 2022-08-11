@@ -9,6 +9,17 @@ Make a Pi image from scratch.
 - monolithic -> old style, single script launches everything
 
 
+## Automation
+The scripts in the `automation` directory are available to help automate building a default image.
+For building a default image from scratch, the only necessary action is to run:
+
+```shell
+bash automation/build_image.sh
+```
+
+The below documentation describes how to manually build an image using the individual scripts in this repository.
+
+
 ## Getting Started
 The scripts and overlay files in this repository are designed to be applied to Ubuntu Server 22.04
 as the `root` user. It is recommended to apply these scripts to a clean image 

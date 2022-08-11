@@ -36,7 +36,8 @@ cd /home/neon/.local/share/neon || exit 10
 unzip vosk-model-small-en-us-0.15.zip
 rm vosk-model-small-en-us-0.15.zip
 
-# TODO: Download Coqui models?
+# Init Coqui model
+python3 init_tts.py
 
 mkdir /home/neon/logs
 
