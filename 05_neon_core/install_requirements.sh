@@ -37,6 +37,7 @@ unzip vosk-model-small-en-us-0.15.zip
 rm vosk-model-small-en-us-0.15.zip
 
 # Init Coqui model
+cd ${BASE_DIR} || exit 10
 python3 init_tts.py
 
 mkdir /home/neon/logs
@@ -58,9 +59,6 @@ systemctl enable neon_gui
 systemctl enable neon_skills
 systemctl enable neon_speech
 systemctl enable neon_enclosure
-
-# Disable wifi service and let the skill handle it
-#systemctl disable wifi-setup.service
 
 # Setup Completed
 echo "Setup Complete"
