@@ -1,11 +1,11 @@
 [Unit]
-Description=Wifi Setup watcher
+Description=Wifi Setup Check
 Requires=network.target
 
 [Service]
 Restart=on-failure
 RestartSec=15s
-ExecStart=/usr/bin/sudo /opt/neon/check_wifi_setup.sh
+ExecStart=/bin/bash /opt/neon/check_wifi_setup.sh
 
 [Install]
 WantedBy=multi-user.target
