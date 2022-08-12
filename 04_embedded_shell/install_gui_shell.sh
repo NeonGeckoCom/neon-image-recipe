@@ -14,7 +14,8 @@ apt install -y git-core g++ cmake extra-cmake-modules gettext pkg-config qml-mod
      qml-module-qtquick-templates2 qml-module-qtquick-xmllistmodel qml-module-qtquick-localstorage \
      qml-module-qmltermwidget qml-module-qttest qml-module-qtlocation qml-module-qtpositioning \
      qml-module-qtgraphicaleffects qml-module-qtqml-models2 kirigami2-dev breeze-icon-theme kdeconnect \
-#     qml-module-qtquick-virtualkeyboard qtvirtualkeyboard-plugin \
+     qml-module-qtquick-virtualkeyboard \
+     # qtvirtualkeyboard-plugin \  TODO: No OSK until this is fixed
      --no-install-recommends
 
 # Install embedded-shell
