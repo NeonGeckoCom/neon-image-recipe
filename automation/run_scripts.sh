@@ -1,6 +1,10 @@
 #!/bin/bash
 
+# Set to exit on error
+set -Ee
+
 cd /tmp || exit 10
+source vars.sh
 
 print_opts() {
     clear

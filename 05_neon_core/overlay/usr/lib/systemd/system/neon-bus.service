@@ -2,6 +2,7 @@
 Description=Neon Message Bus
 PartOf=neon.service
 After=neon.service
+After=neon-logs.service
 
 [Service]
 Restart=always

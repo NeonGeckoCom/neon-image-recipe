@@ -1,7 +1,9 @@
 #!/bin/bash
 
+build_dir=${1}
+
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "${BASE_DIR}/build" || exit 10
+cd "${build_dir}" || exit 10
 
 # Re-enable restart prompts
 sudo mv mnt/etc/apt/apt.conf.d/.99needrestart mnt/etc/apt/apt.conf.d/99needrestart

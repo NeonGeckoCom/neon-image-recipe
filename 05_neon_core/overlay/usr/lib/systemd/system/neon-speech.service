@@ -1,18 +1,18 @@
 [Unit]
-Description=Neon GUI Listener
+Description=Neon Speech
 PartOf=neon.service
 After=neon.service
-After=neon_bus.service
+After=neon-bus.service
 
 [Service]
 Restart=always
 User=neon
 WorkingDirectory=/opt/neon
 # Start module when unit is started
-ExecStart=/bin/bash /opt/neon/launch_service.sh neon_gui_service
+ExecStart=/bin/bash /opt/neon/launch_service.sh neon_speech_client
 # Stop module when unit is stopped
-ExecStop=/bin/bash /opt/neon/kill_service.sh neon_gui_service
-StandardOutput=append:/home/neon/logs/gui.log
+ExecStop=/bin/bash /opt/neon/kill_service.sh neon_speech_client
+StandardOutput=append:/home/neon/logs/voice.log
 StandardError=inherit
 [Install]
 WantedBy=neon.service

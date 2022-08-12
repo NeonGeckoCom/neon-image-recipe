@@ -20,10 +20,10 @@ pip install --upgrade pip wheel
 # Copy overlay files (default configuration)
 cd "${BASE_DIR}" || exit 10
 cp -rf overlay/* / || exit 2
-cd /home/neon
+cd /home/neon || exit 2
 
 # Install core and skills
-pip install git+https://github.com/neongeckocom/neoncore@FEAT_PiImageCompat#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi,local] || exit 11
+pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF:-dev}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi,local]" || exit 11
 echo "Core Installed"
 neon-install-default-skills && echo "Default git skills installed" || exit 2
 
@@ -36,8 +36,12 @@ cd /home/neon/.local/share/neon || exit 10
 unzip vosk-model-small-en-us-0.15.zip
 rm vosk-model-small-en-us-0.15.zip
 
-# Init Coqui model
-cd ${BASE_DIR} || exit 10
+# Init TTS model
+neon-audio init-plugin
+# Init STT model
+neon-speech init-plugin
+
+cd "${BASE_DIR}" || exit 10
 python3 init_tts.py
 
 mkdir /home/neon/logs
