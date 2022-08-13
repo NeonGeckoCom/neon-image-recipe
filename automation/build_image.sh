@@ -3,10 +3,10 @@
 # Set to exit on error
 set -Ee
 
-# Check if a sudo password should be cached
-sudo -K
-sudo -n ls || read -s -p "Enter sudo password for $(whoami): " passwd
-# TODO: Validate password
+## Check if a sudo password should be cached
+#sudo -K
+#sudo -n ls || read -s -p "Enter sudo password for $(whoami): " passwd
+## TODO: Validate password
 
 start=$(date +%s)
 
@@ -14,7 +14,7 @@ BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 build_dir=${BUILD_DIR:-"${BASE_DIR}/build"}
 output_dir=${OUTPUT_DIR:-"${BASE_DIR}/outputs"}
 
-export CORE_REF="FEAT_PiImageCompat"
+export CORE_REF=${CORE_REF:-"FEAT_PiImageCompat"}
 
 if [ ! -d "${build_dir}" ]; then
     echo "Creating 'build' directory"
