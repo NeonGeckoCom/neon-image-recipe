@@ -6,7 +6,7 @@ set -Ee
 image_file=${1}
 build_dir=${2}
 
-if [ -z ${image_file} ]; then
+if [ -z "${image_file}" ]; then
     echo "No file specified to mount"
     exit 2
 fi
@@ -20,7 +20,7 @@ mkdir mnt
 
 echo "Copying Boot Overlay Files"
 sudo mount -o loop,offset=1048576 "${image_file}" boot || exit 10
-sudo cp -r "${recipe_dir}/00_boot_overlay/ubuntu_22_04/*" boot/
+sudo cp -r ${recipe_dir}/00_boot_overlay/ubuntu_22_04/* boot/
 sleep 1  # Avoid busy target issues
 sudo umount boot
 rm -r boot

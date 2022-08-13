@@ -36,11 +36,11 @@ echo ${meta}>"${build_dir}/meta.json"
 echo "Got Build Info"
 
 # Cache sudo password for setup
-echo "${passwd}" | sudo -S ls
+#echo "${passwd}" | sudo -S ls
 bash prepare.sh "${build_dir}/ubuntu_22_04.img" "${build_dir}" -y
 
 # Cache sudo password for cleanup
-echo "${passwd}" | sudo -S ls
+#echo "${passwd}" | sudo -S ls
 bash cleanup.sh "${build_dir}"
 
 if [ ! -d "${output_dir}" ]; then
