@@ -61,7 +61,7 @@ xz --decompress ubuntu_22_04.img.xz -v --keep && echo "Decompressed Image"
 # Get Build info
 cd "${BASE_DIR}" || exit 10
 meta="$(python get_metadata.py)"
-echo ${meta}>"${build_dir}/meta.json"
+echo "${meta}">"${build_dir}/meta.json"
 echo "Got Build Info"
 
 # Cache sudo password for setup
@@ -85,7 +85,7 @@ mv "${build_dir}/ubuntu_22_04.img" "${build_dir}/${filename}"
 #sudo rm "${build_dir}/ubuntu_22_04.img"
 #sudo chown ${USER}:${USER} "${output_dir}/${filename}"
 xz --compress "${build_dir}/${filename}" -v
-mv "${build_dir}/${filename}.tar.xz" "${output_dir}/${filename}.tar.xz"
+mv "${build_dir}/${filename}.xz" "${output_dir}/${filename}.xz"
 
 runtime=$(($(($(date +%s)-${start}))/60))
 echo "Image created in ${runtime} minutes"
