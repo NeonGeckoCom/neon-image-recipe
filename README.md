@@ -6,15 +6,37 @@ Make a Pi image from scratch.
 - [Ubuntu Server](#base_ubuntu_server) - Configures a desktop environment, user account, and other system setting overrides.
 - [SJ201 Support](#base_mark_2) - Installs and configures drivers and scripts to run the SJ-201 HAT.
 - [Neon Core](#base_neon_core) - Installs Neon Core with dependencies.
-- monolithic -> old style, single script launches everything
 
 
-## Automation
+## Docker Automated Image Building
+The included Dockerfile can be used to build a default image in a Docker environment.
+
+First, create the Docker container:
+```shell
+docker build . -t neon-image-builder
+```
+
+Then, run the container to create a Neon Image. Set `CORE_REF` to the branch of
+`neon-core` that you want to build and `RECIPE_REF` to the branch of `neon-image-recipe`
+you want to use.
+```shell
+docker run \
+-v ./output:/output:rw \
+-v/run/systemd/resolve:/run/systemd/resolve \
+-e CORE_REF=${CORE_REF:-dev} \
+-e RECIPE_REF=${RECIPE_REF:-master} \
+--privileged \
+--network=host \
+neon-image-builder
+```
+
+## Interactive Image Building
 The scripts in the `automation` directory are available to help automate building a default image.
-For building a default image from scratch, the only necessary action is to run:
+For building an image interactively:
 
 ```shell
-bash automation/build_image.sh
+bash automation/prepare.sh
+bash /tmp/run_scripts.sh
 ```
 
 The below documentation describes how to manually build an image using the individual scripts in this repository.
