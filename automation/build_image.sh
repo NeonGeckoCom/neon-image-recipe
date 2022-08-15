@@ -52,7 +52,7 @@ cd "${BASE_DIR}" || exit 10
 echo "${meta}">"${output_dir}/${start}_meta.json"
 filename="${start}_neon.img"
 mv "${build_dir}/ubuntu_22_04.img" "${output_dir}/${filename}"
-sudo rm "${build_dir}/ubuntu_22_04.img"
+#sudo rm "${build_dir}/ubuntu_22_04.img"
 sudo chown ${USER}:${USER} "${output_dir}/${filename}"
 xz --compress "${output_dir}/${filename}" -v
 
