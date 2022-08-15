@@ -1,8 +1,6 @@
 #!/bin/bash
 
 build_dir=${1}
-
-BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${build_dir}" || exit 10
 
 # Re-enable restart prompts
@@ -13,4 +11,4 @@ echo "Temporary files removed"
 sudo umount mnt/run/systemd/resolve || exit 10
 sudo umount mnt || exit 10
 echo "Image unmounted"
-rm -r mnt
+#rm -r mnt

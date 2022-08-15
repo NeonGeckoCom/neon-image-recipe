@@ -56,13 +56,13 @@ chmod +x /usr/bin/*
 
 # Enable services
 systemctl enable neon
-systemctl enable neon_audio
-systemctl enable neon_bus
-systemctl enable neon_firstboot
-systemctl enable neon_gui
-systemctl enable neon_skills
-systemctl enable neon_speech
-systemctl enable neon_enclosure
+systemctl enable neon-audio
+systemctl enable neon-bus
+systemctl enable neon-firstboot
+systemctl enable neon-gui
+systemctl enable neon-skills
+systemctl enable neon-speech
+systemctl enable neon-enclosure
 
 # Setup Completed
 echo "Setup Complete"

@@ -44,12 +44,13 @@ bash prepare.sh "${build_dir}/ubuntu_22_04.img" "${build_dir}" -y
 bash cleanup.sh "${build_dir}"
 
 if [ ! -d "${output_dir}" ]; then
-    echo "Creating 'outputs' directory"
+    echo "Creating 'output' directory"
     mkdir "${output_dir}"
 fi
 
 cd "${BASE_DIR}" || exit 10
-echo "${meta}">"${output_dir}/${start}_meta.json"
+echo "${meta}">"${output_dir}/${start}_meta.json" && echo "Wrote Metadata"
+echo "Writing output file"
 filename="${start}_neon.img"
 mv "${build_dir}/ubuntu_22_04.img" "${output_dir}/${filename}"
 #sudo rm "${build_dir}/ubuntu_22_04.img"
