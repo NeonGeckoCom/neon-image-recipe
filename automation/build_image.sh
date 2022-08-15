@@ -13,6 +13,8 @@ start=$(date +%s)
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 build_dir=${BUILD_DIR:-"${BASE_DIR}/build"}
 output_dir=${OUTPUT_DIR:-"${BASE_DIR}/outputs"}
+echo "build_dir=${build_dir}"
+echo "output_dir=${output_dir}"
 
 export CORE_REF=${CORE_REF:-"FEAT_PiImageCompat"}
 
@@ -50,12 +52,13 @@ fi
 
 cd "${BASE_DIR}" || exit 10
 echo "${meta}">"${output_dir}/${start}_meta.json" && echo "Wrote Metadata"
-echo "Writing output file"
 filename="${start}_neon.img"
-mv "${build_dir}/ubuntu_22_04.img" "${output_dir}/${filename}"
+echo "Writing output file to: ${build_dir}/${filename}"
+mv "${build_dir}/ubuntu_22_04.img" "${build_dir}/${filename}"
 #sudo rm "${build_dir}/ubuntu_22_04.img"
-sudo chown ${USER}:${USER} "${output_dir}/${filename}"
-xz --compress "${output_dir}/${filename}" -v
+#sudo chown ${USER}:${USER} "${output_dir}/${filename}"
+xz --compress "${build_dir}/${filename}" -v
+mv "${build_dir}/${filename}.tar.xz" "${output_dir}/${filename}.tar.xz"
 
 runtime=$(($(($(date +%s)-${start}))/60))
 echo "Image created in ${runtime} minutes"
