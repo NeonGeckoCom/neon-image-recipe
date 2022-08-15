@@ -41,9 +41,6 @@ neon-audio init-plugin
 # Init STT model
 neon-speech init-plugin
 
-cd "${BASE_DIR}" || exit 10
-python3 init_tts.py
-
 mkdir /home/neon/logs
 
 # Fix home directory permissions
