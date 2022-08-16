@@ -79,13 +79,17 @@ fi
 
 cd "${BASE_DIR}" || exit 10
 echo "${meta}">"${output_dir}/${start}_meta.json" && echo "Wrote Metadata"
+
+# Rename completed image file
 filename="${start}_neon.img"
 echo "Writing output file to: ${build_dir}/${filename}"
 mv "${build_dir}/ubuntu_22_04.img" "${build_dir}/${filename}"
-#sudo rm "${build_dir}/ubuntu_22_04.img"
-#sudo chown ${USER}:${USER} "${output_dir}/${filename}"
-xz --compress "${build_dir}/${filename}" -v
-mv "${build_dir}/${filename}.xz" "${output_dir}/${filename}.xz"
 
+# Compress image and move to output directory
+echo "Compressing output file. This may take awhile..."
+xz --compress "${build_dir}/${filename}" -v
+echo "Image compressed"
+mv "${build_dir}/${filename}.xz" "${output_dir}/${filename}.xz"
+echo "Image saved to ${output_dir}/${filename}.xz"
 runtime=$(($(($(date +%s)-${start}))/60))
 echo "Image created in ${runtime} minutes"

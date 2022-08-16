@@ -2,6 +2,7 @@
 Description=Neon Log Archival
 PartOf=neon.service
 After=neon.service
+Before=neon-bus.service
 
 [Service]
 Restart=always

@@ -11,6 +11,12 @@ Make a Pi image from scratch.
 ## Docker Automated Image Building
 The included Dockerfile can be used to build a default image in a Docker environment.
 
+The following dependencies must be installed on the build system before running the
+container:
+
+* [chroot](https://wiki.debian.org/chroot)
+* [qemu-user-static](https://wiki.debian.org/QemuUserEmulation)
+
 First, create the Docker container:
 ```shell
 docker build . -t neon-image-builder
@@ -21,12 +27,13 @@ Then, run the container to create a Neon Image. Set `CORE_REF` to the branch of
 you want to use.
 ```shell
 docker run \
--v ./output:/output:rw \
--v/run/systemd/resolve:/run/systemd/resolve \
+-v /home/${USER}/output:/output:rw \
+-v /run/systemd/resolve:/run/systemd/resolve \
 -e CORE_REF=${CORE_REF:-dev} \
 -e RECIPE_REF=${RECIPE_REF:-master} \
 --privileged \
 --network=host \
+--name=neon-image-builder \
 neon-image-builder
 ```
 

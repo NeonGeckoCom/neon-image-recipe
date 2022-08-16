@@ -80,6 +80,7 @@ chmod +x /usr/bin/*
 
 # Enable services
 systemctl enable neon
+systemctl enable neon-logs
 systemctl enable neon-audio
 systemctl enable neon-bus
 systemctl enable neon-firstboot
