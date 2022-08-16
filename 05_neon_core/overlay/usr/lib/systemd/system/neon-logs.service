@@ -5,7 +5,7 @@ After=neon.service
 Before=neon-bus.service
 
 [Service]
-Restart=always
+Type=oneshot
 User=neon
 WorkingDirectory=/opt/neon
 ExecStart=/bin/bash /opt/neon/archive_logs.sh

@@ -68,6 +68,10 @@ neon-audio init-plugin
 # Init STT model
 neon-speech init-plugin
 
+# Relocate any cached data to the `neon` user
+mkdir /home/neon/.cache
+mv /root/.cache /home/neon/.cache
+
 mkdir /home/neon/logs
 
 # Fix home directory permissions
