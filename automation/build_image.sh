@@ -86,7 +86,7 @@ echo "Writing output file to: ${build_dir}/${filename}"
 mv "${build_dir}/ubuntu_22_04.img" "${build_dir}/${filename}"
 
 # Compress image and move to output directory
-echo "Compressing output file. This may take awhile..."
+echo "Compressing output file. This may take an hour or two..."
 xz --compress "${build_dir}/${filename}" -v
 echo "Image compressed"
 mv "${build_dir}/${filename}.xz" "${output_dir}/${filename}.xz"
