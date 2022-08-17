@@ -156,11 +156,20 @@ skills:
   # TODO: Defaults are just patching skills not yet pip installable
   - https://github.com/JarbasSkills/skill-icanhazdadjokes/tree/dev
   - https://github.com/OpenVoiceOS/skill-ovos-homescreen/tree/main
+PHAL:
+  ovos-PHAL-plugin-balena-wifi:
+    debug: false
+    ssid: Neon
+    psk:
+    color: '#ff8600'
+    portal: start dot neon dot ai
+    device: Neon Device
 ready_settings:
   - skills
   - speech
   - audio
   - gui
+  - PHAL
 system:
   protected_keys:
     remote:
