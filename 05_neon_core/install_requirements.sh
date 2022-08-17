@@ -64,13 +64,12 @@ unzip vosk-model-small-en-us-0.15.zip
 rm vosk-model-small-en-us-0.15.zip
 
 # Init TTS model
-neon-audio init-plugin
+neon-audio init-plugin || echo "Failed to init TTS"
 # Init STT model
-neon-speech init-plugin
+neon-speech init-plugin || echo "Failed to init STT"
 
 # Relocate any cached data to the `neon` user
-mkdir /home/neon/.cache
-mv /root/.cache /home/neon/.cache
+mv /root/.cache/* /home/neon/.cache/
 
 mkdir /home/neon/logs
 

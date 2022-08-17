@@ -169,7 +169,6 @@ ready_settings:
   - speech
   - audio
   - gui
-  - PHAL
 system:
   protected_keys:
     remote:
