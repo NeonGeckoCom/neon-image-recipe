@@ -69,7 +69,8 @@ neon-audio init-plugin || echo "Failed to init TTS"
 neon-speech init-plugin || echo "Failed to init STT"
 
 # Relocate any cached data to the `neon` user
-mv /root/.cache/* /home/neon/.cache/
+cp -rf /root/.cache/* /home/neon/.cache/
+rm -r /root/.cache/*
 
 mkdir /home/neon/logs
 
