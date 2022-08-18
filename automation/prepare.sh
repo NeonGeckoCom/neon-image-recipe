@@ -68,6 +68,7 @@ cp -r ${recipe_dir}/02_network_manager mnt/tmp/
 cp -r ${recipe_dir}/03_sj201 mnt/tmp/
 cp -r ${recipe_dir}/04_embedded_shell mnt/tmp/
 cp -r ${recipe_dir}/05_neon_core mnt/tmp/
+cp -r ${recipe_dir}/06_dashboard mnt/tmp/
 
 # Copy interactive script into base image
 cp "${BASE_DIR}/run_scripts.sh" mnt/tmp
