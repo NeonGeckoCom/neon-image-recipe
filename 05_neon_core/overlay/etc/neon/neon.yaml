@@ -169,6 +169,7 @@ ready_settings:
   - speech
   - audio
   - gui
+  - internet
 system:
   protected_keys:
     remote:
