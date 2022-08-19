@@ -1,0 +1,18 @@
+[Unit]
+Description=Neon Audio Service
+PartOf=neon.service
+After=neon.service
+After=neon-bus.service
+
+[Service]
+Restart=always
+User=neon
+WorkingDirectory=/opt/neon
+# Start module when unit is started
+ExecStart=/bin/bash /opt/neon/launch_service.sh neon_audio_client
+# Stop module when unit is stopped
+ExecStop=/bin/bash /opt/neon/kill_service.sh neon_audio_client
+StandardOutput=append:/home/neon/logs/audio.log
+StandardError=inherit
+[Install]
+WantedBy=neon.service

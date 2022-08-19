@@ -1,0 +1,11 @@
+[Unit]
+Description=Neon A.I. Software stack.
+After=pulseaudio.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/true
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target

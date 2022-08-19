@@ -1,0 +1,18 @@
+[Unit]
+Description=Neon Message Bus
+PartOf=neon.service
+After=neon.service
+After=neon-logs.service
+
+[Service]
+Restart=always
+User=neon
+WorkingDirectory=/opt/neon
+# Start module when unit is started
+ExecStart=/bin/bash /opt/neon/launch_service.sh neon_messagebus_service
+# Stop module when unit is stopped
+ExecStop=/bin/bash /opt/neon/kill_service.sh neon_messagebus_service
+StandardOutput=append:/home/neon/logs/bus.log
+StandardError=inherit
+[Install]
+WantedBy=neon.service

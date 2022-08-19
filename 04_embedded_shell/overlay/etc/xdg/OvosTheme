@@ -1,0 +1,10 @@
+[ColorScheme]
+name=Neon Color Scheme
+primaryColor=#80AE6B
+secondaryColor=#2C7909
+textColor=#F1F1F1
+themeStyle=dark
+
+[SelectedScheme]
+name=Neon Color Scheme
+path=/home/neon/.local/share/OVOS/ColorSchemes/neon_scheme.json
