@@ -71,20 +71,10 @@ hotwords:
     module: ovos-ww-plugin-vosk
     listen: true
     debug: false
+    rule: fuzzy
     model_folder: /home/neon/.local/share/neon/vosk-model-small-en-us-0.15
     samples:
-      - hey neon
-      - hey neil
-      - hey near
-      - hey now
-      - hey india
-      - hey me or
-      - hey moron
-      - kenya
-      - the neon
-      - a neon
-      - the indian
-      - india
+    - hey neon
 sounds:
   start_listening: snd/start_listening.wav
   end_listening: snd/end_listening.wav
