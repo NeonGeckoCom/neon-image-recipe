@@ -46,6 +46,8 @@ mkdir boot
 mkdir mnt
 
 echo "Copying Boot Overlay Files"
+# RaspiOS Lite=4194304
+# Ubuntu Server=1048576
 sudo mount -o loop,offset=1048576 "${image_file}" boot || exit 10
 sudo cp -r ${recipe_dir}/00_boot_overlay/ubuntu_22_04/* boot/
 sleep 1  # Avoid busy target issues
@@ -54,13 +56,15 @@ rm -r boot
 echo "Boot Files Configured"
 
 echo "Mounting Image FS"
+# RaspiOS Lite=272629760
+# Ubunth Server=269484032
 sudo mount -o loop,offset=269484032 "${image_file}" mnt || exit 10
 sudo mkdir -p mnt/run/systemd/resolve
 sudo mount --bind /run/systemd/resolve mnt/run/systemd/resolve  && echo "Mounted resolve directory from host" || exit 10
 
 echo "Writing Build Info to Image"
 sudo mkdir -p mnt/opt/neon
-sudo mv "${build_dir}/meta.json" mnt/opt/neon/build_info.json
+sudo mv "${build_dir}/meta.json" mnt/opt/neon/build_info.json || echo "No meta.json for image"
 
 echo "Copying Image scripts"
 cp -r ${recipe_dir}/01_core_configuration mnt/tmp/
@@ -84,6 +88,7 @@ if [ "${3}" == "-y" ]; then
 fi
 
 # Disable restart prompts
-sudo mv mnt/etc/apt/apt.conf.d/99needrestart mnt/etc/apt/apt.conf.d/.99needrestart
-
+if [ -f mnt/etc/apt/apt.conf.d/99needrestart ]; then
+    sudo mv mnt/etc/apt/apt.conf.d/99needrestart mnt/etc/apt/apt.conf.d/.99needrestart
+fi
 sudo chroot mnt
