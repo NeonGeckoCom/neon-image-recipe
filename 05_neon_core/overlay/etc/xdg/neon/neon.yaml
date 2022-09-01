@@ -25,7 +25,6 @@ stt:
   fallback_module: ovos-stt-plugin-vosk
   vosk:
     model: /home/neon/.config/neon/vosk-model-small-en-us-0.15
-  deepspeech_stream_local: {}
   ovos-stt-plugin-server:
     url: https://stt.openvoiceos.com/stt
 confirm_listening: true

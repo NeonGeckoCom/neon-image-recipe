@@ -48,6 +48,7 @@ mkdir mnt
 echo "Copying Boot Overlay Files"
 # RaspiOS Lite=4194304
 # Ubuntu Server=1048576
+# Apertis=64000512
 sudo mount -o loop,offset=1048576 "${image_file}" boot || exit 10
 sudo cp -r ${recipe_dir}/00_boot_overlay/ubuntu_22_04/* boot/
 sleep 1  # Avoid busy target issues
@@ -57,7 +58,8 @@ echo "Boot Files Configured"
 
 echo "Mounting Image FS"
 # RaspiOS Lite=272629760
-# Ubunth Server=269484032
+# Ubuntu Server=269484032
+# Apertis=256000512
 sudo mount -o loop,offset=269484032 "${image_file}" mnt || exit 10
 sudo mkdir -p mnt/run/systemd/resolve
 sudo mount --bind /run/systemd/resolve mnt/run/systemd/resolve  && echo "Mounted resolve directory from host" || exit 10
