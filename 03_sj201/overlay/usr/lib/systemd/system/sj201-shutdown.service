@@ -1,11 +1,10 @@
 [Unit]
 Description=SJ201 Shutdown Service
-Before=shutdown.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash /opt/neon/shutdown_sj201.sh
-TimeoutStartSec=0
+RemainAfterExit=true
+ExecStop=/bin/bash /opt/neon/shutdown_sj201.sh
 
 [Install]
-WantedBy=shutdown.target
+WantedBy=multi-user.target
