@@ -69,5 +69,6 @@ fi
 # Enable system services
 systemctl enable pulseaudio.service
 systemctl enable sj201
+systemctl enable sj201-shutdown
 
 echo "Audio Setup Complete"
