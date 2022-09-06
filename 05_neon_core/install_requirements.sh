@@ -56,12 +56,14 @@ neon-install-default-skills && echo "Default git skills installed" || exit 2
 
 # Download model files
 mkdir -p /home/neon/.local/share/neon
-wget -O /home/neon/.local/share/neon/deepspeech-0.9.3-models.scorer https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.scorer
-wget -O /home/neon/.local/share/neon/deepspeech-0.9.3-models.tflite https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-models.tflite
 wget -O /home/neon/.local/share/neon/vosk-model-small-en-us-0.15.zip https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
 cd /home/neon/.local/share/neon || exit 10
 unzip vosk-model-small-en-us-0.15.zip
 rm vosk-model-small-en-us-0.15.zip
+
+export XDG_CONFIG_HOME="/home/neon/.config"
+export XDG_DATA_HOME="/home/neon/.local/share"
+export XDG_CACHE_HOME="/home/neon/.cache"
 
 # Init TTS model
 neon-audio init-plugin || echo "Failed to init TTS"
@@ -69,9 +71,10 @@ neon-audio init-plugin || echo "Failed to init TTS"
 neon-speech init-plugin || echo "Failed to init STT"
 
 # Relocate any cached data to the `neon` user
-mkdir -p /home/neon/.cache
-cp -rf /root/.cache/* /home/neon/.cache/
-rm -r /root/.cache
+#rm -r /root/.cache/pip
+#mkdir -p /home/neon/.cache
+#cp -rf /root/.cache/* /home/neon/.cache/
+#rm -r /root/.cache
 
 mkdir /home/neon/logs
 

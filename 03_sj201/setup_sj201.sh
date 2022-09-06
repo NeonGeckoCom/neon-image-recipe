@@ -35,7 +35,7 @@ kernel=$(ls /lib/modules)
 
 # Install system dependencies
 apt update
-apt install -y gcc make python3-pip i2c-tools libraspberrypi-bin pulseaudio pulseaudio-module-zeroconf alsa-utils
+apt install -y gcc make python3-pip i2c-tools libraspberrypi-bin pulseaudio pulseaudio-module-zeroconf alsa-utils git
 CFLAGS="-fcommon" pip install smbus smbus2 spidev rpi.gpio
 
 # Build and load VocalFusion Driver
@@ -69,5 +69,6 @@ fi
 # Enable system services
 systemctl enable pulseaudio.service
 systemctl enable sj201
+systemctl enable sj201-shutdown
 
 echo "Audio Setup Complete"
