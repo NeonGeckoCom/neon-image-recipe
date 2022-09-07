@@ -36,7 +36,8 @@ apt install -y curl
 curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | apt-key add - 2> /dev/null && \
 echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | tee /etc/apt/sources.list.d/mycroft-desktop.list
 apt update
-apt install -y sox gcc libfann-dev swig libssl-dev portaudio19-dev git libpulse-dev python3.7-dev python3.7-venv mimic espeak-ng g++ wireless-tools || exit 1
+apt install -y sox gcc libfann-dev swig libssl-dev portaudio19-dev git libpulse-dev python3.7-dev python3.7-venv mimic \
+    espeak-ng g++ wireless-tools plasma-nm|| exit 1
 
 # Configure venv for deepspeech compat.
 python3.7 -m venv "/home/neon/venv" || exit 10
