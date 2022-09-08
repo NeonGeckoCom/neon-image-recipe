@@ -63,6 +63,9 @@ usermod -aG pulse-access root
 # Enable new services
 systemctl enable resize_fs.service
 
+# Disable extraneous services
+systemctl disable snapd.service
+
 # Set TZ
 echo "America/Los_Angeles" > /etc/timezone
 rm /etc/localtime
