@@ -41,17 +41,20 @@ rm -rf /etc/cloud
 # Setup all the services
 systemctl disable systemd-networkd.socket
 systemctl disable systemd-networkd
+systemctl disable wpa_supplicant.service
+
+usermod -aG netdev neon
 
 # Add wifi-connect binary
 cp -r overlay/* /
 chmod -R ugo+x /usr/local/sbin
 chmod -R ugo+x /opt/neon
-
+chown root:netdev /usr/bin/nmcli
 # Configure networking check on startup and restart
 systemctl enable wifi-setup.service
 
 # Patch SSH service
-cd /etc/ssh
+cd /etc/ssh || exit 10
 ssh-keygen -A
 sed -ie "s|PasswordAuthentication no|PasswordAuthentication yes|g" /etc/ssh/sshd_config
 
