@@ -151,6 +151,8 @@ PHAL:
     color: '#ff8600'
     portal: start dot neon dot ai
     device: Neon Device
+  ovos-PHAL-plugin-system:
+    core_service: neon.service
 ready_settings:
   - skills
   - speech
