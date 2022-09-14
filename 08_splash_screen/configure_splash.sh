@@ -27,58 +27,14 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Set to exit on error
-set -Ee
+BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${BASE_DIR}" || exit 10
+cp -rf overlay/* / || exit 2
 
-cd /tmp || exit 10
-source vars.sh
+# Install image viewer
+apt update
+apt install -y fbi
 
-print_opts() {
-    clear
-    echo ""
-    echo "------------------"
-    echo "Neon Image Creator"
-    echo "------------------"
-    echo "0. Exit"
-    echo "1. Core Configuration"
-    echo "2. Network Manager"
-    echo "3. SJ201 (Mark 2)"
-    echo "4. Embedded Shell + GUI"
-    echo "5. Neon Core"
-    echo "6. Dashboard"
-    echo "7. Camera"
-    echo "8. Splash Screen"
-}
-
-get_choice() {
-    read -p "Select Option " opt
-    case ${opt} in
-        0) exit 0;;
-        1) bash 01_core_configuration/configure_ubuntu.sh;;
-        2) bash 02_network_manager/setup_wifi_connect.sh;;
-        3) bash 03_sj201/setup_sj201.sh;;
-        4) bash 04_embedded_shell/install_gui_shell.sh;;
-        5) bash 05_neon_core/install_requirements.sh;;
-        6) bash 06_dashboard/install_ovos_dashboard.sh;;
-        7) bash 07_camera/configure_camera.sh;;
-        8) bash 08_splashscreen/configure_splash.sh;;
-        *) ;;
-    esac
-}
-
-if [ ${1} == "all" ]; then
-    bash 01_core_configuration/configure_ubuntu.sh
-    bash 02_network_manager/setup_wifi_connect.sh
-    bash 03_sj201/setup_sj201.sh
-    bash 04_embedded_shell/install_gui_shell.sh
-    bash 05_neon_core/install_requirements.sh
-    bash 06_dashboard/install_ovos_dashboard.sh
-    bash 07_camera/configure_camera.sh
-    bash 08_splashscreen/configure_splash.sh
-    exit 0
-fi
-
-while true; do
-    print_opts
-    get_choice
-done
+# Disable terminal and enable splash on boot
+systemctl disable getty@tty1
+systemctl enable splashscreen

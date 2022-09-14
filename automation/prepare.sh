@@ -76,6 +76,7 @@ cp -r "${recipe_dir}/04_embedded_shell" mnt/tmp/
 cp -r "${recipe_dir}/05_neon_core" mnt/tmp/
 cp -r "${recipe_dir}/06_dashboard" mnt/tmp/
 cp -r "${recipe_dir}/07_camera" mnt/tmp/
+cp -r "${recipe_dir}/08_splash_screen" mnt/tmp/
 
 # Copy interactive script into base image
 cp "${BASE_DIR}/run_scripts.sh" mnt/tmp
