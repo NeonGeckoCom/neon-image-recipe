@@ -56,7 +56,7 @@ if [ ! -f ubuntu_22_04.img.xz ]; then
     wget https://2222.us/app/files/neon_images/pi/ubuntu_22_04.img.xz
 fi
 
-xz --decompress ubuntu_22_04.img.xz -v --keep && echo "Decompressed Image"
+xz --decompress -T0 ubuntu_22_04.img.xz -v --keep && echo "Decompressed Image"
 
 # Get Build info
 cd "${BASE_DIR}" || exit 10
@@ -87,7 +87,7 @@ mv "${build_dir}/ubuntu_22_04.img" "${build_dir}/${filename}"
 
 # Compress image and move to output directory
 echo "Compressing output file. This may take an hour or two..."
-xz --compress "${build_dir}/${filename}" -v
+xz --compress -T0 "${build_dir}/${filename}" -v
 echo "Image compressed"
 mv "${build_dir}/${filename}.xz" "${output_dir}/${filename}.xz"
 echo "Image saved to ${output_dir}/${filename}.xz"

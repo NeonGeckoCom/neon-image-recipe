@@ -39,6 +39,9 @@ docker run \
 neon-image-builder
 ```
 
+The entire build process will generally take several hours; it takes 2-3 hours
+on our build server with 2x Xeon Gold 5118 (48T Total).
+
 ## Interactive Image Building
 The scripts in the `automation` directory are available to help automate building a default image.
 For building an image interactively:
