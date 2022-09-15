@@ -61,7 +61,7 @@ get_choice() {
         5) bash 05_neon_core/install_requirements.sh;;
         6) bash 06_dashboard/install_ovos_dashboard.sh;;
         7) bash 07_camera/configure_camera.sh;;
-        8) bash 08_splashscreen/configure_splash.sh;;
+        8) bash 08_splash_screen/configure_splash.sh;;
         *) ;;
     esac
 }
@@ -74,7 +74,7 @@ if [ ${1} == "all" ]; then
     bash 05_neon_core/install_requirements.sh
     bash 06_dashboard/install_ovos_dashboard.sh
     bash 07_camera/configure_camera.sh
-    bash 08_splashscreen/configure_splash.sh
+    bash 08_splash_screen/configure_splash.sh
     exit 0
 fi
 
