@@ -7,7 +7,7 @@ Make a Pi image from scratch.
 - [OVOS Shell](#embedded_shell) - Installs and configures the GUI shell
 - [Neon Core](#neon_core) - Installs Neon Core with dependencies.
 - [Dashboard](#dashboard) - Installs a web dashboard for device diagnostics
-- [Camera](#camera) - Installs system dependencies for CSI Canera Support
+- [Camera](#camera) - Installs system dependencies for CSI Camera Support
 
 
 ## Docker Automated Image Building
