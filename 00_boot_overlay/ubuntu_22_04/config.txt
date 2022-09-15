@@ -7,7 +7,7 @@ kernel=vmlinuz
 cmdline=cmdline.txt
 initramfs initrd.img followkernel
 dtoverlay=vc4-fkms-v3d
-# start_x=1
+start_x=1
 gpu_mem=256
 gpu_mem_256=128
 gpu_mem_512=128
