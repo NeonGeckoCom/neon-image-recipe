@@ -1,11 +1,13 @@
 # neon-image-recipe
 Make a Pi image from scratch.
 - [Core Configuration](#core_configuration) - Base configuration of ubuntu server
-- [Network Manager](#base_network_manager) - Configures networking to allow for wifi configuration via
+- [Network Manager](#network_manager) - Configures networking to allow for wifi configuration via
   [wifi-connect](https://github.com/balena-os/wifi-connect).
-- [Ubuntu Server](#base_ubuntu_server) - Configures a desktop environment, user account, and other system setting overrides.
-- [SJ201 Support](#base_mark_2) - Installs and configures drivers and scripts to run the SJ-201 HAT.
-- [Neon Core](#base_neon_core) - Installs Neon Core with dependencies.
+- [SJ201 Support](#sj201) - Installs and configures drivers and scripts to run the SJ-201 HAT.
+- [OVOS Shell](#embedded_shell) - Installs and configures the GUI shell
+- [Neon Core](#neon_core) - Installs Neon Core with dependencies.
+- [Dashboard](#dashboard) - Installs a web dashboard for device diagnostics
+- [Camera](#camera) - Installs system dependencies for CSI Camera Support
 
 
 ## Docker Automated Image Building
@@ -105,6 +107,19 @@ The image should now boot to the GUI shell.
 Installs `neon-core` and dependencies. Configures services for core modules.
 
 At this stage, the image is complete and when booted should start Neon.
+
+## dashboard
+Installs the [OVOS Dashboard](https://github.com/openvoiceos/ovos-dashboard) and service
+to start the dashboard from the GUI.
+
+From the GUI `Settings` -> `Developer Settings` menu, `Enable Dashboard` will now start
+the dashboard for remote access to device diagnostics.
+
+## camera
+Installs `libcamera` and other dependencies for using a CSI camera.
+
+The default camera skill can be used to take a photo; `libcamera-apps` are also
+installed for testing via CLI.
 
 
 ## Clean Up

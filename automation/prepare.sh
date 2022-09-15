@@ -69,12 +69,13 @@ sudo mkdir -p mnt/opt/neon
 sudo mv "${build_dir}/meta.json" mnt/opt/neon/build_info.json || echo "No meta.json for image"
 
 echo "Copying Image scripts"
-cp -r ${recipe_dir}/01_core_configuration mnt/tmp/
-cp -r ${recipe_dir}/02_network_manager mnt/tmp/
-cp -r ${recipe_dir}/03_sj201 mnt/tmp/
-cp -r ${recipe_dir}/04_embedded_shell mnt/tmp/
-cp -r ${recipe_dir}/05_neon_core mnt/tmp/
-cp -r ${recipe_dir}/06_dashboard mnt/tmp/
+cp -r "${recipe_dir}/01_core_configuration" mnt/tmp/
+cp -r "${recipe_dir}/02_network_manager" mnt/tmp/
+cp -r "${recipe_dir}/03_sj201" mnt/tmp/
+cp -r "${recipe_dir}/04_embedded_shell" mnt/tmp/
+cp -r "${recipe_dir}/05_neon_core" mnt/tmp/
+cp -r "${recipe_dir}/06_dashboard" mnt/tmp/
+cp -r "${recipe_dir}/07_camera" mnt/tmp/
 
 # Copy interactive script into base image
 cp "${BASE_DIR}/run_scripts.sh" mnt/tmp

@@ -1,13 +1,18 @@
-[all]
-kernel=vmlinuz
-cmdline=cmdline.txt
-initramfs initrd.img followkernel
-
 [pi4]
 max_framebuffers=2
 arm_boost=1
 
 [all]
+kernel=vmlinuz
+cmdline=cmdline.txt
+initramfs initrd.img followkernel
+dtoverlay=vc4-fkms-v3d
+start_x=1
+gpu_mem=256
+gpu_mem_256=128
+gpu_mem_512=128
+gpu_mem_1024=128
+
 # Enable the audio output, I2C and SPI interfaces on the GPIO header. As these
 # parameters related to the base device-tree they must appear *before* any
 # other dtoverlay= specification
@@ -30,17 +35,9 @@ enable_uart=1
 # Autoload overlays for any recognized cameras or displays that are attached
 # to the CSI/DSI ports. Please note this is for libcamera support, *not* for
 # the legacy camera stack
-camera_auto_detect=1
+#camera_auto_detect=1
 display_auto_detect=1
 
 # Config settings specific to arm64
 arm_64bit=1
 dtoverlay=dwc2
-
-[cm4]
-# Enable the USB2 outputs on the IO board (assuming your CM4 is plugged into
-# such a board)
-dtoverlay=dwc2,dr_mode=host
-
-[all]
-dtoverlay=vc4-fkms-v3d

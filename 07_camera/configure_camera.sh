@@ -27,55 +27,43 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Set to exit on error
-set -Ee
+BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${BASE_DIR}" || exit 10
 
-cd /tmp || exit 10
-source vars.sh
+# Install build dependencies
+apt update
+apt install -y g++ libboost-dev libgnutls28-dev openssl libtiff5-dev \
+ python3-yaml python3-ply python3-jinja2 libglib2.0-dev \
+ libssl-dev meson ninja-build pkg-config qtbase5-dev libqt5core5a libqt5gui5 libqt5widgets5 \
+ cmake libboost-program-options-dev libdrm-dev libexif-dev libpng-dev libegl1-mesa-dev \
+ v4l-utils
+ # libgstreamer-plugins-base1.0-dev
 
-print_opts() {
-    clear
-    echo ""
-    echo "------------------"
-    echo "Neon Image Creator"
-    echo "------------------"
-    echo "0. Exit"
-    echo "1. Core Configuration"
-    echo "2. Network Manager"
-    echo "3. SJ201 (Mark 2)"
-    echo "4. Embedded Shell + GUI"
-    echo "5. Neon Core"
-    echo "6. Dashboard"
-    echo "7. Camera"
-}
+# Clone and build libcamera
+git clone https://github.com/raspberrypi/libcamera.git
+cd libcamera || exit 10
+meson build --buildtype=release -Dpipelines=raspberrypi -Dipas=raspberrypi -Dv4l2=true -Dtest=false -Dlc-compliance=disabled -Dcam=disabled -Dqcam=disabled -Ddocumentation=disabled
+ninja -C build install
+cd ..
+rm -rf libcamera
 
-get_choice() {
-    read -p "Select Option " opt
-    case ${opt} in
-        0) exit 0;;
-        1) bash 01_core_configuration/configure_ubuntu.sh;;
-        2) bash 02_network_manager/setup_wifi_connect.sh;;
-        3) bash 03_sj201/setup_sj201.sh;;
-        4) bash 04_embedded_shell/install_gui_shell.sh;;
-        5) bash 05_neon_core/install_requirements.sh;;
-        6) bash 06_dashboard/install_ovos_dashboard.sh;;
-        7) bash 07_camera/configure_camera.sh;;
-        *) ;;
-    esac
-}
+# Clone and build libepoxy
+git clone https://github.com/anholt/libepoxy.git
+cd libepoxy || exit 10
+mkdir _build
+cd _build || exit 10
+meson
+ninja
+ninja install
+cd ../..
+rm -rf libepoxy
 
-if [ ${1} == "all" ]; then
-    bash 01_core_configuration/configure_ubuntu.sh
-    bash 02_network_manager/setup_wifi_connect.sh
-    bash 03_sj201/setup_sj201.sh
-    bash 04_embedded_shell/install_gui_shell.sh
-    bash 05_neon_core/install_requirements.sh
-    bash 06_dashboard/install_ovos_dashboard.sh
-    bash 07_camera/configure_camera.sh
-    exit 0
-fi
+# Clone and build libcamera-apps
+git clone https://github.com/raspberrypi/libcamera-apps.git
+cd libcamera-apps || exit 10
+mkdir build
+cd build || exit 10
+cmake .. -DENABLE_DRM=1 -DENABLE_X11=0 -DENABLE_QT=1 -DENABLE_OPENCV=0 -DENABLE_TFLITE=0
+make install
 
-while true; do
-    print_opts
-    get_choice
-done
+echo "Camera dependencies installed"
