@@ -38,3 +38,5 @@ apt install -y fbi
 # Disable terminal and enable splash on boot
 systemctl disable getty@tty1
 systemctl enable splashscreen
+
+echo "Splash Screen Configured"
