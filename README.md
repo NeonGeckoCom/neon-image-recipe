@@ -8,7 +8,7 @@ Make a Pi image from scratch.
 - [Neon Core](#neon_core) - Installs Neon Core with dependencies.
 - [Dashboard](#dashboard) - Installs a web dashboard for device diagnostics
 - [Camera](#camera) - Installs system dependencies for CSI Camera Support
-
+- [Splash Screen](#splash_screen) - Configures device splash screen on boot
 
 ## Docker Automated Image Building
 The included Dockerfile can be used to build a default image in a Docker environment.
@@ -121,6 +121,10 @@ Installs `libcamera` and other dependencies for using a CSI camera.
 The default camera skill can be used to take a photo; `libcamera-apps` are also
 installed for testing via CLI.
 
+## splash_screen
+Enables a custom splash screen and disables on-device TTY at boot.
+
+On boot, a static image should be shown until the GUI Shell starts.
 
 ## Clean Up
 `cleanup.sh` removes any temporary files from the mounted image before unmounting it.
