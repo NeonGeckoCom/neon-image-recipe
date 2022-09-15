@@ -26,13 +26,14 @@ docker build . -t neon-image-builder
 
 Then, run the container to create a Neon Image. Set `CORE_REF` to the branch of
 `neon-core` that you want to build and `RECIPE_REF` to the branch of `neon-image-recipe`
-you want to use.
+you want to use. Set `MAKE_THREADS` to the number of threads to use for `make` processes.
 ```shell
 docker run \
 -v /home/${USER}/output:/output:rw \
 -v /run/systemd/resolve:/run/systemd/resolve \
 -e CORE_REF=${CORE_REF:-dev} \
 -e RECIPE_REF=${RECIPE_REF:-master} \
+-e MAKE_THREADS=${MAKE_THREADS:-4}
 --privileged \
 --network=host \
 --name=neon-image-builder \

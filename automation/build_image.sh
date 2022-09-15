@@ -87,8 +87,10 @@ mv "${build_dir}/ubuntu_22_04.img" "${build_dir}/${filename}"
 
 # Compress image and move to output directory
 echo "Compressing output file. This may take an hour or two..."
+compress_start=$(date +%s)
 xz --compress -T0 "${build_dir}/${filename}" -v
-echo "Image compressed"
+compress_time=$(($(($(date +%s)-${compress_start}))/60))
+echo "Image compressed in ${compress_time} minutes"
 mv "${build_dir}/${filename}.xz" "${output_dir}/${filename}.xz"
 echo "Image saved to ${output_dir}/${filename}.xz"
 runtime=$(($(($(date +%s)-${start}))/60))
