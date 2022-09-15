@@ -41,3 +41,6 @@ display_auto_detect=1
 # Config settings specific to arm64
 arm_64bit=1
 dtoverlay=dwc2
+
+# Disable rainbow splash screen
+disable_splash=1
