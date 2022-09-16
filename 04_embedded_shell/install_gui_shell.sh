@@ -71,7 +71,7 @@ if [[ ! -d build-testing ]] ; then
 fi
 cd build-testing || exit 10
 cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DKDE_INSTALL_LIBDIR=lib -DKDE_INSTALL_USE_QT_SYS_PATHS=ON
-make -j4
+make -j${MAKE_THREADS}
 make install
 
 echo "Installing Lottie-QML"
