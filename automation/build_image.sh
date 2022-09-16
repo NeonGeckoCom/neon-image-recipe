@@ -64,6 +64,10 @@ meta="$(python get_metadata.py)"
 echo "${meta}">"${build_dir}/meta.json"
 echo "Got Build Info"
 
+# Check for Extra FS overlay
+if [ -d "${output_dir}/overlay" ]; then
+    cp -r "${output_dir}/overlay" "${build_dir}"
+fi
 # Cache sudo password for setup
 #echo "${passwd}" | sudo -S ls
 bash prepare.sh "${build_dir}/ubuntu_22_04.img" "${build_dir}" -y

@@ -68,6 +68,11 @@ echo "Writing Build Info to Image"
 sudo mkdir -p mnt/opt/neon
 sudo mv "${build_dir}/meta.json" mnt/opt/neon/build_info.json || echo "No meta.json for image"
 
+if [ -d "${build_dir}/overlay" ]; then
+    echo "Copying build-time overlay files"
+    cp -r "${build_dir}/overlay" mnt
+fi
+
 echo "Copying Image scripts"
 cp -r "${recipe_dir}/01_core_configuration" mnt/tmp/
 cp -r "${recipe_dir}/02_network_manager" mnt/tmp/

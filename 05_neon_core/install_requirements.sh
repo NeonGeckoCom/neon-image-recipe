@@ -51,7 +51,7 @@ cp -rf overlay/* / || exit 2
 cd /home/neon || exit 2
 
 # Install core and skills
-pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF:-dev}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi,local]" || exit 11
+pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF:-dev}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi,local,remote]" || exit 11
 echo "Core Installed"
 neon-install-default-skills && echo "Default git skills installed" || exit 2
 
