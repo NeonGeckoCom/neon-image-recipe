@@ -1,5 +1,5 @@
 {
   "selected_backend": "Disabled",
-  "selected_tts": "",
+  "selected_tts": "coqui",
   "__mycroft_skill_firstrun": false
 }
