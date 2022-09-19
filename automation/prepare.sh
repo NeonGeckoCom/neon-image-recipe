@@ -70,7 +70,7 @@ sudo mv "${build_dir}/meta.json" mnt/opt/neon/build_info.json || echo "No meta.j
 
 if [ -d "${build_dir}/overlay" ]; then
     echo "Copying build-time overlay files"
-    cp -r "${build_dir}/overlay" mnt
+    cp -r ${build_dir}/overlay/* mnt
 fi
 
 echo "Copying Image scripts"
