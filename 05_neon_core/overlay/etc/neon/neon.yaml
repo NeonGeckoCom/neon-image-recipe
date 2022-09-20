@@ -149,6 +149,8 @@ ready_settings:
   - audio
   - gui
   - internet
+server:
+  disabled: True
 system:
   protected_keys:
     remote:
