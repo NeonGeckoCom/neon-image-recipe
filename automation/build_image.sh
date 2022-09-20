@@ -35,6 +35,7 @@ start=$(date +%s)
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 build_dir=${BUILD_DIR:-"${BASE_DIR}/build"}
 output_dir=${OUTPUT_DIR:-"${BASE_DIR}/outputs"}
+base_image=${BASE_IMAGE:-"ubuntu_22_04"}
 echo "build_dir=${build_dir}"
 echo "output_dir=${output_dir}"
 
@@ -46,11 +47,11 @@ if [ ! -d "${build_dir}" ]; then
 fi
 cd "${build_dir}" || exit 10
 
-# TODO: Configurable base image
-base_image_compressed="${build_dir}/ubuntu_22_04.img.xz"
+base_image_compressed="${build_dir}/${base_image}.img.xz"
+# debian_bullseye.img.xz, ubuntu_22_04.img.xz
 if [ ! -f "${base_image_compressed}" ]; then
-    echo "Downloading Base Ubuntu 22.04 Image"
-    wget https://2222.us/app/files/neon_images/pi/ubuntu_22_04.img.xz
+    echo "Downloading Base Image ${base_image}"
+    wget "https://2222.us/app/files/neon_images/pi/${base_image}.img.xz"
 fi
 
 # Decompress xz image archive

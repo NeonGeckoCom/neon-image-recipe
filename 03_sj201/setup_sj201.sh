@@ -30,13 +30,26 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
-kernel=$(ls /lib/modules)
+kernels=($(ls /lib/modules))
+kernel=${kernels[0]}
 #kernel="5.4.0-1052-raspi"
+
+# Ensure Rasbperry Pi Sources are available
+apt update
+
+apt install -y libraspberrypi-bin
+if [ $? != 0 ]; then
+    curl http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - 2> /dev/null && \
+    echo deb http://archive.raspberrypi.org/debian/ bullseye main | tee /etc/apt/sources.list.d/raspberrypi.list
+fi
 
 # Install system dependencies
 apt update
 apt install -y gcc make python3-pip i2c-tools libraspberrypi-bin pulseaudio pulseaudio-module-zeroconf alsa-utils git
 CFLAGS="-fcommon" pip install smbus smbus2 spidev rpi.gpio
+
+# Install headers
+apt install -y "linux-headers-${kernel}"
 
 # Build and load VocalFusion Driver
 git clone https://github.com/OpenVoiceOS/vocalfusiondriver

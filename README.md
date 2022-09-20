@@ -33,12 +33,15 @@ docker run \
 -v /run/systemd/resolve:/run/systemd/resolve \
 -e CORE_REF=${CORE_REF:-dev} \
 -e RECIPE_REF=${RECIPE_REF:-master} \
+-e BASE_IMAGE=${BASE_IMAGE:-ubuntu_22_04} \
 -e MAKE_THREADS=${MAKE_THREADS:-4} \
 --privileged \
 --network=host \
 --name=neon-image-builder \
 neon-image-builder
 ```
+TODO: BASE_IMAGE should be changed to debian_bullseye
+
 
 The entire build process will generally take several hours; it takes 1-2 hours
 on a build server with 2x Xeon Gold 5118 CPUs (48T Total).
