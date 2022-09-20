@@ -43,14 +43,25 @@ neon-image-builder
 The entire build process will generally take several hours; it takes 1-2 hours
 on a build server with 2x Xeon Gold 5118 CPUs (48T Total).
 
+### Build-Time Overlay Files
+Files to be overlaid on the image file system can be placed in `/output/overlay`.
+These files will be moved to the build directory and applied as described in [below](#image-overlay-files).
+
 ## Interactive Image Building
 The scripts in the `automation` directory are available to help automate building a default image.
-For building an image interactively:
+For building an image interactively, specify paths for `IMAGE_FILE` and `BUILD_DIR`
+before running the below commands:
 
 ```shell
-bash automation/prepare.sh
+bash automation/prepare.sh "${IMAGE_FILE}" "${BUILD_DIR}"
 bash /tmp/run_scripts.sh
 ```
+
+### Image Overlay Files
+Extra files to be included in the image can be placed in `${BUILD_DIR}/overlay`.
+This directory will be recursively copied to the image at the beginning of the
+build process. This may be useful for including key files or other files that
+do not belong in the image recipe repository.
 
 The below documentation describes how to manually build an image using the individual scripts in this repository.
 
