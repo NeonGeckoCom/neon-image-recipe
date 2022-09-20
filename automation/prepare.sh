@@ -142,4 +142,11 @@ fi
 if [ -f mnt/etc/apt/apt.conf.d/99needrestart ]; then
     sudo mv mnt/etc/apt/apt.conf.d/99needrestart mnt/etc/apt/apt.conf.d/.99needrestart
 fi
+
+if [ -f mnt/etc/resolv.conf ]; then
+    sudo mv mnt/etc/resolv.conf mnt/etc/.resolv.conf
+fi
+
+sudo cp "${BASE_DIR}/resolv.conf" mnt/etc/resolv.conf
+
 sudo chroot mnt

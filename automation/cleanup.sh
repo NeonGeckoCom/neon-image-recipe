@@ -32,6 +32,13 @@ cd "${build_dir}" || exit 10
 
 # Re-enable restart prompts
 sudo mv mnt/etc/apt/apt.conf.d/.99needrestart mnt/etc/apt/apt.conf.d/99needrestart
+
+# Cleanup overridden resolv.conf
+sudo rm mnt/etc/resolv.conf
+if [ -f mnt/etc/.resolv.conf ]; then
+    sudo mv mnt/etc/.resolv.conf mnt/etc/resolv.conf
+fi
+
 sudo mv mnt/root/bashrc mnt/root/.bashrc
 sudo rm -rf mnt/tmp/*
 echo "Temporary files removed"
