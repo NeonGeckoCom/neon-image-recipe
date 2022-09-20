@@ -45,11 +45,39 @@ cd "${build_dir}" || exit 10
 mkdir boot
 mkdir mnt
 
+
+# Determine Partition Offsets
+lines=$(fdisk -l "${image_file}")
+IFS=$'\n'
+for line in ${lines}; do
+    # Check Block Size
+    if (grep -q '^Units:' <<< "${line}") ; then
+      blk_size=$( echo "${line}" | cut -d ' ' -f 8)
+      echo "${blk_size}"
+  # Check Partition
+    elif (grep -q "^${output}" <<< "${line}") ; then
+        IFS=$' \t\n'
+        parts=(${line})
+
+        if [ -z "${boot_start}" ]; then
+            boot_start=${parts[1]}
+        elif [ -z "${root_start}" ]; then
+            root_start=${parts[1]}
+        else
+            echo "Extra partition detected: ${parts[*]}"
+        fi
+    fi
+done
+boot=$((boot_start*blk_size))
+root=$((root_start*blk_size))
+echo "boot=${boot}"
+echo "root=${root}"
+
 echo "Copying Boot Overlay Files"
 # RaspiOS Lite=4194304
 # Ubuntu Server=1048576
 # Apertis=64000512
-sudo mount -o loop,offset=1048576 "${image_file}" boot || exit 10
+sudo mount -o loop,offset=${boot} "${image_file}" boot || exit 10
 sudo cp -r ${recipe_dir}/00_boot_overlay/ubuntu_22_04/* boot/
 sleep 1  # Avoid busy target issues
 sudo umount boot
@@ -60,7 +88,7 @@ echo "Mounting Image FS"
 # RaspiOS Lite=272629760
 # Ubuntu Server=269484032
 # Apertis=256000512
-sudo mount -o loop,offset=269484032 "${image_file}" mnt || exit 10
+sudo mount -o loop,offset=${root} "${image_file}" mnt || exit 10
 sudo mkdir -p mnt/run/systemd/resolve
 sudo mount --bind /run/systemd/resolve mnt/run/systemd/resolve  && echo "Mounted resolve directory from host" || exit 10
 

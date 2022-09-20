@@ -30,11 +30,6 @@
 # Set to exit on error
 set -Ee
 
-## Check if a sudo password should be cached
-#sudo -K
-#sudo -n ls || read -s -p "Enter sudo password for $(whoami): " passwd
-## TODO: Validate password
-
 start=$(date +%s)
 
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -51,12 +46,20 @@ if [ ! -d "${build_dir}" ]; then
 fi
 cd "${build_dir}" || exit 10
 
-if [ ! -f ubuntu_22_04.img.xz ]; then
+# TODO: Configurable base image
+base_image_compressed="${build_dir}/ubuntu_22_04.img.xz"
+if [ ! -f "${base_image_compressed}" ]; then
     echo "Downloading Base Ubuntu 22.04 Image"
     wget https://2222.us/app/files/neon_images/pi/ubuntu_22_04.img.xz
 fi
 
-xz --decompress -T0 ubuntu_22_04.img.xz -v --keep && echo "Decompressed Image"
+# Decompress xz image archive
+if [[ "${base_image_compressed}" == *.xz ]]; then
+    xz --decompress -T0 "${base_image_compressed}" -v --keep && echo "Decompressed Image"
+    base_image_file=${base_image_compressed%.*}
+else
+    base_image_file=${base_image_compressed}
+fi
 
 # Get Build info
 cd "${BASE_DIR}" || exit 10
@@ -70,7 +73,7 @@ if [ -d "${output_dir}/overlay" ]; then
 fi
 # Cache sudo password for setup
 #echo "${passwd}" | sudo -S ls
-bash prepare.sh "${build_dir}/ubuntu_22_04.img" "${build_dir}" -y
+bash prepare.sh "${base_image_file}" "${build_dir}" -y
 
 # Cache sudo password for cleanup
 #echo "${passwd}" | sudo -S ls
