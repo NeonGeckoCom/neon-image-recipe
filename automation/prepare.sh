@@ -48,6 +48,7 @@ mkdir mnt
 
 # Determine Partition Offsets
 lines=$(fdisk -l "${image_file}")
+echo "${lines}"
 IFS=$'\n'
 for line in ${lines}; do
     # Check Block Size
@@ -61,10 +62,20 @@ for line in ${lines}; do
 
         if [ -z "${boot_start}" ]; then
             echo "Boot Partition: ${parts[*]}"
-            boot_start=${parts[1]}
+            for part in "${parts[@]}"; do
+                if [[ ${part} =~ ^[0-9]+$ ]]; then
+                    boot_start=${part}
+                    break
+                fi
+            done
         elif [ -z "${root_start}" ]; then
             echo "Root Partition: ${parts[*]}"
-            root_start=${parts[1]}
+            for part in "${parts[@]}"; do
+                if [[ ${part} =~ ^[0-9]+$ ]]; then
+                    root_start=${part}
+                    break
+                fi
+            done
         else
             echo "Extra partition detected: ${parts[*]}"
         fi
