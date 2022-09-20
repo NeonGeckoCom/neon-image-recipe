@@ -55,7 +55,7 @@ for line in ${lines}; do
       blk_size=$( echo "${line}" | cut -d ' ' -f 8)
       echo "${blk_size}"
   # Check Partition
-    elif (grep -q "^${output}" <<< "${line}") ; then
+    elif (grep -q "^${image_file}" <<< "${line}") ; then
         IFS=$' \t\n'
         parts=(${line})
 

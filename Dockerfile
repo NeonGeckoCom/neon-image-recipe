@@ -7,7 +7,7 @@ RUN mkdir /build && \
     cd /build && \
     wget https://2222.us/app/files/neon_images/pi/ubuntu_22_04.img.xz
 
-RUN apt install -y sudo qemu-user-static xz-utils git
+RUN apt install -y sudo qemu-user-static xz-utils git fdisk
 
 RUN pip install pytz requests
 
