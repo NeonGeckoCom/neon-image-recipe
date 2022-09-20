@@ -60,8 +60,10 @@ for line in ${lines}; do
         parts=(${line})
 
         if [ -z "${boot_start}" ]; then
+            echo "Boot Partition: ${parts[*]}"
             boot_start=${parts[1]}
         elif [ -z "${root_start}" ]; then
+            echo "Root Partition: ${parts[*]}"
             root_start=${parts[1]}
         else
             echo "Extra partition detected: ${parts[*]}"
