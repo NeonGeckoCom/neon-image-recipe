@@ -79,7 +79,7 @@ rm /etc/localtime
 ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
 # TODO: Can below be simplified?
-dist=$(grep "^Distributor:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
+dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
 if [ "${dist}" == 'Ubuntu' ]; then
     echo "Updating Device Hostname"
     # Change Hostname

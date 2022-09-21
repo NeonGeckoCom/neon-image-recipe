@@ -30,6 +30,7 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
+dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
 codename=$(grep "^Codename:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
 
 # Ensure Rasbperry Pi Sources are available
@@ -50,7 +51,13 @@ fi
 # Install system dependencies
 apt update
 apt install -y libraspberrypi-bin || echo "Failed to install libraspberrypi"
-apt install -y gcc make python3-pip i2c-tools pulseaudio pulseaudio-module-zeroconf alsa-utils git linux-headers-arm64
+
+if [ "${dist}" == 'Debian' ]; then
+    echo "Installing linux headers"
+    apt install -y linux-headers-arm64
+fi
+
+apt install -y gcc make python3-pip i2c-tools pulseaudio pulseaudio-module-zeroconf alsa-utils git
 CFLAGS="-fcommon" pip install smbus smbus2 spidev rpi.gpio
 
 # Determine kernel with build directory
