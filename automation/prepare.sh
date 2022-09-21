@@ -48,20 +48,18 @@ mkdir mnt
 
 # Determine Partition Offsets
 lines=$(fdisk -l "${image_file}")
-echo "${lines}"
 IFS=$'\n'
 for line in ${lines}; do
     # Check Block Size
     if (grep -q '^Units:' <<< "${line}") ; then
       blk_size=$( echo "${line}" | cut -d ' ' -f 8)
-      echo "${blk_size}"
   # Check Partition
     elif (grep -q "^${image_file}" <<< "${line}") ; then
         IFS=$' \t\n'
         parts=(${line})
 
         if [ -z "${boot_start}" ]; then
-            echo "Boot Partition: ${parts[*]}"
+            echo "Boot Partition: ${parts[0]}"
             for part in "${parts[@]}"; do
                 if [[ ${part} =~ ^[0-9]+$ ]]; then
                     boot_start=${part}
@@ -69,7 +67,7 @@ for line in ${lines}; do
                 fi
             done
         elif [ -z "${root_start}" ]; then
-            echo "Root Partition: ${parts[*]}"
+            echo "Root Partition: ${parts[0]}"
             for part in "${parts[@]}"; do
                 if [[ ${part} =~ ^[0-9]+$ ]]; then
                     root_start=${part}
@@ -91,7 +89,18 @@ echo "Copying Boot Overlay Files"
 # Ubuntu Server=1048576
 # Apertis=64000512
 sudo mount -o loop,offset=${boot} "${image_file}" boot || exit 10
-sudo cp -r ${recipe_dir}/00_boot_overlay/ubuntu_22_04/* boot/
+if [[ "${image_file}" == *"ubuntu_22_04"* ]]; then
+    echo "Applying Ubuntu 20.04 Boot Overlay"
+    sudo cp -r "${recipe_dir}/00_boot_overlay/ubuntu_22_04/"* boot/
+elif [[ "${image_file}" == *"ubuntu_20_04"* ]]; then
+    echo "Applying Ubuntu 22.04 Boot Overlay"
+    sudo cp -r "${recipe_dir}/00_boot_overlay/ubuntu_20_04/"* boot/
+elif [[ "${image_file}" == *"debian"* ]]; then
+    echo "Applying Debian Bullseye Boot Overlay"
+    sudo cp -r "${recipe_dir}/00_boot_overlay/debian/"* boot/
+else
+    echo "No Overlay for image: ${image_file}"
+fi
 sleep 1  # Avoid busy target issues
 sudo umount boot
 rm -r boot

@@ -30,26 +30,41 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
-kernels=($(ls /lib/modules))
-kernel=${kernels[0]}
-#kernel="5.4.0-1052-raspi"
+codename=$(grep "^Codename:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
 
 # Ensure Rasbperry Pi Sources are available
 apt update
 
 apt install -y libraspberrypi-bin
 if [ $? != 0 ]; then
-    curl http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - 2> /dev/null && \
-    echo deb http://archive.raspberrypi.org/debian/ bullseye main | tee /etc/apt/sources.list.d/raspberrypi.list
+    echo "Adding raspberry pi apt sources"
+    apt install -y curl
+    curl http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - 2> /dev/null
+    if [ "${codename}" == "bullseye" ]; then
+        echo "deb http://archive.raspberrypi.org/debian/ bullseye main" | tee /etc/apt/sources.list.d/raspberrypi.list
+    elif [ "${codename}" == "bookworm" ]; then
+        echo "deb http://archive.raspberrypi.org/debian/ bookworm main" | tee /etc/apt/sources.list.d/raspberrypi.list
+    fi
 fi
 
 # Install system dependencies
 apt update
-apt install -y gcc make python3-pip i2c-tools libraspberrypi-bin pulseaudio pulseaudio-module-zeroconf alsa-utils git
+apt install -y libraspberrypi-bin || echo "Failed to install libraspberrypi"
+apt install -y gcc make python3-pip i2c-tools pulseaudio pulseaudio-module-zeroconf alsa-utils git linux-headers-arm64
 CFLAGS="-fcommon" pip install smbus smbus2 spidev rpi.gpio
 
-# Install headers
-apt install -y "linux-headers-${kernel}"
+# Determine kernel with build directory
+kernels=($(ls /lib/modules))
+for k in "${kernels[@]}"; do
+    if [ -d "/lib/modules/${k}/build" ]; then
+        kernel=k
+    fi
+done
+if [ -z ${kernel} ]; then
+    echo "No build files available. Picking kernel=${kernels[0]}"
+    kernel=${kernels[0]}
+fi
+#kernel="5.4.0-1052-raspi"
 
 # Build and load VocalFusion Driver
 git clone https://github.com/OpenVoiceOS/vocalfusiondriver

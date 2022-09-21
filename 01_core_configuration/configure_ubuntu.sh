@@ -30,13 +30,20 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
+default_username="neon"  # Default user to create
+image_name="neon"  # Identifier for extra directories and hostname
+
+# Configure locale
+apt update
+apt install -y locales sudo systemd-sysv debconf lsb-release
+
 cp -r overlay/* /
-chmod -R ugo+x /opt/neon
+chmod -R ugo+x /opt/${image_name}
 
 # Add 'neon' user with default password
-adduser neon --gecos "" --disabled-password
-echo "neon:neon" | chpasswd
-passwd --expire neon
+adduser "${default_username}" --gecos "" --disabled-password
+echo "${default_username}:${default_username}" | chpasswd
+passwd --expire ${default_username}
 
 # Add any expected groups
 groupadd gpio
@@ -46,15 +53,15 @@ groupadd i2c
 groupadd dialout
 
 # Add neon user to groups
-usermod -aG sudo neon
-usermod -aG gpio neon
-usermod -aG video neon
-usermod -aG input neon
-usermod -aG render neon
-usermod -aG pulse neon
-usermod -aG pulse-access neon
-usermod -aG i2c neon
-usermod -aG dialout neon
+usermod -aG sudo ${default_username}
+usermod -aG gpio ${default_username}
+usermod -aG video ${default_username}
+usermod -aG input ${default_username}
+usermod -aG render ${default_username}
+usermod -aG pulse ${default_username}
+usermod -aG pulse-access ${default_username}
+usermod -aG i2c ${default_username}
+usermod -aG dialout ${default_username}
 
 # Add root user to groups
 usermod -aG pulse root
@@ -71,8 +78,15 @@ echo "America/Los_Angeles" > /etc/timezone
 rm /etc/localtime
 ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
-# Change Hostname
-sed -i "s|ubuntu|neon|g" /etc/hosts
-sed -i "s|ubuntu|neon|g" /etc/hostname
+# TODO: Can below be simplified?
+dist=$(grep "^Distributor:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
+if [ "${dist}" == 'Ubuntu' ]; then
+    echo "Updating Device Hostname"
+    # Change Hostname
+    sed -i "s|ubuntu|${image_name}|g" /etc/hosts
+    sed -i "s|ubuntu|${image_name}|g" /etc/hostname
+else
+    echo "${image_name} > /etc/hostname"
+fi
 
 echo "Core Configuration Complete"
