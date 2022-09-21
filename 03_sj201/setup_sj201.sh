@@ -61,12 +61,12 @@ apt install -y gcc make python3-pip i2c-tools pulseaudio pulseaudio-module-zeroc
 CFLAGS="-fcommon" pip install smbus smbus2 spidev rpi.gpio
 
 # Determine kernel with build directory
-if [ "$(ls -l /lib/modules | wc -l)" -gt 1 ]; then
+if [ "$(ls -1 /lib/modules | wc -l)" -gt 1 ]; then
     kernels=($(ls /lib/modules))
     echo "Looking for kernel with build dir in ${kernels[*]}"
     for k in "${kernels[@]}"; do
         if [ -d "/lib/modules/${k}/build" ]; then
-            kernel=k
+            kernel="${k}"
             echo "Selected kernel ${kernel}"
             break
         fi
