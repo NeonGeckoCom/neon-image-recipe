@@ -33,9 +33,13 @@ cd "${BASE_DIR}" || exit 10
 default_username="neon"  # Default user to create
 image_name="neon"  # Identifier for extra directories and hostname
 
-# Configure locale
-apt update
-apt install -y locales sudo systemd-sysv debconf lsb-release
+dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
+
+# Install Debian apt dependencies
+if [ "${dist}" == "Debian" ]; then
+    apt update
+    apt install -y locales sudo systemd-sysv debconf lsb-release dnsmasq
+fi
 
 cp -r overlay/* /
 chmod -R ugo+x /opt/${image_name}
@@ -79,7 +83,6 @@ rm /etc/localtime
 ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 
 # TODO: Can below be simplified?
-dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
 if [ "${dist}" == 'Ubuntu' ]; then
     echo "Updating Device Hostname"
     # Change Hostname
