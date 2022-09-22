@@ -39,7 +39,7 @@ if [ -f mnt/etc/.resolv.conf ]; then
     sudo mv mnt/etc/.resolv.conf mnt/etc/resolv.conf
 fi
 
-sudo mv mnt/root/bashrc mnt/root/.bashrc
+#sudo mv mnt/root/bashrc mnt/root/.bashrc
 sudo rm -rf mnt/tmp/*
 echo "Temporary files removed"
 sudo umount mnt/run/systemd/resolve || exit 10

@@ -35,6 +35,13 @@ apt update
 apt purge -y netplan.io
 apt install -y network-manager
 
+dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
+
+# Install Debian apt dependencies
+if [ "${dist}" == "Debian" ]; then
+    apt install -y systemd-resolved
+fi
+
 # Remove leftover config
 rm -rf /etc/cloud
 

@@ -31,14 +31,17 @@ BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
 default_username="neon"  # Default user to create
+default_password="neon"
 image_name="neon"  # Identifier for extra directories and hostname
+
+apt update
+apt install -y lsb-release
 
 dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
 
 # Install Debian apt dependencies
 if [ "${dist}" == "Debian" ]; then
-    apt update
-    apt install -y locales sudo systemd-sysv debconf lsb-release dnsmasq
+    apt install -y locales sudo systemd-sysv debconf
 fi
 
 cp -r overlay/* /
@@ -46,7 +49,7 @@ chmod -R ugo+x /opt/${image_name}
 
 # Add 'neon' user with default password
 adduser "${default_username}" --gecos "" --disabled-password
-echo "${default_username}:${default_username}" | chpasswd
+echo "${default_username}:${default_password}" | chpasswd
 passwd --expire ${default_username}
 
 # Add any expected groups
@@ -89,7 +92,7 @@ if [ "${dist}" == 'Ubuntu' ]; then
     sed -i "s|ubuntu|${image_name}|g" /etc/hosts
     sed -i "s|ubuntu|${image_name}|g" /etc/hostname
 else
-    echo "${image_name} > /etc/hostname"
+    echo "${image_name}" > /etc/hostname
 fi
 
 echo "Core Configuration Complete"
