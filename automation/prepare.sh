@@ -48,8 +48,8 @@ mkdir mnt
 loop=$(sudo losetup -fP --show "${image_file}")
 boot_part="${loop}p1"
 root_part="${loop}p2"
-sudo mount "${root_part}" mnt
-sudo mount "${boot_part}" mnt/boot/firmware
+sudo mount "${root_part}" "${build_dir}/mnt"
+sudo mount "${boot_part}" "${build_dir}/mnt/boot/firmware"
 ## Determine Partition Offsets
 #lines=$(fdisk -l "${image_file}")
 #IFS=$'\n'
