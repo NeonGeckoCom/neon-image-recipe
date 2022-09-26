@@ -35,14 +35,16 @@ default_password="neon"
 image_name="neon"  # Identifier for extra directories and hostname
 
 apt update
-apt install -y lsb-release
+apt install -y lsb-release cloud-guest-utils
 
 dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
 
 # Install Debian apt dependencies
-if [ "${dist}" == "Debian" ]; then
-    apt install -y locales sudo systemd-sysv debconf
-fi
+#if [ "${dist}" == "Debian" ]; then
+#    echo "Installing extra Debian dependencies"
+#    apt install -y locales sudo systemd-sysv debconf firmware-linux
+#    localectl set-locale LANG=C.utf8
+#fi
 
 cp -r overlay/* /
 chmod -R ugo+x /opt/${image_name}
