@@ -35,12 +35,12 @@ apt update
 apt purge -y netplan.io
 apt install -y network-manager
 
-dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
-
-# Install Debian apt dependencies
-if [ "${dist}" == "Debian" ]; then
-    apt install -y systemd-resolved
-fi
+#dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
+#
+## Install Debian apt dependencies
+#if [ "${dist}" == "Debian" ]; then
+#    apt install -y systemd-resolved
+#fi
 
 # Remove leftover config
 rm -rf /etc/cloud
@@ -49,7 +49,7 @@ rm -rf /etc/cloud
 systemctl disable systemd-networkd.socket
 systemctl disable systemd-networkd
 systemctl disable wpa_supplicant.service
-
+systemctl disable dnsmasq
 usermod -aG netdev neon
 
 # Add wifi-connect binary
