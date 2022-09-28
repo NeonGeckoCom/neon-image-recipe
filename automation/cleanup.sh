@@ -42,7 +42,10 @@ fi
 #sudo mv mnt/root/bashrc mnt/root/.bashrc
 sudo rm -rf mnt/tmp/*
 echo "Temporary files removed"
+sudo umount mnt/boot/firmware || echo "boot partition not mounted"
 sudo umount mnt/run/systemd/resolve || exit 10
 sudo umount mnt || exit 10
+rm -r mnt
+
 echo "Image unmounted"
 #rm -r mnt
