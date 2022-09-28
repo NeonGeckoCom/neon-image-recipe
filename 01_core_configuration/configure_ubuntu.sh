@@ -71,6 +71,7 @@ usermod -aG pulse ${default_username}
 usermod -aG pulse-access ${default_username}
 usermod -aG i2c ${default_username}
 usermod -aG dialout ${default_username}
+usermod -aG netdev ${default_username}
 
 # Add root user to groups
 usermod -aG pulse root

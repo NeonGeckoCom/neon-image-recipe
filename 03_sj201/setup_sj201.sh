@@ -31,30 +31,12 @@ BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
 dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
-codename=$(grep "^Codename:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
 
 # Ensure Rasbperry Pi Sources are available
 apt update
 
-apt install -y libraspberrypi-bin
-if [ $? != 0 ]; then
-    echo "Adding raspberry pi apt sources"
-    apt install -y curl
-    curl http://archive.raspberrypi.org/debian/raspberrypi.gpg.key | apt-key add - 2> /dev/null
-    if [ "${codename}" == "bullseye" ]; then
-        echo "deb http://archive.raspberrypi.org/debian/ bullseye main" | tee /etc/apt/sources.list.d/raspberrypi.list
-    elif [ "${codename}" == "bookworm" ]; then
-        echo "deb http://archive.raspberrypi.org/debian/ bookworm main" | tee /etc/apt/sources.list.d/raspberrypi.list
-    fi
-fi
-
-# Install system dependencies
-apt update
-apt install -y libraspberrypi-bin || echo "Failed to install libraspberrypi"
-
-if [ "${dist}" == 'Debian' ]; then
-    echo "Installing linux headers"
-    apt install -y linux-headers-arm64
+if [ "${dist}" == "Ubuntu" ]; then
+    apt install -y libraspberrypi-bin
 fi
 
 apt install -y gcc make python3-pip i2c-tools pulseaudio pulseaudio-module-zeroconf alsa-utils git
@@ -86,7 +68,7 @@ git clone https://github.com/OpenVoiceOS/vocalfusiondriver
 cd vocalfusiondriver/driver || exit 10
 sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
 make all || exit 2
-mkdir "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
+mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
 cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
 depmod ${kernel} -a
 # `modinfo -k ${kernel} vocalfusion-soundcard` should show the module info now
@@ -114,4 +96,4 @@ systemctl enable pulseaudio.service
 systemctl enable sj201
 systemctl enable sj201-shutdown
 
-echo "Audio Setup Complete"
+echo "SJ201 Setup Complete"
