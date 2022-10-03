@@ -43,10 +43,10 @@ recipe_dir="${BASE_DIR}/.."
 cd "${build_dir}" || exit 10
 
 #mkdir boot
-mkdir mnt
+mkdir "${build_dir}/mnt"
 
 loop=$(sudo losetup -fP --show "${image_file}")
-echo "${loop}"
+echo "loop=${loop}"
 boot_part="${loop}p1"
 root_part="${loop}p2"
 sudo mount "${root_part}" "${build_dir}/mnt"
