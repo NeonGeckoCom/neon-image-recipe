@@ -29,20 +29,37 @@
 
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
+dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
 
-# Install gui base dependencies
-apt update
-apt install -y git-core g++ cmake extra-cmake-modules gettext pkg-config qml-module-qtwebengine pkg-kde-tools \
-     qtbase5-dev qtdeclarative5-dev libkf5kio-dev libqt5websockets5-dev libkf5i18n-dev libkf5notifications-dev \
-     libkf5plasma-dev libqt5webview5-dev qtmultimedia5-dev gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly \
-     gstreamer1.0-libav qml-module-qtwayland-compositor libqt5multimedia5-plugins qml-module-qtmultimedia plasma-pa xorg \
-     qtwayland5 qml-module-qtwebchannel \
-     qml-module-qt-labs-folderlistmodel qt5ct qml-module-qtquick-shapes qml-module-qtquick-particles2 \
-     qml-module-qtquick-templates2 qml-module-qtquick-xmllistmodel qml-module-qtquick-localstorage \
-     qml-module-qmltermwidget qml-module-qttest qml-module-qtlocation qml-module-qtpositioning \
-     qml-module-qtgraphicaleffects qml-module-qtqml-models2 kirigami2-dev breeze-icon-theme kdeconnect \
-     qml-module-qtquick-virtualkeyboard libinput-tools --no-install-recommends
-     # qtvirtualkeyboard-plugin  TODO: No OSK until this is fixed
+if [ "${dist}" == 'Ubuntu' ]; then
+    # Install gui base dependencies
+    apt update
+    apt install -y git-core g++ cmake extra-cmake-modules gettext pkg-config qml-module-qtwebengine pkg-kde-tools \
+         qtbase5-dev qtdeclarative5-dev libkf5kio-dev libqt5websockets5-dev libkf5i18n-dev libkf5notifications-dev \
+         libkf5plasma-dev libqt5webview5-dev qtmultimedia5-dev gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly \
+         gstreamer1.0-libav qml-module-qtwayland-compositor libqt5multimedia5-plugins qml-module-qtmultimedia plasma-pa xorg \
+         qtwayland5 qml-module-qtwebchannel \
+         qml-module-qt-labs-folderlistmodel qt5ct qml-module-qtquick-shapes qml-module-qtquick-particles2 \
+         qml-module-qtquick-templates2 qml-module-qtquick-xmllistmodel qml-module-qtquick-localstorage \
+         qml-module-qmltermwidget qml-module-qttest qml-module-qtlocation qml-module-qtpositioning \
+         qml-module-qtgraphicaleffects qml-module-qtqml-models2 kirigami2-dev breeze-icon-theme kdeconnect \
+         qml-module-qtquick-virtualkeyboard libinput-tools --no-install-recommends
+
+    # TODO: Validate this with Ubuntu builds
+    git clone https://invent.kde.org/qt/qt/qtvirtualkeyboard/ -b v5.15.4-lts-lgpl
+    cd qtvirtualkeyboard || exit 10
+    cp -f /tmp/qvirtualkeyboardinputcontext_p.cpp src/virtualkeyboard/
+
+    mkdir build
+    cd build || exit 10
+    qmake .. CONFIG+="lang-all handwriting"
+    make -j${MAKE_THREADS}
+    make install
+    cd ../..
+    rm -rf qtvirtualkeyboard
+fi
+# TODO: Above should be if not debos image
+# Themes need kf 5.8x+
 
 # Install embedded-shell
 git clone https://github.com/OpenVoiceOS/ovos-shell
@@ -74,6 +91,7 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DKDE_INSTALL_LI
 make -j${MAKE_THREADS}
 make install
 
+# TODO: This can be moved to debos recipe
 echo "Installing Lottie-QML"
 cd "$TOP" || exit 10
 if [[ ! -d lottie-qml ]] ; then

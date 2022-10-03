@@ -23,8 +23,8 @@ audio_parsers:
 stt:
   module: deepspeech_stream_local
   fallback_module: ovos-stt-plugin-vosk
-  vosk:
-    model: /home/neon/.config/neon/vosk-model-small-en-us-0.15
+  ovos-stt-plugin-vosk:
+    model: /home/neon/.local/share/neon/vosk-model-small-en-us-0.15
   ovos-stt-plugin-server:
     url: https://stt.openvoiceos.com/stt
 confirm_listening: true
@@ -52,7 +52,11 @@ listener:
 hotwords:
   hey mycroft:
     active: false
+  hey_mycroft:
+    active: false
   wake up:
+    active: false
+  wake_up:
     active: false
   hey neon:
     module: ovos-ww-plugin-vosk

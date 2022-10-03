@@ -46,6 +46,6 @@ sudo umount mnt/boot/firmware || echo "boot partition not mounted"
 sudo umount mnt/run/systemd/resolve || exit 10
 sudo umount mnt || exit 10
 rm -r mnt
-
+# TODO: losetup unmount image files
 echo "Image unmounted"
 #rm -r mnt

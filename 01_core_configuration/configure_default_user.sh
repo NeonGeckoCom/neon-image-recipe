@@ -39,27 +39,32 @@ apt install -y lsb-release cloud-guest-utils
 
 dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
 
-# Install Debian apt dependencies
-#if [ "${dist}" == "Debian" ]; then
-#    echo "Installing extra Debian dependencies"
-#    apt install -y locales sudo systemd-sysv debconf firmware-linux
-#    localectl set-locale LANG=C.utf8
-#fi
+# Debos image will already have FS overlay and groups configured
+if [ "${dist}" == 'Ubuntu' ]; then
+    cp -r overlay/* /
+    chmod -R ugo+x /opt/${image_name}
+    # Add any expected groups
+    groupadd gpio
+    groupadd pulse
+    groupadd pulse-access
+    groupadd i2c
+    groupadd dialout
 
-cp -r overlay/* /
-chmod -R ugo+x /opt/${image_name}
+    # Add root user to groups
+    usermod -aG pulse root
+    usermod -aG pulse-access root
+
+    # Enable new services
+    systemctl enable resize_fs.service
+
+    # Disable extraneous services
+    systemctl disable snapd.service
+fi
 
 # Add 'neon' user with default password
 adduser "${default_username}" --gecos "" --disabled-password
 echo "${default_username}:${default_password}" | chpasswd
 passwd --expire ${default_username}
-
-# Add any expected groups
-groupadd gpio
-groupadd pulse
-groupadd pulse-access
-groupadd i2c
-groupadd dialout
 
 # Add neon user to groups
 usermod -aG sudo ${default_username}
@@ -73,15 +78,6 @@ usermod -aG i2c ${default_username}
 usermod -aG dialout ${default_username}
 usermod -aG netdev ${default_username}
 
-# Add root user to groups
-usermod -aG pulse root
-usermod -aG pulse-access root
-
-# Enable new services
-systemctl enable resize_fs.service
-
-# Disable extraneous services
-systemctl disable snapd.service
 
 # Set TZ
 echo "America/Los_Angeles" > /etc/timezone
