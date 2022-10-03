@@ -46,6 +46,7 @@ cd "${build_dir}" || exit 10
 mkdir mnt
 
 loop=$(sudo losetup -fP --show "${image_file}")
+echo "${loop}"
 boot_part="${loop}p1"
 root_part="${loop}p2"
 sudo mount "${root_part}" "${build_dir}/mnt"
@@ -163,3 +164,5 @@ fi
 sudo cp "${BASE_DIR}/resolv.conf" mnt/etc/resolv.conf
 
 sudo chroot mnt
+
+return "${loop}"

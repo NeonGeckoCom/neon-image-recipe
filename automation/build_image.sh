@@ -75,11 +75,11 @@ if [ -d "${output_dir}/overlay" ]; then
 fi
 # Cache sudo password for setup
 #echo "${passwd}" | sudo -S ls
-bash prepare.sh "${base_image_file}" "${build_dir}" -y
+loop=$(bash prepare.sh "${base_image_file}" "${build_dir}" -y)
 
 # Cache sudo password for cleanup
 #echo "${passwd}" | sudo -S ls
-bash cleanup.sh "${build_dir}"
+bash cleanup.sh "${build_dir}" "${loop}"
 
 if [ ! -d "${output_dir}" ]; then
     echo "Creating 'output' directory"

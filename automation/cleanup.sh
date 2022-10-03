@@ -28,6 +28,7 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 build_dir=${1}
+loop=${2}
 cd "${build_dir}" || exit 10
 
 # Re-enable restart prompts
@@ -46,6 +47,5 @@ sudo umount mnt/boot/firmware || echo "boot partition not mounted"
 sudo umount mnt/run/systemd/resolve || exit 10
 sudo umount mnt || exit 10
 rm -r mnt
-# TODO: losetup unmount image files
+sudo losetup -d "${loop}"
 echo "Image unmounted"
-#rm -r mnt
