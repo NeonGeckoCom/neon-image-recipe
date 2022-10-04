@@ -104,11 +104,8 @@ if [[ "${image_file}" == *"ubuntu_22_04"* ]]; then
 elif [[ "${image_file}" == *"ubuntu_20_04"* ]]; then
     echo "Applying Ubuntu 22.04 Boot Overlay"
     sudo cp -r "${recipe_dir}/00_boot_overlay/ubuntu_20_04/"* mnt/boot/firmware/
-elif [[ "${image_file}" == *"debian"* ]]; then
-    echo "Applying Debian Bullseye Boot Overlay"
-    sudo cp -r "${recipe_dir}/00_boot_overlay/debian/"* mnt/boot/firmware/
 else
-    echo "No Overlay for image: ${image_file}"
+    echo "No boot overlay for base image: ${image_file}"
 fi
 #sleep 1  # Avoid busy target issues
 #sudo umount boot
