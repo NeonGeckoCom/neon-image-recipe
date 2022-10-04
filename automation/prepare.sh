@@ -45,7 +45,8 @@ cd "${build_dir}" || exit 10
 #mkdir boot
 mkdir "${build_dir}/mnt"
 
-loop=$(sudo losetup -fP --show "${image_file}")
+sudo mknod "${build_dir}/loop" b 7 99
+loop=$(sudo losetup -P -f /dev/loop99 "${image_file}")
 echo "loop=${loop}"
 boot_part="${loop}p1"
 root_part="${loop}p2"
