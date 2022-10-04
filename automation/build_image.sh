@@ -92,7 +92,7 @@ echo "${meta}">"${output_dir}/${start}_meta.json" && echo "Wrote Metadata"
 # Rename completed image file
 filename="${start}_neon.img"
 echo "Writing output file to: ${build_dir}/${filename}"
-mv "${build_dir}/ubuntu_22_04.img" "${build_dir}/${filename}"
+mv "${build_dir}/${base_image}.img" "${build_dir}/${filename}"
 
 # Compress image and move to output directory
 echo "Compressing output file. This may take an hour or two..."

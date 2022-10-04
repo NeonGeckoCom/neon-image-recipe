@@ -62,6 +62,9 @@ pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF:-dev}#egg=n
 echo "Core Installed"
 neon-install-default-skills && echo "Default git skills installed" || exit 2
 
+# Clean cache
+pip cache remove *
+
 # Download model files
 mkdir -p /home/neon/.local/share/neon
 wget -O /home/neon/.local/share/neon/vosk-model-small-en-us-0.15.zip https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
