@@ -31,7 +31,9 @@ you want to use. Set `MAKE_THREADS` to the number of threads to use for `make` p
 docker run \
 -v /home/${USER}/output:/output:rw \
 -v /run/systemd/resolve:/run/systemd/resolve \
--v /dev:/dev \
+-v /dev/loop99:/dev/loop99 \
+-v /dev/loop99p1:/dev/loop99p1 \
+-v /dev/loop99p2:/dev/loop99p2 \
 -e CORE_REF=${CORE_REF:-dev} \
 -e RECIPE_REF=${RECIPE_REF:-master} \
 -e BASE_IMAGE=${BASE_IMAGE:-ubuntu_22_04} \
