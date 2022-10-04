@@ -50,7 +50,7 @@ mkdir "${build_dir}/mnt"
 #sudo mknod /dev/loop99p2 b 259 8
 #sudo rm -r /dev/loop99p1
 #sudo rm -r /dev/loop99p2
-loop=$(sudo losetup -P "${build_dir}/loop" "${image_file}")
+loop=$(sudo losetup -P /dev/loop99 "${image_file}")
 boot_part=/dev/loop99p1
 root_part=/dev/loop99p2
 sudo mount "${root_part}" "${build_dir}/mnt"
