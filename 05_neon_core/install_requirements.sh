@@ -62,8 +62,9 @@ pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF:-dev}#egg=n
 echo "Core Installed"
 neon-install-default-skills && echo "Default git skills installed" || exit 2
 
-# Clean cache
-pip cache remove *
+# Clean package caches
+rm -rf /root/.cache/pip
+rm -rf /var/cache/apt/archives/*
 
 # Download model files
 mkdir -p /home/neon/.local/share/neon
