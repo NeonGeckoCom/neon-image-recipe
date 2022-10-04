@@ -45,7 +45,9 @@ cd "${build_dir}" || exit 10
 #mkdir boot
 mkdir "${build_dir}/mnt"
 
-sudo mknod "${build_dir}/loop" b 7 99
+#sudo mknod "${build_dir}/loop" b 7 99
+#sudo mknod /dev/loop99p1 b 259 7
+#sudo mknod /dev/loop99p2 b 259 8
 sudo rm -r /dev/loop99p1
 sudo rm -r /dev/loop99p2
 loop=$(sudo losetup -P "${build_dir}/loop" "${image_file}")
