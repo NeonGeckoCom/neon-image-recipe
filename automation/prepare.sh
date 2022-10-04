@@ -46,10 +46,9 @@ cd "${build_dir}" || exit 10
 mkdir "${build_dir}/mnt"
 
 sudo mknod "${build_dir}/loop" b 7 99
-loop=$(sudo losetup -P -f /dev/loop99 "${image_file}")
-echo "loop=${loop}"
-boot_part="${loop}p1"
-root_part="${loop}p2"
+loop=$(sudo losetup -P "${build_dir}/loop" "${image_file}")
+boot_part=/dev/loop99p1
+root_part=/dev/loop99p2
 sudo mount "${root_part}" "${build_dir}/mnt"
 sudo mount "${boot_part}" "${build_dir}/mnt/boot/firmware"
 ## Determine Partition Offsets
