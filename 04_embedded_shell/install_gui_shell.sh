@@ -31,6 +31,9 @@ BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
 
+# Copy overlay files
+cp -r overlay/* /
+
 if [ "${dist}" == 'Ubuntu' ]; then
     # Install gui base dependencies
     apt update
@@ -48,7 +51,7 @@ if [ "${dist}" == 'Ubuntu' ]; then
     # TODO: Validate this with Ubuntu builds
     git clone https://invent.kde.org/qt/qt/qtvirtualkeyboard/ -b v5.15.4-lts-lgpl
     cd qtvirtualkeyboard || exit 10
-    cp -f /tmp/qvirtualkeyboardinputcontext_p.cpp src/virtualkeyboard/
+    mv /opt/qvirtualkeyboardinputcontext_p.cpp src/virtualkeyboard/
 
     mkdir build
     cd build || exit 10
@@ -111,8 +114,7 @@ make install
 cd "${BASE_DIR}" || exit 10
 rm -rf mycroft-gui
 
-# Copy overlay files and enable gui service
-cp -r overlay/* /
+# Permission overlay files and enable gui service
 chmod -R ugo+x /usr/bin
 chown -R neon:neon /home/neon
 systemctl enable gui-shell
