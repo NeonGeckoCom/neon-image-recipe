@@ -168,5 +168,3 @@ fi
 sudo cp "${BASE_DIR}/resolv.conf" mnt/etc/resolv.conf
 
 sudo chroot mnt
-
-return "${loop}"
