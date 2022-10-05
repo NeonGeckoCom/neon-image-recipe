@@ -3,6 +3,8 @@ Description=Neon GUI Listener
 PartOf=neon.service
 After=neon.service
 After=neon-bus.service
+Before=neon-skills.service
+Before=neon-enclosure.service
 
 [Service]
 Restart=always
@@ -14,5 +16,6 @@ ExecStart=/bin/bash /opt/neon/launch_service.sh neon_gui_service
 ExecStop=/bin/bash /opt/neon/kill_service.sh neon_gui_service
 StandardOutput=append:/home/neon/logs/gui.log
 StandardError=inherit
+
 [Install]
 WantedBy=neon.service

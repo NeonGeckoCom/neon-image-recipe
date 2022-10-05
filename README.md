@@ -31,6 +31,9 @@ you want to use. Set `MAKE_THREADS` to the number of threads to use for `make` p
 sudo mknod /dev/loop99 b 7 99
 sudo mknod /dev/loop99p1 b 259 7
 sudo mknod /dev/loop99p2 b 259 8
+sudo chown root:disk /dev/loop99*
+sudo chmod ug+rw /dev/loop99*
+
 docker run \
 -v /home/${USER}/output:/output:rw \
 -v /run/systemd/resolve:/run/systemd/resolve \
@@ -39,14 +42,13 @@ docker run \
 -v /dev/loop99p2:/dev/loop99p2 \
 -e CORE_REF=${CORE_REF:-dev} \
 -e RECIPE_REF=${RECIPE_REF:-master} \
--e BASE_IMAGE=${BASE_IMAGE:-ubuntu_22_04} \
+-e BASE_IMAGE=${BASE_IMAGE:-debian-base-image-rpi4} \
 -e MAKE_THREADS=${MAKE_THREADS:-4} \
 --privileged \
 --network=host \
 --name=neon-image-builder \
 neon-image-builder
 ```
-TODO: BASE_IMAGE should be changed to debian_bullseye
 
 
 The entire build process will generally take several hours; it takes 1-2 hours

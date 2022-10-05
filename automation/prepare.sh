@@ -42,62 +42,16 @@ BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 recipe_dir="${BASE_DIR}/.."
 cd "${build_dir}" || exit 10
 
-#mkdir boot
+# Mount base image
 mkdir "${build_dir}/mnt"
-
-#sudo mknod "${build_dir}/loop" b 7 99
-#sudo mknod /dev/loop99p1 b 259 7
-#sudo mknod /dev/loop99p2 b 259 8
-#sudo rm -r /dev/loop99p1
-#sudo rm -r /dev/loop99p2
-loop=$(sudo losetup -P /dev/loop99 "${image_file}")
+sudo losetup -d /dev/loop99 || echo "Nothing to unmount"
+sudo losetup -P /dev/loop99 "${image_file}"
 boot_part=/dev/loop99p1
 root_part=/dev/loop99p2
 sudo mount "${root_part}" "${build_dir}/mnt"
 sudo mount "${boot_part}" "${build_dir}/mnt/boot/firmware"
-## Determine Partition Offsets
-#lines=$(fdisk -l "${image_file}")
-#IFS=$'\n'
-#for line in ${lines}; do
-#    # Check Block Size
-#    if (grep -q '^Units:' <<< "${line}") ; then
-#      blk_size=$( echo "${line}" | cut -d ' ' -f 8)
-#  # Check Partition
-#    elif (grep -q "^${image_file}" <<< "${line}") ; then
-#        IFS=$' \t\n'
-#        parts=(${line})
-#
-#        if [ -z "${boot_start}" ]; then
-#            echo "Boot Partition: ${parts[0]}"
-#            for part in "${parts[@]}"; do
-#                if [[ ${part} =~ ^[0-9]+$ ]]; then
-#                    boot_start=${part}
-#                    break
-#                fi
-#            done
-#        elif [ -z "${root_start}" ]; then
-#            echo "Root Partition: ${parts[0]}"
-#            for part in "${parts[@]}"; do
-#                if [[ ${part} =~ ^[0-9]+$ ]]; then
-#                    root_start=${part}
-#                    break
-#                fi
-#            done
-#        else
-#            echo "Extra partition detected: ${parts[*]}"
-#        fi
-#    fi
-#done
-#boot=$((boot_start*blk_size))
-#root=$((root_start*blk_size))
-#echo "boot=${boot}"
-#echo "root=${root}"
 
 echo "Copying Boot Overlay Files"
-# RaspiOS Lite=4194304
-# Ubuntu Server=1048576
-# Apertis=64000512
-#sudo mount -o loop,offset=${boot} "${image_file}" boot || exit 10
 if [[ "${image_file}" == *"ubuntu_22_04"* ]]; then
     echo "Applying Ubuntu 20.04 Boot Overlay"
     sudo cp -r "${recipe_dir}/00_boot_overlay/ubuntu_22_04/"* mnt/boot/firmware/
@@ -107,16 +61,7 @@ elif [[ "${image_file}" == *"ubuntu_20_04"* ]]; then
 else
     echo "No boot overlay for base image: ${image_file}"
 fi
-#sleep 1  # Avoid busy target issues
-#sudo umount boot
-#rm -r boot
-#echo "Boot Files Configured"
 
-#echo "Mounting Image FS"
-# RaspiOS Lite=272629760
-# Ubuntu Server=269484032
-# Apertis=256000512
-#sudo mount -o loop,offset=${root} "${image_file}" mnt || exit 10
 sudo mkdir -p mnt/run/systemd/resolve
 sudo mount --bind /run/systemd/resolve mnt/run/systemd/resolve  && echo "Mounted resolve directory from host" || exit 10
 

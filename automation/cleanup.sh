@@ -39,6 +39,12 @@ if [ -f mnt/etc/.resolv.conf ]; then
     sudo mv mnt/etc/.resolv.conf mnt/etc/resolv.conf
 fi
 
+# Cleanup root bashrc
+sudo rm mnt/root/.bashrc
+if [ -f mnt/root/bashrc ]; then
+    sudo mv mnt/root/bashrc mnt/root/.bashrc
+fi
+
 #sudo mv mnt/root/bashrc mnt/root/.bashrc
 sudo rm -rf mnt/tmp/*
 echo "Temporary files removed"
