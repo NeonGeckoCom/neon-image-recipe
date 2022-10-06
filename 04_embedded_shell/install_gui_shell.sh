@@ -47,19 +47,7 @@ if [ "${dist}" == 'Ubuntu' ]; then
          qml-module-qmltermwidget qml-module-qttest qml-module-qtlocation qml-module-qtpositioning \
          qml-module-qtgraphicaleffects qml-module-qtqml-models2 kirigami2-dev breeze-icon-theme kdeconnect \
          qml-module-qtquick-virtualkeyboard libinput-tools --no-install-recommends
-
-    # TODO: Validate this with Ubuntu builds
-    git clone https://invent.kde.org/qt/qt/qtvirtualkeyboard/ -b v5.15.4-lts-lgpl
-    cd qtvirtualkeyboard || exit 10
-    mv /opt/qvirtualkeyboardinputcontext_p.cpp src/virtualkeyboard/
-
-    mkdir build
-    cd build || exit 10
-    qmake .. CONFIG+="lang-all handwriting"
-    make -j${MAKE_THREADS}
-    make install
-    cd ../..
-    rm -rf qtvirtualkeyboard
+        # qtvirtualkeyboard
 fi
 # TODO: Above should be if not debos image
 # Themes need kf 5.8x+

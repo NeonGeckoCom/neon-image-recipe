@@ -138,6 +138,7 @@ skills:
   - https://github.com/JarbasSkills/skill-icanhazdadjokes/tree/dev
   - https://github.com/OpenVoiceOS/skill-ovos-homescreen/tree/main
 PHAL:
+  wait_for_gui: True
   ovos-PHAL-plugin-balena-wifi:
     debug: false
     ssid: Neon
@@ -153,8 +154,7 @@ ready_settings:
   - audio
   - gui
   - internet
-server:
-  disabled: True
+  - setup
 system:
   protected_keys:
     remote:

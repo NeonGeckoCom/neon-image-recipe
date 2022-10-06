@@ -1,6 +1,7 @@
 [Unit]
 Description=Neon A.I. Software stack.
 After=pulseaudio.service
+After=gui-shell.service
 
 [Service]
 Type=oneshot

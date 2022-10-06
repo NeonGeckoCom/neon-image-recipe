@@ -46,10 +46,8 @@ cd "${build_dir}" || exit 10
 mkdir "${build_dir}/mnt"
 sudo losetup -d /dev/loop99 || echo "Nothing to unmount"
 sudo losetup -P /dev/loop99 "${image_file}"
-boot_part=/dev/loop99p1
-root_part=/dev/loop99p2
-sudo mount "${root_part}" "${build_dir}/mnt"
-sudo mount "${boot_part}" "${build_dir}/mnt/boot/firmware"
+sudo mount /dev/loop99p2 "${build_dir}/mnt"
+sudo mount /dev/loop99p1 "${build_dir}/mnt/boot/firmware"
 
 echo "Copying Boot Overlay Files"
 if [[ "${image_file}" == *"ubuntu_22_04"* ]]; then
