@@ -1,5 +1,19 @@
 {
-  "selected_backend": "Disabled",
-  "selected_tts": "coqui",
+  "offline_stt": "deepspeech",
+  "offline_fallback_stt": "ovos-stt-plugin-vosk",
+  "online_stt": "google_cloud_streaming",
+  "online_stt_cfg": {"google_cloud_streaming": {
+    "lang": "en-us",
+    "credential": null
+  }},
+  "online_fallback_stt": "ovos-stt-plugin-vosk",
+  "online_male": null,
+  "online_male_cfg": {},
+  "offline_male":  "ovos-tts-plugin-mimic",
+  "offline_male_cfg": {},
+  "online_female": null,
+  "online_female_cfg": {},
+  "offline_female": "coqui",
+  "offline_female_cfg": {},
   "__mycroft_skill_firstrun": false
 }
