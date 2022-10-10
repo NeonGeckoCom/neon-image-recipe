@@ -1,5 +1,5 @@
 {
-  "offline_stt": "deepspeech",
+  "offline_stt": "deepspeech_stream_local",
   "offline_fallback_stt": "ovos-stt-plugin-vosk",
   "online_stt": "google_cloud_streaming",
   "online_stt_cfg": {"google_cloud_streaming": {

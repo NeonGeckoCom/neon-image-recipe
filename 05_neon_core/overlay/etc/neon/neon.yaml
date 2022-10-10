@@ -29,6 +29,7 @@ stt:
     url: https://stt.openvoiceos.com/stt
 confirm_listening: true
 listener:
+  wake_word: hey_neon
   sample_rate: 16000
   mic_meter_ipc: false
   record_wake_words: false
@@ -50,15 +51,11 @@ listener:
   recording_timeout_with_silence: 3.0
   instant_listen: true
 hotwords:
-  hey mycroft:
-    active: false
   hey_mycroft:
-    active: false
-  wake up:
     active: false
   wake_up:
     active: false
-  hey neon:
+  hey_neon:
     module: ovos-ww-plugin-vosk
     listen: true
     debug: false
@@ -151,7 +148,7 @@ ready_settings:
   - skills
   - speech
   - audio
-  - gui
+  - gui_service
   - internet
   - setup
 system:
