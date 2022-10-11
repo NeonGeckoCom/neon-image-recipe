@@ -29,10 +29,8 @@ Then, run the container to create a Neon Image. Set `CORE_REF` to the branch of
 you want to use. Set `MAKE_THREADS` to the number of threads to use for `make` processes.
 ```shell
 sudo mknod /dev/loop99 b 7 99
-sudo mknod /dev/loop99p1 b 259 7
-sudo mknod /dev/loop99p2 b 259 8
-sudo chown root:disk /dev/loop99*
-sudo chmod ug+rw /dev/loop99*
+sudo losetup -P /dev/loop99 {image}
+# TODO: Above is just creating p1/p2 files; can this be done via mknod or something?
 
 docker run \
 -v /home/${USER}/output:/output:rw \

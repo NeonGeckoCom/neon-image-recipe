@@ -31,7 +31,9 @@ build_dir=${1}
 cd "${build_dir}" || exit 10
 
 # Re-enable restart prompts
-sudo mv mnt/etc/apt/apt.conf.d/.99needrestart mnt/etc/apt/apt.conf.d/99needrestart
+if [ -f mnt/etc/apt/apt.conf.d/.99needrestart ]; then
+    sudo mv mnt/etc/apt/apt.conf.d/.99needrestart mnt/etc/apt/apt.conf.d/99needrestart
+fi
 
 # Cleanup overridden resolv.conf
 sudo rm mnt/etc/resolv.conf
@@ -42,6 +44,7 @@ fi
 # Cleanup root bashrc
 sudo rm mnt/root/.bashrc
 if [ -f mnt/root/bashrc ]; then
+    echo "Restoring root .bashrc file"
     sudo mv mnt/root/bashrc mnt/root/.bashrc
 fi
 
