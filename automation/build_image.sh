@@ -69,10 +69,13 @@ meta="$(python get_metadata.py)"
 echo "${meta}">"${build_dir}/meta.json"
 echo "Got Build Info"
 
-# Check for Extra FS overlay
+# Apply any runtime overlay files
 if [ -d "${output_dir}/overlay" ]; then
-    cp -r "${output_dir}/overlay" "${build_dir}"
+    echo "Copying Runtime Overlay Files"
+    cp -r "${output_dir}/overlay" "${build_dir}/overlay"
 fi
+
+
 # Cache sudo password for setup
 #echo "${passwd}" | sudo -S ls
 bash prepare.sh "${base_image_file}" "${build_dir}" -y
@@ -87,7 +90,7 @@ if [ ! -d "${output_dir}" ]; then
 fi
 
 cd "${BASE_DIR}" || exit 10
-echo "${meta}">"${output_dir}/${start}_meta.json" && echo "Wrote Metadata"
+#echo "${meta}">"${output_dir}/${start}_meta.json" && echo "Wrote Metadata"
 
 # Rename completed image file
 filename="${start}_neon.img"

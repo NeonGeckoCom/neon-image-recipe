@@ -68,8 +68,8 @@ sudo mkdir -p mnt/opt/neon
 sudo mv "${build_dir}/meta.json" mnt/opt/neon/build_info.json || echo "No meta.json for image"
 
 if [ -d "${build_dir}/overlay" ]; then
-    echo "Copying build-time overlay files"
-    cp -r ${build_dir}/overlay/* mnt
+    echo "Applying build-time overlay files"
+    sudo cp -r "${build_dir}/overlay/"* mnt/
 fi
 
 echo "Copying Image scripts"
