@@ -66,6 +66,12 @@ adduser "${default_username}" --gecos "" --disabled-password
 echo "${default_username}:${default_password}" | chpasswd
 passwd --expire ${default_username}
 
+if [ ! -f "/home/${default_username}/.profile" ]; then
+    echo ".profile missing for added user"
+    cp -r /etc/skel/* "/home/${default_username}"
+    chown -R ${default_username}:${default_username} "/home/${default_username}"
+fi
+
 # Add neon user to groups
 usermod -aG sudo ${default_username}
 usermod -aG gpio ${default_username}
