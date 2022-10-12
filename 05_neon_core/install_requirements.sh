@@ -46,6 +46,9 @@ apt update
 apt install -y sox gcc libfann-dev swig libssl-dev portaudio19-dev git libpulse-dev mimic \
     espeak-ng g++ wireless-tools plasma-nm unzip ffmpeg || exit 1
 
+# Cleanup apt caches
+rm -rf /var/cache/apt/archives/*
+
 # Configure venv for deepspeech compat.
 python3.7 -m venv "/home/neon/venv" || exit 10
 . /home/neon/venv/bin/activate
@@ -62,9 +65,8 @@ pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF:-dev}#egg=n
 echo "Core Installed"
 neon-install-default-skills && echo "Default git skills installed" || exit 2
 
-# Clean package caches
+# Clean pip caches
 rm -rf /root/.cache/pip
-rm -rf /var/cache/apt/archives/*
 
 # Download model files
 mkdir -p /home/neon/.local/share/neon
