@@ -68,8 +68,7 @@ passwd --expire ${default_username}
 
 if [ ! -f "/home/${default_username}/.profile" ]; then
     echo ".profile missing for added user"
-    ls /etc/skel || exit 10
-    cp -r /etc/skel/ "/home/${default_username}"
+    cp -r /etc/skel/.* "/home/${default_username}"
     chown -R ${default_username}:${default_username} "/home/${default_username}"
 fi
 
