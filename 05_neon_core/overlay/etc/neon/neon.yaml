@@ -151,6 +151,8 @@ ready_settings:
   - gui_service
   - internet
   - setup
+server:
+  backend_type: offline
 system:
   protected_keys:
     remote:
