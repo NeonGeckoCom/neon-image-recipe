@@ -107,4 +107,9 @@ fi
 
 sudo cp "${BASE_DIR}/resolv.conf" mnt/etc/resolv.conf
 
+# Move swapfile for build
+if [ -f mnt/swapfile ]; then
+    sudo mv mnt/swapfile "${build_dir}/swapfile"
+fi
+
 sudo chroot mnt

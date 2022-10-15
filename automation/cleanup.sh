@@ -48,6 +48,11 @@ if [ -f mnt/root/bashrc ]; then
     sudo mv mnt/root/bashrc mnt/root/.bashrc
 fi
 
+# Replace swapfile for build
+if [ -f "${build_dir}/swapfile" ]; then
+    sudo mv "${build_dir}/swapfile" mnt/swapfile
+fi
+
 #sudo mv mnt/root/bashrc mnt/root/.bashrc
 sudo rm -rf mnt/tmp/*
 echo "Temporary files removed"
