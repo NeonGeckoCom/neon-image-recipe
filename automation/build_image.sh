@@ -100,8 +100,7 @@ mv "${build_dir}/${base_image}.img" "${build_dir}/${filename}"
 # Compress image and move to output directory
 echo "Compressing output file. This may take several minutes to hours..."
 compress_start=$(date +%s)
-bash pishrink.sh -sZa "${build_dir}/${filename}"
-#xz --compress -T0 "${build_dir}/${filename}" -v
+bash pishrink.sh -sZa "${build_dir}/${filename}" || xz --compress -T0 "${build_dir}/${filename}" -v
 compress_time=$(($(($(date +%s)-compress_start))/60))
 echo "Image compressed in ${compress_time} minutes"
 mv "${build_dir}/${filename}.xz" "${output_dir}/${filename}.xz"

@@ -109,6 +109,7 @@ sudo cp "${BASE_DIR}/resolv.conf" mnt/etc/resolv.conf
 
 # Move swapfile for build
 if [ -f mnt/swapfile ]; then
+    echo "relocating swapfile for build process"
     sudo mv mnt/swapfile "${build_dir}/swapfile"
 fi
 

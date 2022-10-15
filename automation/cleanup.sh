@@ -50,6 +50,7 @@ fi
 
 # Replace swapfile for build
 if [ -f "${build_dir}/swapfile" ]; then
+    echo "replacing swapfile"
     sudo mv "${build_dir}/swapfile" mnt/swapfile
 fi
 
