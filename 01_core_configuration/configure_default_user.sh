@@ -76,6 +76,7 @@ fi
 usermod -aG sudo ${default_username}
 usermod -aG gpio ${default_username}
 usermod -aG video ${default_username}
+usermod -aG audio ${default_username}
 usermod -aG input ${default_username}
 usermod -aG render ${default_username}
 usermod -aG pulse ${default_username}
