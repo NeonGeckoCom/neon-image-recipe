@@ -30,14 +30,24 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
+dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
+
+if [ "${dist}" == 'Ubuntu' ]; then
+    add-apt-repository -y ppa:deadsnakes/ppa
+    apt update
+    apt install -y python3.7-dev python3.7-venv
+fi
+
 # install system packages
-add-apt-repository -y ppa:deadsnakes/ppa
 apt install -y curl
 curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | apt-key add - 2> /dev/null && \
 echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | tee /etc/apt/sources.list.d/mycroft-desktop.list
 apt update
-apt install -y sox gcc libfann-dev swig libssl-dev portaudio19-dev git libpulse-dev python3.7-dev python3.7-venv mimic \
-    espeak-ng g++ wireless-tools plasma-nm|| exit 1
+apt install -y sox gcc libfann-dev swig libssl-dev portaudio19-dev git libpulse-dev mimic \
+    espeak-ng g++ wireless-tools plasma-nm unzip ffmpeg || exit 1
+
+# Cleanup apt caches
+rm -rf /var/cache/apt/archives/*
 
 # Configure venv for deepspeech compat.
 python3.7 -m venv "/home/neon/venv" || exit 10
@@ -55,6 +65,9 @@ pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF:-dev}#egg=n
 echo "Core Installed"
 neon-install-default-skills && echo "Default git skills installed" || exit 2
 
+# Clean pip caches
+rm -rf /root/.cache/pip
+
 # Download model files
 mkdir -p /home/neon/.local/share/neon
 wget -O /home/neon/.local/share/neon/vosk-model-small-en-us-0.15.zip https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
@@ -70,12 +83,6 @@ export XDG_CACHE_HOME="/home/neon/.cache"
 neon-audio init-plugin || echo "Failed to init TTS"
 # Init STT model
 neon-speech init-plugin || echo "Failed to init STT"
-
-# Relocate any cached data to the `neon` user
-#rm -r /root/.cache/pip
-#mkdir -p /home/neon/.cache
-#cp -rf /root/.cache/* /home/neon/.cache/
-#rm -r /root/.cache
 
 mkdir /home/neon/logs
 

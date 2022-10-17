@@ -28,17 +28,26 @@ Then, run the container to create a Neon Image. Set `CORE_REF` to the branch of
 `neon-core` that you want to build and `RECIPE_REF` to the branch of `neon-image-recipe`
 you want to use. Set `MAKE_THREADS` to the number of threads to use for `make` processes.
 ```shell
+sudo mknod /dev/loop99 b 7 99
+sudo losetup -P /dev/loop99 {image}
+# TODO: Above is just creating p1/p2 files; can this be done via mknod or something?
+
 docker run \
 -v /home/${USER}/output:/output:rw \
 -v /run/systemd/resolve:/run/systemd/resolve \
+-v /dev/loop99:/dev/loop99 \
+-v /dev/loop99p1:/dev/loop99p1 \
+-v /dev/loop99p2:/dev/loop99p2 \
 -e CORE_REF=${CORE_REF:-dev} \
 -e RECIPE_REF=${RECIPE_REF:-master} \
+-e BASE_IMAGE=${BASE_IMAGE:-debian-base-image-rpi4} \
 -e MAKE_THREADS=${MAKE_THREADS:-4} \
 --privileged \
 --network=host \
 --name=neon-image-builder \
 neon-image-builder
 ```
+
 
 The entire build process will generally take several hours; it takes 1-2 hours
 on a build server with 2x Xeon Gold 5118 CPUs (48T Total).

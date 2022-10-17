@@ -33,6 +33,9 @@ set -Ee
 cd /tmp || exit 10
 source vars.sh
 
+dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
+
+
 print_opts() {
     clear
     echo ""
@@ -54,7 +57,7 @@ get_choice() {
     read -p "Select Option " opt
     case ${opt} in
         0) exit 0;;
-        1) bash 01_core_configuration/configure_ubuntu.sh;;
+        1) bash 01_core_configuration/configure_default_user.sh;;
         2) bash 02_network_manager/setup_wifi_connect.sh;;
         3) bash 03_sj201/setup_sj201.sh;;
         4) bash 04_embedded_shell/install_gui_shell.sh;;
@@ -67,14 +70,18 @@ get_choice() {
 }
 
 if [ ${1} == "all" ]; then
-    bash 01_core_configuration/configure_ubuntu.sh
-    bash 02_network_manager/setup_wifi_connect.sh
-    bash 03_sj201/setup_sj201.sh
+    bash 01_core_configuration/configure_default_user.sh
+    if [ "${dist}" == 'Ubuntu' ]; then
+        bash 02_network_manager/setup_wifi_connect.sh
+        bash 03_sj201/setup_sj201.sh
+    fi
     bash 04_embedded_shell/install_gui_shell.sh
     bash 05_neon_core/install_requirements.sh
     bash 06_dashboard/install_ovos_dashboard.sh
-    bash 07_camera/configure_camera.sh
-    bash 08_splash_screen/configure_splash.sh
+    if [ "${dist}" == 'Ubuntu' ]; then
+        bash 07_camera/configure_camera.sh
+        bash 08_splash_screen/configure_splash.sh
+    fi
     exit 0
 fi
 

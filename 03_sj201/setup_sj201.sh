@@ -30,20 +30,45 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
-kernel=$(ls /lib/modules)
-#kernel="5.4.0-1052-raspi"
+dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
 
-# Install system dependencies
+# Ensure Rasbperry Pi Sources are available
 apt update
-apt install -y gcc make python3-pip i2c-tools libraspberrypi-bin pulseaudio pulseaudio-module-zeroconf alsa-utils git
+
+if [ "${dist}" == "Ubuntu" ]; then
+    apt install -y libraspberrypi-bin
+fi
+
+apt install -y gcc make python3-pip i2c-tools pulseaudio pulseaudio-module-zeroconf alsa-utils git
 CFLAGS="-fcommon" pip install smbus smbus2 spidev rpi.gpio
+
+# Determine kernel with build directory
+if [ "$(ls -1 /lib/modules | wc -l)" -gt 1 ]; then
+    kernels=($(ls /lib/modules))
+    echo "Looking for kernel with build dir in ${kernels[*]}"
+    for k in "${kernels[@]}"; do
+        if [ -d "/lib/modules/${k}/build" ]; then
+            kernel="${k}"
+            echo "Selected kernel ${kernel}"
+            break
+        fi
+    done
+    if [ -z ${kernel} ]; then
+        echo "No build files available. Picking kernel=${kernels[0]}"
+        kernel=${kernels[0]}
+    fi
+else
+    kernel=$(ls /lib/modules)
+    echo "Only one kernel available: ${kernel}"
+fi
+#kernel="5.4.0-1052-raspi"
 
 # Build and load VocalFusion Driver
 git clone https://github.com/OpenVoiceOS/vocalfusiondriver
 cd vocalfusiondriver/driver || exit 10
 sed -ie "s|\$(shell uname -r)|${kernel}|g" Makefile
 make all || exit 2
-mkdir "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
+mkdir -p "/lib/modules/${kernel}/kernel/drivers/vocalfusion"
 cp vocalfusion* "/lib/modules/${kernel}/kernel/drivers/vocalfusion" || exit 2
 depmod ${kernel} -a
 # `modinfo -k ${kernel} vocalfusion-soundcard` should show the module info now
@@ -71,4 +96,4 @@ systemctl enable pulseaudio.service
 systemctl enable sj201
 systemctl enable sj201-shutdown
 
-echo "Audio Setup Complete"
+echo "SJ201 Setup Complete"

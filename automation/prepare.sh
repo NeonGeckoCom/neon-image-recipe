@@ -42,25 +42,24 @@ BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 recipe_dir="${BASE_DIR}/.."
 cd "${build_dir}" || exit 10
 
-mkdir boot
-mkdir mnt
+# Mount base image
+mkdir "${build_dir}/mnt"
+sudo losetup -d /dev/loop99 || echo "Nothing to unmount"
+sudo losetup -P /dev/loop99 "${image_file}"
+sudo mount /dev/loop99p2 "${build_dir}/mnt"
+sudo mount /dev/loop99p1 "${build_dir}/mnt/boot/firmware"
 
 echo "Copying Boot Overlay Files"
-# RaspiOS Lite=4194304
-# Ubuntu Server=1048576
-# Apertis=64000512
-sudo mount -o loop,offset=1048576 "${image_file}" boot || exit 10
-sudo cp -r ${recipe_dir}/00_boot_overlay/ubuntu_22_04/* boot/
-sleep 1  # Avoid busy target issues
-sudo umount boot
-rm -r boot
-echo "Boot Files Configured"
+if [[ "${image_file}" == *"ubuntu_22_04"* ]]; then
+    echo "Applying Ubuntu 20.04 Boot Overlay"
+    sudo cp -r "${recipe_dir}/00_boot_overlay/ubuntu_22_04/"* mnt/boot/firmware/
+elif [[ "${image_file}" == *"ubuntu_20_04"* ]]; then
+    echo "Applying Ubuntu 22.04 Boot Overlay"
+    sudo cp -r "${recipe_dir}/00_boot_overlay/ubuntu_20_04/"* mnt/boot/firmware/
+else
+    echo "No boot overlay for base image: ${image_file}"
+fi
 
-echo "Mounting Image FS"
-# RaspiOS Lite=272629760
-# Ubuntu Server=269484032
-# Apertis=256000512
-sudo mount -o loop,offset=269484032 "${image_file}" mnt || exit 10
 sudo mkdir -p mnt/run/systemd/resolve
 sudo mount --bind /run/systemd/resolve mnt/run/systemd/resolve  && echo "Mounted resolve directory from host" || exit 10
 
@@ -69,8 +68,8 @@ sudo mkdir -p mnt/opt/neon
 sudo mv "${build_dir}/meta.json" mnt/opt/neon/build_info.json || echo "No meta.json for image"
 
 if [ -d "${build_dir}/overlay" ]; then
-    echo "Copying build-time overlay files"
-    cp -r ${build_dir}/overlay/* mnt
+    echo "Applying build-time overlay files"
+    sudo cp -r "${build_dir}/overlay/"* mnt/
 fi
 
 echo "Copying Image scripts"
@@ -101,4 +100,17 @@ fi
 if [ -f mnt/etc/apt/apt.conf.d/99needrestart ]; then
     sudo mv mnt/etc/apt/apt.conf.d/99needrestart mnt/etc/apt/apt.conf.d/.99needrestart
 fi
+
+if [ -f mnt/etc/resolv.conf ]; then
+    sudo mv mnt/etc/resolv.conf mnt/etc/.resolv.conf
+fi
+
+sudo cp "${BASE_DIR}/resolv.conf" mnt/etc/resolv.conf
+
+# Move swapfile for build
+if [ -f mnt/swapfile ]; then
+    echo "relocating swapfile for build process"
+    sudo mv mnt/swapfile "${build_dir}/swapfile"
+fi
+
 sudo chroot mnt
