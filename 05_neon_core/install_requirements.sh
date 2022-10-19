@@ -93,6 +93,7 @@ chown -R neon:neon /home/neon
 chmod +x /opt/neon/*.sh
 chmod +x /usr/sbin/*
 chmod +x /usr/bin/*
+chmod +x /usr/libexec/*
 
 # Enable services
 systemctl enable neon

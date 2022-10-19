@@ -5,11 +5,12 @@ After=neon.service
 After=neon-bus.service
 
 [Service]
+Type=notify
 Restart=always
 User=neon
 WorkingDirectory=/opt/neon
 # Start module when unit is started
-ExecStart=/bin/bash /opt/neon/launch_service.sh neon_speech_client
+ExecStart=/usr/libexec/neon-speech.py
 # Stop module when unit is stopped
 #ExecStop=/bin/bash /opt/neon/kill_service.sh neon_speech_client
 StandardOutput=append:/home/neon/logs/voice.log

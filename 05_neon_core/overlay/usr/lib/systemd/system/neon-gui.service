@@ -7,11 +7,12 @@ Before=neon-skills.service
 Before=neon-enclosure.service
 
 [Service]
+Type=notify
 Restart=always
 User=neon
 WorkingDirectory=/opt/neon
 # Start module when unit is started
-ExecStart=/bin/bash /opt/neon/launch_service.sh neon_gui_service
+ExecStart=/usr/libexec/neon-gui.py
 # Stop module when unit is stopped
 #ExecStop=/bin/bash /opt/neon/kill_service.sh neon_gui_service
 StandardOutput=append:/home/neon/logs/gui.log
