@@ -70,7 +70,6 @@ skills:
   # TODO: Defaults are just patching skills not yet pip installable
   - https://github.com/JarbasSkills/skill-icanhazdadjokes/tree/dev
 PHAL:
-  wait_for_gui: True
   ovos-PHAL-plugin-balena-wifi:
     debug: false
     ssid: Neon
