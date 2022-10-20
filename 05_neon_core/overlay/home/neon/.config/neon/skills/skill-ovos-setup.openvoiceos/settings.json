@@ -3,6 +3,8 @@
     "enable_backend_selection": false,
     "enable_stt_selection": true,
     "enable_tts_selection": true,
+    "preferred_stt_engine": "deepspeech_stream_local",
+    "preferred_tts_engine": "coqui",
     "tts_blacklist": [
         "ovos-tts-plugin-SAM",
         "ovos-tts-plugin-beepspeak",
