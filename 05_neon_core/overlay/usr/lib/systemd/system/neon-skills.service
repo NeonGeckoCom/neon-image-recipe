@@ -6,13 +6,11 @@ After=neon-bus.service
 
 [Service]
 Type=notify
+TimeoutStopSec=30
 Restart=always
 User=neon
 WorkingDirectory=/opt/neon
-# Start module when unit is started
 ExecStart=/usr/libexec/neon-skills.py
-# Stop module when unit is stopped
-#ExecStop=/bin/bash /opt/neon/kill_service.sh neon_skills_service
 StandardOutput=append:/home/neon/logs/skills.log
 StandardError=inherit
 [Install]

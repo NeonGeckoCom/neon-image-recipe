@@ -6,13 +6,11 @@ After=neon-bus.service
 
 [Service]
 Type=notify
+TimeoutStopSec=30
 Restart=always
 User=neon
 WorkingDirectory=/opt/neon
-# Start module when unit is started
 ExecStart=/usr/libexec/neon-audio.py
-# Stop module when unit is stopped
-#ExecStop=/bin/bash /opt/neon/kill_service.sh neon_audio_client
 StandardOutput=append:/home/neon/logs/audio.log
 StandardError=inherit
 [Install]

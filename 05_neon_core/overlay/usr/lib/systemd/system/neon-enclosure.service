@@ -6,15 +6,13 @@ After=neon-bus.service
 
 [Service]
 Type=notify
+TimeoutStopSec=30
 Restart=always
 User=neon
 Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
 Environment=XDG_RUNTIME_DIR=/run/user/1000
 WorkingDirectory=/opt/neon
-# Start module when unit is started
 ExecStart=/usr/libexec/neon-enclosure.py
-# Stop module when unit is stopped
-#ExecStop=/bin/bash /opt/neon/kill_service.sh neon_enclosure_client
 StandardOutput=append:/home/neon/logs/enclosure.log
 StandardError=inherit
 [Install]
