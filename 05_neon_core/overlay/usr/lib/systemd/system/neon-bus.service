@@ -5,13 +5,12 @@ After=neon.service
 After=neon-logs.service
 
 [Service]
+Type=notify
+TimeoutStopSec=30
 Restart=always
 User=neon
 WorkingDirectory=/opt/neon
-# Start module when unit is started
-ExecStart=/bin/bash /opt/neon/launch_service.sh neon_messagebus_service
-# Stop module when unit is stopped
-ExecStop=/bin/bash /opt/neon/kill_service.sh neon_messagebus_service
+ExecStart=/usr/libexec/neon-messagebus.py
 StandardOutput=append:/home/neon/logs/bus.log
 StandardError=inherit
 [Install]

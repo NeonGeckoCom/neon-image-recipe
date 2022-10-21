@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/home/neon/venv/bin/python
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Framework
 # All trademark and other rights reserved by their respective owners
 # Copyright 2008-2022 Neongecko.com Inc.
@@ -27,11 +27,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# TODO: This can probably be handled in config instead of a script
-# this is executed on host in first run of a brand new image!
+from neon_utils.process_utils import start_systemd_service
+from neon_messagebus.service.__main__ import main
 
-# disable wifi power management
-sudo iwconfig wlan0 power off
-
-# clean bash history
-history -c
+start_systemd_service(main)

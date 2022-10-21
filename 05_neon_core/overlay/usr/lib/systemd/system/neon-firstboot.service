@@ -14,3 +14,4 @@ ExecStart=/usr/sbin/first_boot.sh
 
 [Install]
 WantedBy=sysinit.target
+WantedBy=neon.service
