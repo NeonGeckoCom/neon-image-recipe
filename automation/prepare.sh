@@ -50,11 +50,11 @@ sudo mount /dev/loop99p2 "${build_dir}/mnt"
 sudo mount /dev/loop99p1 "${build_dir}/mnt/boot/firmware"
 
 echo "Copying Boot Overlay Files"
-if [[ "${image_file}" == *"ubuntu_22_04"* ]]; then
-    echo "Applying Ubuntu 20.04 Boot Overlay"
-    sudo cp -r "${recipe_dir}/00_boot_overlay/ubuntu_22_04/"* mnt/boot/firmware/
-elif [[ "${image_file}" == *"ubuntu_20_04"* ]]; then
+if [[ "${image_file}" == *ubuntu_22_04* ]]; then
     echo "Applying Ubuntu 22.04 Boot Overlay"
+    sudo cp -r "${recipe_dir}/00_boot_overlay/ubuntu_22_04/"* mnt/boot/firmware/
+elif [[ "${image_file}" == *ubuntu_20_04* ]]; then
+    echo "Applying Ubuntu 20.04 Boot Overlay"
     sudo cp -r "${recipe_dir}/00_boot_overlay/ubuntu_20_04/"* mnt/boot/firmware/
 else
     echo "No boot overlay for base image: ${image_file}"
