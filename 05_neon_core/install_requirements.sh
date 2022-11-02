@@ -97,14 +97,6 @@ chmod +x /usr/libexec/*
 
 # Enable services
 systemctl enable neon
-systemctl enable neon-logs
-systemctl enable neon-audio
-systemctl enable neon-bus
-systemctl enable neon-firstboot
-systemctl enable neon-gui
-systemctl enable neon-skills
-systemctl enable neon-speech
-systemctl enable neon-enclosure
 
 # Disable wifi setup service
 systemctl disable wifi-setup
