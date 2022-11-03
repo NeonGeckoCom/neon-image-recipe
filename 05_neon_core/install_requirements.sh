@@ -44,7 +44,7 @@ curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | a
 echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | tee /etc/apt/sources.list.d/mycroft-desktop.list
 apt update
 apt install -y sox gcc libfann-dev swig libssl-dev portaudio19-dev git libpulse-dev mimic \
-    espeak-ng g++ wireless-tools plasma-nm unzip ffmpeg || exit 1
+    espeak-ng g++ wireless-tools plasma-nm unzip ffmpeg make || exit 1
 
 # Cleanup apt caches
 rm -rf /var/cache/apt/archives/*
@@ -96,7 +96,14 @@ chmod +x /usr/bin/*
 chmod +x /usr/libexec/*
 
 # Enable services
-systemctl enable neon
+systemctl enable neon.service
+systemctl enable neon-admin-enclosure.service
+systemctl enable neon-audio.service
+systemctl enable neon-enclosure.service
+systemctl enable neon-gui.service
+systemctl enable neon-logs.service
+systemctl enable neon-skills.service
+systemctl enable neon-speech.service
 
 # Disable wifi setup service
 systemctl disable wifi-setup
