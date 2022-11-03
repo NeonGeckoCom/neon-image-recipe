@@ -99,6 +99,7 @@ chmod +x /usr/libexec/*
 systemctl enable neon.service
 systemctl enable neon-admin-enclosure.service
 systemctl enable neon-audio.service
+systemctl enable neon-bus.service
 systemctl enable neon-enclosure.service
 systemctl enable neon-gui.service
 systemctl enable neon-logs.service
