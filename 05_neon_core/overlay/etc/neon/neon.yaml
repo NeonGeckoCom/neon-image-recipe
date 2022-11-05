@@ -79,6 +79,9 @@ PHAL:
     device: Neon Device
   ovos-PHAL-plugin-system:
     core_service: neon.service
+  admin:
+    neon-phal-plugin-led_ring_neopixel:
+      enabled: true
 ready_settings:
   - skills
   - speech
