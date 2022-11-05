@@ -84,7 +84,7 @@ neon-audio init-plugin || echo "Failed to init TTS"
 # Init STT model
 neon-speech init-plugin || echo "Failed to init STT"
 
-mkdir /home/neon/logs
+ln -s /home/neon/.local/state/neon /home/neon/logs
 
 # Fix home directory permissions
 chown -R neon:neon /home/neon

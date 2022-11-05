@@ -13,8 +13,8 @@ Restart=always
 User=neon
 WorkingDirectory=/opt/neon
 ExecStart=/usr/libexec/neon-gui.py
-StandardOutput=append:/home/neon/logs/gui.log
-StandardError=inherit
+#StandardOutput=append:/home/neon/logs/gui.log
+#StandardError=inherit
 
 [Install]
 WantedBy=neon.service

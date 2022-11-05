@@ -11,7 +11,7 @@ Restart=always
 User=neon
 WorkingDirectory=/opt/neon
 ExecStart=/usr/libexec/neon-audio.py
-StandardOutput=append:/home/neon/logs/audio.log
-StandardError=inherit
+#StandardOutput=append:/home/neon/logs/audio.log
+#StandardError=inherit
 [Install]
 WantedBy=neon.service
