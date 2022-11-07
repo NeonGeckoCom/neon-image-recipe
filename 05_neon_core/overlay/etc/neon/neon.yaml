@@ -99,7 +99,7 @@ server:
 log_dir: /home/neon/logs/
 log_level: DEBUG
 logs:
-  path:
+  path: /home/neon/.local/state/neon/
   max_bytes: 50000000
   backup_count: 3
   diagnostic: False
