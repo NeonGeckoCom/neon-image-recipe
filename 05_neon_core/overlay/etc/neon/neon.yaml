@@ -79,12 +79,13 @@ PHAL:
     device: Neon Device
   ovos-PHAL-plugin-system:
     core_service: neon.service
+  neon-phal-plugin-linear-led:
+    listen_color: neon_orange
+    mute_color: burnt_orange
+    sleep_color: red
   admin:
-    neon-phal-plugin-linear-led:
+    neon-phal-plugin-linear_led_neopixel:
       enabled: true
-      listen_color: neon_orange
-      mute_color: burnt_orange
-      sleep_color: red
 ready_settings:
   - skills
   - speech
