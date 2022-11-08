@@ -27,11 +27,19 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# TODO: This can probably be handled in config instead of a script
 # this is executed on host in first run of a brand new image!
 
 # disable wifi power management
-sudo iwconfig wlan0 power off
+iwconfig wlan0 power off
+
+# Check if poweroff service is required
+# TODO: Remove below once base image is updated
+source /home/neon/venv/bin/activate
+
+rev=$(sj201 get-revision)
+if [ "${rev}" == '10' ]; then
+    systemctl enable poweroff.service
+fi
 
 # clean bash history
 history -c

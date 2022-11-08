@@ -10,7 +10,8 @@ ConditionPathExists=/etc/firstboot
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/sbin/first_boot.sh
+User=root
+ExecStart=/opt/neon/first_boot.sh
 
 [Install]
 WantedBy=sysinit.target

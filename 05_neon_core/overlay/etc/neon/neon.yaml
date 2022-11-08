@@ -84,7 +84,7 @@ PHAL:
     mute_color: burnt_orange
     sleep_color: red
   admin:
-    neon-phal-plugin-linear_led_neopixel:
+    neon-phal-plugin-linear-led-neopixel:
       enabled: true
 ready_settings:
   - skills
