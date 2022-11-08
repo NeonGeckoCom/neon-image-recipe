@@ -44,7 +44,7 @@ curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | a
 echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | tee /etc/apt/sources.list.d/mycroft-desktop.list
 apt update
 apt install -y sox gcc libfann-dev swig libssl-dev portaudio19-dev git libpulse-dev mimic \
-    espeak-ng g++ wireless-tools plasma-nm unzip ffmpeg || exit 1
+    espeak-ng g++ wireless-tools plasma-nm unzip ffmpeg make || exit 1
 
 # Cleanup apt caches
 rm -rf /var/cache/apt/archives/*
@@ -84,8 +84,8 @@ neon-audio init-plugin || echo "Failed to init TTS"
 # Init STT model
 neon-speech init-plugin || echo "Failed to init STT"
 
-mkdir /home/neon/logs
-
+ln -s /home/neon/.local/state/neon /home/neon/logs
+rm /home/neon/.local/state/neon/.keep
 # Fix home directory permissions
 chown -R neon:neon /home/neon
 
@@ -96,15 +96,15 @@ chmod +x /usr/bin/*
 chmod +x /usr/libexec/*
 
 # Enable services
-systemctl enable neon
-systemctl enable neon-logs
-systemctl enable neon-audio
-systemctl enable neon-bus
-systemctl enable neon-firstboot
-systemctl enable neon-gui
-systemctl enable neon-skills
-systemctl enable neon-speech
-systemctl enable neon-enclosure
+systemctl enable neon.service
+systemctl enable neon-admin-enclosure.service
+systemctl enable neon-audio.service
+systemctl enable neon-bus.service
+systemctl enable neon-enclosure.service
+systemctl enable neon-gui.service
+systemctl enable neon-logs.service
+systemctl enable neon-skills.service
+systemctl enable neon-speech.service
 
 # Disable wifi setup service
 systemctl disable wifi-setup

@@ -79,6 +79,13 @@ PHAL:
     device: Neon Device
   ovos-PHAL-plugin-system:
     core_service: neon.service
+  neon-phal-plugin-linear-led:
+    listen_color: neon_orange
+    mute_color: burnt_orange
+    sleep_color: red
+  admin:
+    neon-phal-plugin-linear_led_neopixel:
+      enabled: true
 ready_settings:
   - skills
   - speech
@@ -93,7 +100,7 @@ server:
 log_dir: /home/neon/logs/
 log_level: DEBUG
 logs:
-  path:
+  path: /home/neon/.local/state/neon/
   max_bytes: 50000000
   backup_count: 3
   diagnostic: False

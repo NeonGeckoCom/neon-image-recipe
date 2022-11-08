@@ -1,20 +1,18 @@
 [Unit]
-Description=Neon Enclosure
+Description=Neon Admin Enclosure
 PartOf=neon.service
-After=neon.service
 After=neon-bus.service
-After=neon-gui.service
 
 [Service]
 Type=notify
 TimeoutStopSec=30
 Restart=always
-User=neon
+User=root
 Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
 Environment=XDG_RUNTIME_DIR=/run/user/1000
 WorkingDirectory=/opt/neon
-ExecStart=/usr/libexec/neon-enclosure.py
-#StandardOutput=append:/home/neon/logs/enclosure.log
+ExecStart=/usr/libexec/neon-admin-enclosure.py
+#StandardOutput=append:/home/neon/logs/admin.log
 #StandardError=inherit
 [Install]
 WantedBy=neon.service

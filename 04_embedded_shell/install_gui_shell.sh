@@ -47,7 +47,7 @@ if [ "${dist}" == 'Ubuntu' ]; then
          qml-module-qmltermwidget qml-module-qttest qml-module-qtlocation qml-module-qtpositioning \
          qml-module-qtgraphicaleffects qml-module-qtqml-models2 kirigami2-dev breeze-icon-theme kdeconnect \
          qml-module-qtquick-virtualkeyboard libinput-tools --no-install-recommends
-        # qtvirtualkeyboard
+        # qtvirtualkeyboard  libqt5virtualkeyboard5
 fi
 # TODO: Above should be if not debos image
 # Themes need kf 5.8x+
