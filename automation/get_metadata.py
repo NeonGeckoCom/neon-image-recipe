@@ -27,6 +27,8 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import json
+import os
+
 import pytz
 import requests
 from subprocess import check_output
@@ -41,6 +43,21 @@ def get_commit_and_time(repo, branch="master"):
                                     '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=pytz.UTC).timestamp()
     return commit_sha, commit_time
 
+
+def get_base_image_info():
+    base_image_filename = os.getenv('BASE_IMAGE')
+    if not base_image_filename:
+        return {'name': "unknown",
+                'time': "unknown"}
+    try:
+        name, time = base_image_filename.split('_', 1)
+        timestamp = datetime.strptime(time, '%Y-%m-%d_%H_%M').replace(tzinfo=pytz.UTC).timestamp()
+        return {'name': name,
+                'time': timestamp}
+    except Exception as e:
+        print(e)
+        return {'name': "unknown",
+                'time': "unknown"}
 
 def get_project_meta(core_branch="dev"):
     try:
@@ -72,7 +89,9 @@ def get_project_meta(core_branch="dev"):
             "sha": core_sha,
             "time": core_time,
             "version": core_version
-        }}
+    },
+        "base_os": get_base_image_info()
+    }
     return meta
 
 
