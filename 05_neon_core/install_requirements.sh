@@ -105,7 +105,7 @@ systemctl enable neon-gui.service
 systemctl enable neon-logs.service
 systemctl enable neon-skills.service
 systemctl enable neon-speech.service
-
+systemctl enable neon-firstboot.service
 # Disable wifi setup service
 systemctl disable wifi-setup
 

@@ -30,7 +30,7 @@
 # this is executed on host in first run of a brand new image!
 
 # disable wifi power management
-iwconfig wlan0 power off
+#iwconfig wlan0 power off
 
 # Check if poweroff service is required
 # TODO: Remove below once base image is updated
@@ -39,7 +39,10 @@ source /home/neon/venv/bin/activate
 rev=$(sj201 get-revision)
 if [ "${rev}" == '10' ]; then
     systemctl enable poweroff.service
+    echo "gpio=13=pu" > /boot/firmware/config.txt
 fi
+
+rm /opt/neon/firstboot
 
 # clean bash history
 history -c
