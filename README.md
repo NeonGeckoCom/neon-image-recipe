@@ -48,6 +48,13 @@ docker run \
 neon-image-builder
 ```
 
+### Base Image Selection
+The `BASE_IMAGE` environment variable selects which image is mounted and built on.
+Valid base images are uploaded to [2222.us](https://2222.us/app/files/neon_images/pi/) and
+specified by their file basename (i.e. `debian-base-image-rpi4_2022-11-08_18_50`).
+The latest `debian-base-image-rpi4` is generally a good choice and is the latest
+output from [neon_debos](https://github.com/neongeckocom/neon_debos).
+
 
 The entire build process will generally take several hours; it takes 1-2 hours
 on a build server with 2x Xeon Gold 5118 CPUs (48T Total).
