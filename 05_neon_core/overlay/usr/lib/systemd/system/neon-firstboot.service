@@ -1,7 +1,7 @@
 [Unit]
 Description=Neon First boot run script
-After=systemd-remount-fs.service
 Before=neon.service
+After=sj201.service
 ConditionPathExists=/opt/neon/firstboot
 
 [Service]

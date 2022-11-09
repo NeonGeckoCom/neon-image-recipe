@@ -27,18 +27,14 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# this is executed on host in first run of a brand new image!
+revision=$(sj201 get-revision)
 
-# disable wifi power management
-#iwconfig wlan0 power off
-
-# Check if GPIO Fan shutdown service is required
-rev=$(sj201 get-revision)
-if [ "${rev}" == '10' ]; then
-    echo "gpio=13=pu" > /boot/firmware/config.txt
+if [ "${revision}" == "10" ]; then
+    echo "Setting screen brightness to 0"
+    echo 0 > /sys/class/backlight/rpi_backlight/brightness
+    echo "Setting fan speed to 0"
+    sj201 set-fan-speed 0
+    while true; do
+        sleep 100
+    done
 fi
-
-rm /opt/neon/firstboot
-
-# clean bash history
-history -c

@@ -40,7 +40,7 @@ if [ "${dist}" == "Ubuntu" ]; then
 fi
 
 apt install -y gcc make python3-pip i2c-tools pulseaudio pulseaudio-module-zeroconf alsa-utils git
-CFLAGS="-fcommon" pip install smbus smbus2 spidev rpi.gpio
+CFLAGS="-fcommon" pip sj201-interface
 
 # Determine kernel with build directory
 if [ "$(ls -1 /lib/modules | wc -l)" -gt 1 ]; then
@@ -95,5 +95,6 @@ fi
 systemctl enable pulseaudio.service
 systemctl enable sj201
 systemctl enable sj201-shutdown
+systemctl enable poweroff
 
 echo "SJ201 Setup Complete"
