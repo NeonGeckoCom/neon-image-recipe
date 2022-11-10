@@ -2,8 +2,10 @@ play_wav_cmdline: "play %1"
 play_mp3_cmdline: "play %1"
 play_ogg_cmdline: "play %1"
 tts:
-  module: coqui
-  fallback_module: ovos-tts-plugin-mimic
+  module: neon-tts-plugin-mozilla-remote
+  fallback_module: coqui
+  neon-tts-plugin-mozilla-remote:
+    api_url: "https://mtts.2022.us/api/tts"
 Audio:
   backends:
     OCP:
@@ -14,8 +16,8 @@ audio_parsers:
   blacklist:
   - gender
 stt:
-  module: deepspeech_stream_local
-  fallback_module: ovos-stt-plugin-vosk
+  module: google_cloud_streaming
+  fallback_module: deepspeech_stream_local
   ovos-stt-plugin-vosk:
     model: /home/neon/.local/share/neon/vosk-model-small-en-us-0.15
 confirm_listening: true
@@ -64,6 +66,9 @@ MQ:
 signal:
   use_signal_files: false
 skills:
+  blacklisted_skills:
+    - skill-ovos-setup.openvoiceos
+  # TODO: extra_directories here is the default, can it be removed?
   extra_directories:
     - /home/neon/.local/share/neon/skills
   default_skills:
@@ -91,7 +96,7 @@ ready_settings:
   - audio
   - gui_service
   - internet
-  - setup
+#  - setup
 server:
   backend_type: offline
 
