@@ -2,9 +2,9 @@ play_wav_cmdline: "play %1"
 play_mp3_cmdline: "play %1"
 play_ogg_cmdline: "play %1"
 tts:
-  module: neon-tts-plugin-mozilla-remote
+  module: mozilla_remote
   fallback_module: coqui
-  neon-tts-plugin-mozilla-remote:
+  mozilla_remote:
     api_url: "https://mtts.2022.us/api/tts"
 Audio:
   backends:
