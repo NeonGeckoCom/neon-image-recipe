@@ -76,6 +76,7 @@ skills:
   - https://github.com/JarbasSkills/skill-icanhazdadjokes/tree/dev
 PHAL:
   ovos-PHAL-plugin-balena-wifi:
+    enabled: false
     debug: false
     ssid: Neon
     psk:
