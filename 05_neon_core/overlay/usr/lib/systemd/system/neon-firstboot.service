@@ -1,17 +1,15 @@
 [Unit]
 Description=Neon First boot run script
-DefaultDependencies=no
-Conflicts=shutdown.target
-After=systemd-remount-fs.service
-Before=sysinit.target shutdown.target
-ConditionPathIsReadWrite=/etc
-ConditionPathExists=/etc/firstboot
+Before=neon.service
+After=sj201.service
+ConditionPathExists=/opt/neon/firstboot
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/usr/sbin/first_boot.sh
+User=root
+ExecStart=/opt/neon/first_boot.sh
 
 [Install]
-WantedBy=sysinit.target
+WantedBy=multi-user.target
 WantedBy=neon.service
