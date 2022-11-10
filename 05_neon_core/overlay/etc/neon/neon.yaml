@@ -2,8 +2,10 @@ play_wav_cmdline: "play %1"
 play_mp3_cmdline: "play %1"
 play_ogg_cmdline: "play %1"
 tts:
-  module: mozilla_remote
+  module: neon-tts-plugin-larynx-server
   fallback_module: coqui
+  neon-tts-plugin-larynx-server:
+    host: "https://larynx.2022.us"
   mozilla_remote:
     api_url: "https://mtts.2022.us/api/tts"
 Audio:
