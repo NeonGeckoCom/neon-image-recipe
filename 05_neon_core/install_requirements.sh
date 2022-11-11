@@ -83,7 +83,7 @@ export XDG_CACHE_HOME="/home/neon/.cache"
 # Init TTS model
 neon-audio init-plugin -p coqui || echo "Failed to init TTS"
 # Init STT model
-neon-speech init-plugin -p deepspeech || echo "Failed to init STT"
+neon-speech init-plugin -p deepspeech_stream_local || echo "Failed to init STT"
 
 ln -s /home/neon/.local/state/neon /home/neon/logs
 rm /home/neon/.local/state/neon/.keep
