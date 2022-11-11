@@ -79,10 +79,11 @@ export XDG_CONFIG_HOME="/home/neon/.config"
 export XDG_DATA_HOME="/home/neon/.local/share"
 export XDG_CACHE_HOME="/home/neon/.cache"
 
+# TODO: Below init neon_core default fallbacks but CLIs should add an option to init configured fallbacks
 # Init TTS model
-neon-audio init-plugin || echo "Failed to init TTS"
+neon-audio init-plugin -p coqui || echo "Failed to init TTS"
 # Init STT model
-neon-speech init-plugin || echo "Failed to init STT"
+neon-speech init-plugin -p deepspeech_stream_local || echo "Failed to init STT"
 
 ln -s /home/neon/.local/state/neon /home/neon/logs
 rm /home/neon/.local/state/neon/.keep

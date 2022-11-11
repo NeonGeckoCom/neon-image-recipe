@@ -1,8 +1,8 @@
 {
     "enable_language_selection": false,
     "enable_backend_selection": false,
-    "enable_stt_selection": true,
-    "enable_tts_selection": true,
+    "enable_stt_selection": false,
+    "enable_tts_selection": false,
     "preferred_stt_engine": "deepspeech_stream_local",
     "preferred_tts_engine": "coqui",
     "tts_blacklist": [
