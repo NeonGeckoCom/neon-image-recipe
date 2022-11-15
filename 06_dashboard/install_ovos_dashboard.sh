@@ -37,12 +37,7 @@ cd /usr/local/share || exit 10
 git clone https://github.com/openvoiceos/ovos-dashboard
 rm -rf ovos-dashboard/.git
 
-# TODO: Update when ovos-dashboard can be listed as a Python dependency
-#pip install -r ovos-dashboard/requirements.txt
-pip install flask==2.0.1 flask-fontawesome==0.1.5 flask-socketio==4.3.2 flask-wtf==0.15.1 jinja2==3.0.1 \
-    markupsafe==2.0.1 wtforms==2.3.3 werkzeug==2.0.1 bidict==0.21.3 click~=8.0 flask-simplelogin==0.1.0 \
-    itsdangerous==2.0.1 psutil~=5.8 py-cpuinfo==8.0.0 python-engineio~=3.14 python-socketio~=4.6.1 setuptools~=49.6 \
-    six~=1.16.0 tailhead==1.0.2
+pip install -r ovos-dashboard/requirements.txt
 
 # Make sure installed packages are properly owned
 chown -R neon:neon /home/neon
