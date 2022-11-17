@@ -4,5 +4,6 @@
   "examples_skill": "skill-about.neongeckocom",
   "wallpaper": "neon_default.jpg",
   "examples_enabled": true,
-  "__mycroft_skill_firstrun": false
+  "examples_prefix": false,
+  "__mycroft_sk1ill_firstrun": false
 }
