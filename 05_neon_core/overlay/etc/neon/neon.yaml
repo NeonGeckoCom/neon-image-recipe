@@ -2,7 +2,7 @@ play_wav_cmdline: "play %1"
 play_mp3_cmdline: "play %1"
 play_ogg_cmdline: "play %1"
 tts:
-  module: neon-tts-plugin-larynx-server
+  module: neon-tts-plugin-coqui-remote
   fallback_module: coqui
   neon-tts-plugin-larynx-server:
     host: "https://larynx.2022.us"
