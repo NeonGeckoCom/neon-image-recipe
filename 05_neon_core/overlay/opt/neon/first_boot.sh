@@ -29,6 +29,10 @@
 
 # this is executed on host in first run of a brand new image!
 
+# TODO: Reset time only if no RTC?
+# Reset time
+date -s "1 JAN 1970 00:00:00"
+
 # disable wifi power management
 #iwconfig wlan0 power off
 
