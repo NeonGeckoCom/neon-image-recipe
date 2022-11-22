@@ -27,7 +27,7 @@ listener:
   VAD:
     silence_method: vad_only
     module: ovos-vad-plugin-webrtcvad
-  mute_during_output: true
+  mute_during_output: false
   instant_listen: true
 hotwords:
   wake_up:
@@ -36,7 +36,7 @@ hotwords:
     model_folder: /home/neon/.local/share/neon/vosk-model-small-en-us-0.15
 sounds:
   start_listening: snd/start_listening.wav
-  end_listening: snd/end_listening.wav
+  end_listening:
   acknowledge: snd/acknowledge.mp3
 gui_websocket:
   host: 0.0.0.0
@@ -90,6 +90,7 @@ PHAL:
   neon-phal-plugin-linear-led:
     mute_color: burnt_orange
     sleep_color: red
+    utterance_animation: refill
   admin:
     neon-phal-plugin-linear-led-neopixel:
       enabled: true
