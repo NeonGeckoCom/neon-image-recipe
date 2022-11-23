@@ -36,7 +36,6 @@ hotwords:
     model_folder: /home/neon/.local/share/neon/vosk-model-small-en-us-0.15
 sounds:
   start_listening: snd/start_listening.wav
-  end_listening:
   acknowledge: snd/acknowledge.mp3
 gui_websocket:
   host: 0.0.0.0
