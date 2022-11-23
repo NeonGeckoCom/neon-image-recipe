@@ -1,3 +1,4 @@
 {
-  "emit_led": true
+  "emit_led": true,
+  "__mycroft_skill_firstrun": false
 }
