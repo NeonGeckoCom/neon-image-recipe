@@ -6,6 +6,7 @@ After=neon-bus.service
 
 [Service]
 Type=notify
+TimeoutStartSec=600
 TimeoutStopSec=30
 Restart=always
 User=neon
