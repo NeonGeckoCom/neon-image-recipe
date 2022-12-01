@@ -107,6 +107,11 @@ systemctl enable neon-logs.service
 systemctl enable neon-skills.service
 systemctl enable neon-speech.service
 systemctl enable neon-firstboot.service
+
+neon_uid=$(id -u neon)
+echo "XDG_RUNTIME_DIR=/run/user/${neon_uid}" >> /etc/neon/neon_env.conf
+echo "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${neon_uid}/bus" >> /etc/neon/neon_env.conf
+
 # Disable wifi setup service
 systemctl disable wifi-setup
 
