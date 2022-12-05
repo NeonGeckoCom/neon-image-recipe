@@ -32,7 +32,7 @@ cd "${BASE_DIR}" || exit 10
 
 . /home/neon/venv/bin/activate
 
-git clone https://github.com/neondaniel/ovos-PHAL-plugin-homeassistant -b
+git clone https://github.com/neondaniel/ovos-PHAL-plugin-homeassistant -b FEAT_WebsocketAPI
 cd ovos-PHAL-plugin-homeassistant || exit 10
 cp res/desktop/ovos-phal-homeassistant.desktop ~/.local/share/applications/
 cp res/icon/ovos-phal-homeassistant.svg ~/.local/share/icons/
