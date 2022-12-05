@@ -81,6 +81,7 @@ cp -r "${recipe_dir}/05_neon_core" mnt/tmp/
 cp -r "${recipe_dir}/06_dashboard" mnt/tmp/
 cp -r "${recipe_dir}/07_camera" mnt/tmp/
 cp -r "${recipe_dir}/08_splash_screen" mnt/tmp/
+cp -r "${recipe_dir}/09_homeassistant" mnt/tmp/
 cp -r "${recipe_dir}/10_updater" mnt/tmp/
 cp -r "${recipe_dir}/11_factory_reset" mnt/tmp/
 cp -r "${recipe_dir}/12_automount_usb" mnt/tmp/
