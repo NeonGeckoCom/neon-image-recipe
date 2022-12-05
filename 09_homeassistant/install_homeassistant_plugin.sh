@@ -34,8 +34,8 @@ cd "${BASE_DIR}" || exit 10
 
 git clone https://github.com/neondaniel/ovos-PHAL-plugin-homeassistant -b FEAT_WebsocketAPI
 cd ovos-PHAL-plugin-homeassistant || exit 10
-cp res/desktop/ovos-phal-homeassistant.desktop ~/.local/share/applications/
-cp res/icon/ovos-phal-homeassistant.svg ~/.local/share/icons/
+cp res/desktop/ovos-phal-homeassistant.desktop /home/neon/.local/share/applications/
+cp res/icon/ovos-phal-homeassistant.svg /home/neon/.local/share/icons/
 pip install .
 cd .. || exit 10
 rm -rf ovos-PHAL-plugin-homeassistant
