@@ -3,6 +3,7 @@
   "datetime_skill": "skill-date_time.neongeckocom",
   "examples_skill": "skill-about.neongeckocom",
   "wallpaper": "neon_default.jpg",
+  "persistent_menu_hint": true,
   "examples_enabled": true,
   "examples_prefix": false,
   "__mycroft_sk1ill_firstrun": false
