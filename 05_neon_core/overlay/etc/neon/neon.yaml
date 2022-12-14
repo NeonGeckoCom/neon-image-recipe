@@ -105,7 +105,7 @@ server:
 
 # Logging Config
 log_dir: /home/neon/logs/
-log_level: DEBUG
+log_level: INFO
 logs:
   path: /home/neon/.local/state/neon/
   max_bytes: 50000000
