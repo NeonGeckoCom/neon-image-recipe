@@ -1,0 +1,15 @@
+[Unit]
+Description=Neon Updater
+DefaultDependencies=no
+Conflicts=neon-update.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/opt/neon/neon_updater.conf
+User=root
+ExecStart=/opt/neon/update_wrapper.sh $script_path
+StandardInput=tty
+StandardOutput=tty
+
+[Install]
+WantedBy=multi-user.target
