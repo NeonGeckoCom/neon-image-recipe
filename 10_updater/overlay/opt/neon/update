@@ -53,6 +53,7 @@ restore_backup() {
     rm -rf "${venv_path}"
     mv "${backup_path}" "${venv_path}"
     chown -R neon:neon /home/neon
+    echo "venv backup restored"
   else
     echo "No Backup to Restore!"
   fi
