@@ -1,13 +1,14 @@
 [Unit]
 Description=Neon Updater
-DefaultDependencies=no
-Conflicts=neon-update.service
+Conflicts=splashscreen.service
 
 [Service]
 Type=oneshot
 EnvironmentFile=/opt/neon/neon_updater.conf
 User=root
-ExecStart=/opt/neon/update_wrapper.sh $script_path
+ExecStartPre=/usr/bin/systemctl start update-screen
+ExecStart=/bin/bash $script_path
+ExecStop=/usr/bin/systemctl stop update-screen
 StandardInput=tty
 StandardOutput=tty
 
