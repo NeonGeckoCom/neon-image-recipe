@@ -6,7 +6,6 @@ Type=oneshot
 User=root
 ExecStartPre=/usr/bin/systemctl start update-screen
 ExecStart=/opt/neon/update
-ExecStop=/usr/bin/systemctl stop update-screen
 
 [Install]
 WantedBy=multi-user.target
