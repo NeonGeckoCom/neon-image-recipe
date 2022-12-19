@@ -34,7 +34,7 @@ cd "${BASE_DIR}" || exit 10
 cp -rf overlay/* / || exit 2
 
 # Ensure executable
-chmod +x /opt/neon/*.sh
+chmod +x /opt/neon/update
 
 # Setup Completed
 echo "Updater Setup Complete"
