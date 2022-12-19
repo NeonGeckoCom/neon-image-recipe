@@ -70,13 +70,14 @@ do_python_update() {
 
 validate_module_load() {
   . "${venv_path}/bin/activate"
-  status=$(python3 "${BASE_DIR}/check_neon_modules.py")
+  python "${BASE_DIR}/check_neon_modules.py"
+  status=$?
   deactivate
   if [ "${status}" == "0" ]; then
     echo "Update success"
     return 0
   else
-    echo "Update failed!"
+    echo "Update failed with exit code: ${status}"
     restore_backup
     return 1
   fi
