@@ -32,6 +32,10 @@
 # existing installation. Enables the `neon-updater` service and performs the
 # first update to ensure the skill and plugin are available for future updates.
 ################################################################################
+
+# Ensure running as root
+sudo su
+
 git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
 bash neon-image-recipe/10_updater/configure_updates.sh && echo "Configured Update Services"
 /home/neon/venv/bin/python neon-image-recipe/updates/patch_core_config_updater.py && echo "Updated Core Configuration"
