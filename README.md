@@ -157,9 +157,22 @@ Enables a custom splash screen and disables on-device TTY at boot.
 
 On boot, a static image should be shown until the GUI Shell starts.
 
+## updater
+Enables an updater service to update python packages.
+
+`systemctl start neon-updater` will stop core services, create a code backup, 
+install updated Python packages, validate the core modules load properly and
+optionally roll back changes, and then restart core services.
+
 ## Clean Up
 `cleanup.sh` removes any temporary files from the mounted image before unmounting it.
 After running `cleanup.sh`, the image is ready to burn to a drive and boot.
+
+# Patches
+The `patches` directory contains scripts used to patch existing installations to
+add new features or make them compatible with updates Python modules. These files
+are intended to be referenced by updater scripts and should not be used during 
+image creation.
 
 # Deprecated Scripts
 

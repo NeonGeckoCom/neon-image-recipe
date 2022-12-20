@@ -99,7 +99,7 @@ systemctl stop gui-shell
 backup_venv || exit 2
 do_python_update || echo "Update Failed"
 validate_module_load
-sleep 10  # Allow some time for the user to see the success screen
+sleep 15  # Allow some time for the user to see the success screen
 systemctl start gui-shell
 systemctl start neon
 # Reset update.conf to default value
