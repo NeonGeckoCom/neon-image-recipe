@@ -38,6 +38,8 @@ update_log_path="/home/neon/.local/state/neon/${timestamp}_update"
 
 backup_venv() {
   echo "Backing up venv"
+  echo "UPDATE_SCREEN=\"/opt/neon/backing_up.png\"">/etc/neon/update.conf
+  systemctl restart update-screen
   cp -r "${venv_path}" "${backup_path}"
   chown -R neon:neon /home/neon
   echo "venv backup complete"
@@ -60,6 +62,8 @@ restore_backup() {
 }
 
 do_python_update() {
+  echo "UPDATE_SCREEN=\"/opt/neon/installing_new_packages.png\"">/etc/neon/update.conf
+  systemctl restart update-screen
   . "${venv_path}/bin/activate"
   mkdir -p "${update_log_path}"
   pip install --upgrade pip
@@ -69,15 +73,21 @@ do_python_update() {
 }
 
 validate_module_load() {
+  echo "UPDATE_SCREEN=\"/opt/neon/validating_update.png\"">/etc/neon/update.conf
+  systemctl restart update-screen
   . "${venv_path}/bin/activate"
   python "${BASE_DIR}/check_neon_modules.py"
   status=$?
   deactivate
   if [ "${status}" == "0" ]; then
     echo "Update success"
+    echo "UPDATE_SCREEN=\"/opt/neon/update_success.png\"">/etc/neon/update.conf
+    systemctl restart update-screen
     return 0
   else
     echo "Update failed with exit code: ${status}"
+    echo "UPDATE_SCREEN=\"/opt/neon/update_failed.png\"">/etc/neon/update.conf
+    systemctl restart update-screen
     restore_backup
     return 1
   fi
