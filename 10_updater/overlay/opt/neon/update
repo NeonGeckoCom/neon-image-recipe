@@ -91,6 +91,8 @@ validate_module_load() {
   fi
 }
 
+echo "UPDATE_SCREEN=\"/opt/neon/updating.png\"">/etc/neon/update.conf
+systemctl start update-screen
 remove_backup
 systemctl stop neon
 systemctl stop gui-shell

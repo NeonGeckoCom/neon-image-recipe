@@ -4,7 +4,6 @@ Description=Neon Updater
 [Service]
 Type=oneshot
 User=root
-ExecStartPre=/usr/bin/systemctl start update-screen
 ExecStart=/opt/neon/update
 
 [Install]
