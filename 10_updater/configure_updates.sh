@@ -35,6 +35,7 @@ cp -rf overlay/* / || exit 2
 
 # Ensure executable
 chmod +x /opt/neon/update
+chmod +x /opt/neon/check_neon_modules.py
 
 # Setup Completed
 echo "Updater Setup Complete"

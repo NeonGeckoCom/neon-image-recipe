@@ -75,10 +75,8 @@ do_python_update() {
 validate_module_load() {
   echo "UPDATE_SCREEN=\"/opt/neon/validating_update.png\"">/etc/neon/update.conf
   systemctl restart update-screen
-  . "${venv_path}/bin/activate"
-  python "${BASE_DIR}/check_neon_modules.py"
+  runuser -l neon -c "${BASE_DIR}/check_neon_modules.py"
   status=$?
-  deactivate
   if [ "${status}" == "0" ]; then
     echo "Update success"
     echo "UPDATE_SCREEN=\"/opt/neon/update_success.png\"">/etc/neon/update.conf
