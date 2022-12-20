@@ -35,7 +35,7 @@
 
 git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
 sudo bash neon-image-recipe/10_updater/configure_updates.sh && echo "Configured Update Services"
-sudo /home/neon/venv/bin/python neon-image-recipe/updates/patch_core_config_updater.py && echo "Updated Core Configuration"
+sudo /home/neon/venv/bin/python neon-image-recipe/patches/patch_core_config_updater.py && echo "Updated Core Configuration"
 sudo systemctl daemon-reload
 echo "Starting Initial Neon Update"
 sudo systemctl start neon-updater
