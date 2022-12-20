@@ -1,0 +1,10 @@
+[Unit]
+Description=Neon Updater
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/opt/neon/update
+
+[Install]
+WantedBy=multi-user.target

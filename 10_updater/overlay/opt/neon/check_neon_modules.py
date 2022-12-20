@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/home/neon/venv/bin/python
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Framework
 # All trademark and other rights reserved by their respective owners
 # Copyright 2008-2022 Neongecko.com Inc.
@@ -27,68 +27,15 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-# Set to exit on error
-set -Ee
-
-cd /tmp || exit 10
-source vars.sh
-
-dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '[:space:]')
-
-
-print_opts() {
-    clear
-    echo ""
-    echo "------------------"
-    echo "Neon Image Creator"
-    echo "------------------"
-    echo "0. Exit"
-    echo "1. Core Configuration"
-    echo "2. Network Manager"
-    echo "3. SJ201 (Mark 2)"
-    echo "4. Embedded Shell + GUI"
-    echo "5. Neon Core"
-    echo "6. Dashboard"
-    echo "7. Camera"
-    echo "8. Splash Screen"
-    echo "10. Neon Updater"
-}
-
-get_choice() {
-    read -p "Select Option " opt
-    case ${opt} in
-        0) exit 0;;
-        1) bash 01_core_configuration/configure_default_user.sh;;
-        2) bash 02_network_manager/setup_wifi_connect.sh;;
-        3) bash 03_sj201/setup_sj201.sh;;
-        4) bash 04_embedded_shell/install_gui_shell.sh;;
-        5) bash 05_neon_core/install_requirements.sh;;
-        6) bash 06_dashboard/install_ovos_dashboard.sh;;
-        7) bash 07_camera/configure_camera.sh;;
-        8) bash 08_splash_screen/configure_splash.sh;;
-        10) bash 10_updater/configure_updates.sh;;
-        *) ;;
-    esac
-}
-
-if [ ${1} == "all" ]; then
-    bash 01_core_configuration/configure_default_user.sh
-    if [ "${dist}" == 'Ubuntu' ]; then
-        bash 02_network_manager/setup_wifi_connect.sh
-        bash 03_sj201/setup_sj201.sh
-    fi
-    bash 04_embedded_shell/install_gui_shell.sh
-    bash 05_neon_core/install_requirements.sh
-    bash 06_dashboard/install_ovos_dashboard.sh
-    if [ "${dist}" == 'Ubuntu' ]; then
-        bash 07_camera/configure_camera.sh
-        bash 08_splash_screen/configure_splash.sh
-    fi
-    bash 10_updater/configure_updates.sh
-    exit 0
-fi
-
-while true; do
-    print_opts
-    get_choice
-done
+try:
+    from neon_audio.service import NeonPlaybackService
+    from neon_messagebus.service import NeonBusService
+    from neon_core.skills.service import NeonSkillService
+    from neon_gui.service import NeonGUIService
+    from neon_speech.service import NeonSpeechClient
+    from neon_enclosure.service import NeonHardwareAbstractionLayer
+    exit(0)
+except Exception as e:
+    print(e)
+    print("Modules failed to load")
+    exit(2)

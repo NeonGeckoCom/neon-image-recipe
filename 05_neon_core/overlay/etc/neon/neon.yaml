@@ -93,6 +93,11 @@ PHAL:
   admin:
     neon-phal-plugin-linear-led-neopixel:
       enabled: true
+    neon-phal-plugin-core-updater:
+      enabled: true
+      update_command: systemctl start neon-updater
+      core_module: neon_core
+      github_ref: NeonGeckoCom/NeonCore
 ready_settings:
   - skills
   - speech
