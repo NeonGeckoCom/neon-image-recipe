@@ -67,7 +67,7 @@ do_python_update() {
   . "${venv_path}/bin/activate"
   mkdir -p "${update_log_path}"
   pip install --upgrade pip
-  pip install --report --upgrade "${pip_spec}" > "${update_log_path}/pip_report.json"
+  pip install --quiet --report - --upgrade "${pip_spec}" > "${update_log_path}/pip_report.json"
   deactivate
   chown -R neon:neon /home/neon
 }
