@@ -33,12 +33,9 @@
 # first update to ensure the skill and plugin are available for future updates.
 ################################################################################
 
-# Ensure running as root
-sudo su
-
 git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
-bash neon-image-recipe/10_updater/configure_updates.sh && echo "Configured Update Services"
-/home/neon/venv/bin/python neon-image-recipe/updates/patch_core_config_updater.py && echo "Updated Core Configuration"
-systemctl daemon-reload
+sudo bash neon-image-recipe/10_updater/configure_updates.sh && echo "Configured Update Services"
+sudo /home/neon/venv/bin/python neon-image-recipe/updates/patch_core_config_updater.py && echo "Updated Core Configuration"
+sudo systemctl daemon-reload
 echo "Starting Initial Neon Update"
-systemctl start neon-updater
+sudo systemctl start neon-updater
