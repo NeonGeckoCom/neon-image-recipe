@@ -36,7 +36,7 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
-git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
+git clone https://github.com/neongeckocom/neon-image-recipe -b FEAT_ImagePatches && echo "Downloaded Image Tools"
 sudo bash neon-image-recipe/10_updater/configure_updates.sh && echo "Configured Update Services"
 sudo /home/neon/venv/bin/python "${BASE_DIR}/neon-image-recipe/patches/patch_core_config_updater.py" && echo "Updated Core Configuration"
 sudo rm -rf neon-image-recipe
