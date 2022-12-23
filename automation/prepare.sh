@@ -82,6 +82,7 @@ cp -r "${recipe_dir}/06_dashboard" mnt/tmp/
 cp -r "${recipe_dir}/07_camera" mnt/tmp/
 cp -r "${recipe_dir}/08_splash_screen" mnt/tmp/
 cp -r "${recipe_dir}/10_updater" mnt/tmp/
+cp -r "${recipe_dir}/11_factory_reset" mnt/tmp/
 
 # Copy interactive script into base image
 cp "${BASE_DIR}/run_scripts.sh" mnt/tmp
