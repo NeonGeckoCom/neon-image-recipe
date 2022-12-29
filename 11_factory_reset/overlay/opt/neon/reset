@@ -29,21 +29,32 @@
 
 echo "UPDATE_SCREEN=\"/opt/neon/factory_reset.png\"">/etc/neon/update.conf
 systemctl start update-screen
-systemctl stop neon
-systemctl stop gui-shell
+systemctl stop neon && echo "stopped neon service"
+systemctl stop gui-shell && echo "stopped gui shell"
+
+if [ ! -d '/opt/neon/backup' ]; then
+  echo "No backup to restore!"
+  exit 2
+fi
 
 rm -rf /home/neon/venv
 rm -rf /home/neon/.config
 rm -rf /home/neon/.local
 rm -rf /home/neon/.cache
+echo "home folder removed"
 
 cp -r /opt/neon/backup/venv /home/neon/venv
 cp -r /opt/neon/backup/.config /home/neon/.config
 cp -r /opt/neon/backup/.local /home/neon/.local
 cp -r /opt/neon/backup/.cache /home/neon/.cache
+echo "backup directory restored"
+
 chown -R neon:neon /home/neon
+echo "Permissions restored"
 
 systemctl start gui-shell
 systemctl start neon
+echo "Reset Completed"
+
 # Reset update.conf to default value
 echo "UPDATE_SCREEN=\"/opt/neon/updating.png\"">/etc/neon/update.conf
