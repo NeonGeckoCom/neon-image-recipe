@@ -5,6 +5,3 @@ Description=Neon Reset
 Type=oneshot
 User=root
 ExecStart=/opt/neon/reset
-
-[Install]
-WantedBy=multi-user.target
