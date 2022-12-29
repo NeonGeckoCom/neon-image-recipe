@@ -36,6 +36,8 @@ cp -rf overlay/* / || exit 2
 # Ensure executable
 chmod +x /opt/neon/reset
 
+systemctl enable neon-reset
+
 # Copy default files to backup location
 cp -r /home/neon /opt/neon/backup
 
