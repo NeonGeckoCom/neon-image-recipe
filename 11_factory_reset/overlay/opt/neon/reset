@@ -56,6 +56,6 @@ systemctl stop update-screen
 # Reset update.conf to default value
 echo "UPDATE_SCREEN=\"/opt/neon/updating.png\"">/etc/neon/update.conf
 
-systemctl start gui-shell
-systemctl start neon
+systemctl start gui-shell && echo "Restarted GUI"
+systemctl start neon && echo "Restarted Neon"
 echo "Reset Completed"
