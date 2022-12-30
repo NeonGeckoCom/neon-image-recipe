@@ -49,6 +49,10 @@ cp -r /opt/neon/backup/.local /home/neon/.local
 cp -r /opt/neon/backup/.cache /home/neon/.cache
 echo "backup directory restored"
 
+cd /etc/neon || exit 10
+mv neon.yaml neon.bak
+wget https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/master/05_neon_core/overlay/etc/neon/neon.yaml && echo "Updated System Config"
+
 chown -R neon:neon /home/neon
 echo "Permissions restored"
 
