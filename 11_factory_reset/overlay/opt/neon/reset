@@ -52,6 +52,12 @@ echo "backup directory restored"
 cd /etc/neon || exit 10
 mv neon.yaml neon.bak
 wget https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/master/05_neon_core/overlay/etc/neon/neon.yaml && echo "Updated System Config"
+if [ ! -f /etc/neon/neon.yaml ]; then
+  echo "System config update failed! Rolling back"
+  mv neon.bak neon.yaml
+fi
+
+mv neon.bak neon.yaml
 
 chown -R neon:neon /home/neon
 echo "Permissions restored"
