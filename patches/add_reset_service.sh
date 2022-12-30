@@ -36,7 +36,7 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
-git clone https://github.com/neongeckocom/neon-image-recipe -b FEAT_FactoryReset && echo "Downloaded Image Tools"
+git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
 sudo bash neon-image-recipe/11_factory_reset/configure_reset.sh && echo "Configured Reset Service"
 sudo /home/neon/venv/bin/python "${BASE_DIR}/neon-image-recipe/patches/patch_core_config_reset.py" && echo "Updated Core Configuration"
 
