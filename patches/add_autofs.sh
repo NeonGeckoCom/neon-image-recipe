@@ -38,3 +38,4 @@ cd "${BASE_DIR}" || exit 10
 
 git clone https://github.com/neongeckocom/neon-image-recipe -b FEAT_MountUSB && echo "Downloaded Image Tools"
 sudo bash neon-image-recipe/12_automount_usb/configure_autofs.sh && echo "Installed and configured autofs"
+sudo systemctl restart autofs
