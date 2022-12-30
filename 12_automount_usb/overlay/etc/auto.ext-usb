@@ -1,1 +1,1 @@
-neon    -fstype=auto    :/dev/sda1
+neon    -fstype=auto    :/dev/sdb1
