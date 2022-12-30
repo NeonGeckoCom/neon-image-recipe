@@ -52,9 +52,10 @@ echo "backup directory restored"
 chown -R neon:neon /home/neon
 echo "Permissions restored"
 
+systemctl stop update-screen
+# Reset update.conf to default value
+echo "UPDATE_SCREEN=\"/opt/neon/updating.png\"">/etc/neon/update.conf
+
 systemctl start gui-shell
 systemctl start neon
 echo "Reset Completed"
-
-# Reset update.conf to default value
-echo "UPDATE_SCREEN=\"/opt/neon/updating.png\"">/etc/neon/update.conf
