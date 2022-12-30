@@ -171,6 +171,9 @@ A backup of the installed `venv` will be created in `/opt/neon` and
 `systemctl start neon-reset` will restore this backup to the default `/home/neon/venv`
 location before restarting services.
 
+## automount_usb
+Installs and configures `autofs` to automatically mount an attached USB drive.
+
 ## Clean Up
 `cleanup.sh` removes any temporary files from the mounted image before unmounting it.
 After running `cleanup.sh`, the image is ready to burn to a drive and boot.

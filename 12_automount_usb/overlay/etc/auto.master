@@ -1,0 +1,1 @@
+/media/   /etc/auto.ext-usb --timeout=10,defaults,user,exec,uid=1000
