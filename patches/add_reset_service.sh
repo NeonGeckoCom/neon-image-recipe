@@ -40,6 +40,7 @@ git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded 
 sudo bash neon-image-recipe/11_factory_reset/configure_reset.sh && echo "Configured Reset Service"
 sudo /home/neon/venv/bin/python "${BASE_DIR}/neon-image-recipe/patches/patch_core_config_reset.py" && echo "Updated Core Configuration"
 
+sudo mkdir -p /opt/neon/backup
 sudo cp -r neon-image-recipe/05_neon_core/overlay/home/neon/.config /opt/neon/backup/.config && echo "Got default config backup"
 sudo cp -r neon-image-recipe/05_neon_core/overlay/home/neon/.local /opt/neon/backup/.local && echo "Got default data backup"
 if [ -d /home/neon/.cache/neon/venv_backup ]; then
