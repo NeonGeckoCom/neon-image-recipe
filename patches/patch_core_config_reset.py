@@ -35,5 +35,6 @@ config['PHAL']['admin']['neon-phal-plugin-reset'] = {
     "enabled": True,
     "reset_command": "systemctl start neon-reset"
 }
+
 with open(sys_config_path, 'w') as f:
     safe_dump(config, f)
