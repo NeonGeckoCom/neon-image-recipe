@@ -36,18 +36,12 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
-git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
+git clone https://github.com/neongeckocom/neon-image-recipe -b FEAT_FactoryReset && echo "Downloaded Image Tools"
 sudo bash neon-image-recipe/11_factory_reset/configure_reset.sh && echo "Configured Reset Service"
 sudo /home/neon/venv/bin/python "${BASE_DIR}/neon-image-recipe/patches/patch_core_config_reset.py" && echo "Updated Core Configuration"
 
 sudo mkdir -p /opt/neon/backup
-sudo cp -r neon-image-recipe/05_neon_core/overlay/home/neon/.config /opt/neon/backup/.config && echo "Got default config backup"
-sudo cp -r neon-image-recipe/05_neon_core/overlay/home/neon/.local /opt/neon/backup/.local && echo "Got default data backup"
-if [ -d /home/neon/.cache/neon/venv_backup ]; then
-  sudo cp -r /home/neon/.cache/neon/venv_backup /opt/neon/backup/venv && echo "Backup venv_backup for factory reset"
-else
-  sudo cp -r /home/neon/venv /opt/neon/backup/venv && echo "Backup venv for factory reset"
-fi
+
 sudo rm -rf neon-image-recipe
 sudo systemctl daemon-reload
 echo "Reset service enabled"
