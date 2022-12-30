@@ -31,11 +31,10 @@ from yaml import safe_load, safe_dump
 sys_config_path = "/etc/neon/neon.yaml"
 with open(sys_config_path, 'r+') as f:
     config = safe_load(f)
-config['PHAL']['admin']['neon-phal-plugin-core-updater'] = {
+config['PHAL']['admin']['neon-phal-plugin-reset'] = {
     "enabled": True,
-    "update_command": "systemctl start neon-updater",
-    "core_module": "neon_core",
-    "github_ref": "NeonGeckoCom/NeonCore"
+    "reset_command": "systemctl start neon-reset"
 }
+
 with open(sys_config_path, 'w') as f:
     safe_dump(config, f)

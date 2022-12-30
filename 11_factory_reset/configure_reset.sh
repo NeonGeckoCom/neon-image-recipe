@@ -1,4 +1,4 @@
-#!/home/neon/venv/bin/python
+#!/bin/bash
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Framework
 # All trademark and other rights reserved by their respective owners
 # Copyright 2008-2022 Neongecko.com Inc.
@@ -27,15 +27,17 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from yaml import safe_load, safe_dump
-sys_config_path = "/etc/neon/neon.yaml"
-with open(sys_config_path, 'r+') as f:
-    config = safe_load(f)
-config['PHAL']['admin']['neon-phal-plugin-core-updater'] = {
-    "enabled": True,
-    "update_command": "systemctl start neon-updater",
-    "core_module": "neon_core",
-    "github_ref": "NeonGeckoCom/NeonCore"
-}
-with open(sys_config_path, 'w') as f:
-    safe_dump(config, f)
+BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${BASE_DIR}" || exit 10
+
+# Copy overlay files (default configuration)
+cp -rf overlay/* / || exit 2
+
+# Ensure executable
+chmod +x /opt/neon/reset
+
+# Copy default files to backup location
+cp -r /home/neon /opt/neon/backup
+
+# Setup Completed
+echo "Reset Service Setup Complete"

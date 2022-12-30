@@ -1,4 +1,4 @@
-#!/home/neon/venv/bin/python
+#!/bin/bash
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Framework
 # All trademark and other rights reserved by their respective owners
 # Copyright 2008-2022 Neongecko.com Inc.
@@ -27,15 +27,21 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from yaml import safe_load, safe_dump
-sys_config_path = "/etc/neon/neon.yaml"
-with open(sys_config_path, 'r+') as f:
-    config = safe_load(f)
-config['PHAL']['admin']['neon-phal-plugin-core-updater'] = {
-    "enabled": True,
-    "update_command": "systemctl start neon-updater",
-    "core_module": "neon_core",
-    "github_ref": "NeonGeckoCom/NeonCore"
-}
-with open(sys_config_path, 'w') as f:
-    safe_dump(config, f)
+################################################################################
+# One-time script to configure the Neon update service and run an update on an
+# existing installation. Enables the `neon-updater` service and performs the
+# first update to ensure the skill and plugin are available for future updates.
+################################################################################
+
+BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${BASE_DIR}" || exit 10
+
+git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
+sudo bash neon-image-recipe/11_factory_reset/configure_reset.sh && echo "Configured Reset Service"
+sudo /home/neon/venv/bin/python "${BASE_DIR}/neon-image-recipe/patches/patch_core_config_reset.py" && echo "Updated Core Configuration"
+
+sudo mkdir -p /opt/neon/backup
+
+sudo rm -rf neon-image-recipe
+sudo systemctl daemon-reload
+echo "Reset service enabled"

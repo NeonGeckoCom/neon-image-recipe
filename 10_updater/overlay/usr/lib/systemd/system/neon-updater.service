@@ -5,6 +5,3 @@ Description=Neon Updater
 Type=oneshot
 User=root
 ExecStart=/opt/neon/update
-
-[Install]
-WantedBy=multi-user.target

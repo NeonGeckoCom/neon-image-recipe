@@ -67,6 +67,7 @@ get_choice() {
         7) bash 07_camera/configure_camera.sh;;
         8) bash 08_splash_screen/configure_splash.sh;;
         10) bash 10_updater/configure_updates.sh;;
+        11) bash 11_factory_reset/configure_reset.sh;;
         *) ;;
     esac
 }
@@ -85,6 +86,7 @@ if [ ${1} == "all" ]; then
         bash 08_splash_screen/configure_splash.sh
     fi
     bash 10_updater/configure_updates.sh
+    bash 11_factory_reset/configure_reset.sh
     exit 0
 fi
 
