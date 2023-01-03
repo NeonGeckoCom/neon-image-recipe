@@ -28,20 +28,15 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ################################################################################
-# One-time script to configure the Neon reset service and create a restore point
-# on existing installations. Enables the `neon-reset` service and performs the
-# first backup to ensure there is a reference to reset to.
+# One-time script to patch the neon update service to configure core branch refs
 ################################################################################
 
-BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "${BASE_DIR}" || exit 10
-
-git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
-sudo bash neon-image-recipe/11_factory_reset/configure_reset.sh && echo "Configured Reset Service"
-sudo /home/neon/venv/bin/python "${BASE_DIR}/neon-image-recipe/patches/patch_core_config_reset.py" && echo "Updated Core Configuration"
-
-sudo mkdir -p /opt/neon/backup
-
-sudo rm -rf neon-image-recipe
-sudo systemctl daemon-reload
-echo "Reset service enabled"
+if [ ! -f /etc/neon/versions.conf ]; then
+  echo "NEON_CORE_REF=dev">/etc/neon/versions.conf
+  # TODO: Update to master branch ref
+  wget https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/FEAT_CoreUpdateVersioning/10_updater/overlay/usr/lib/systemd/system/neon-updater.service -O /tmp/neon-updater.service
+  if [ -f /tmp/neon-updater.service ]; then
+    mv /tmp/neon-updater.service /usr/lib/systemd/system/
+    systemctl daemon-reload
+  fi
+fi
