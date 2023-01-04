@@ -34,7 +34,8 @@
 ################################################################################
 
 # Clone the latest image recipe
-git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
+# TODO: Update branch
+git clone https://github.com/neongeckocom/neon-image-recipe -b FEAT_CoreUpdateVersioning && echo "Downloaded Image Tools"
 
 # Check for updater service
 if [ ! -f /usr/lib/systemd/system/neon-updater.service ]; then
