@@ -28,9 +28,9 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ################################################################################
-# One-time script to configure the Neon update service and run an update on an
-# existing installation. Enables the `neon-updater` service and performs the
-# first update to ensure the skill and plugin are available for future updates.
+# One-time script to configure the Neon reset service and create a restore point
+# on existing installations. Enables the `neon-reset` service and performs the
+# first backup to ensure there is a reference to reset to.
 ################################################################################
 
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
