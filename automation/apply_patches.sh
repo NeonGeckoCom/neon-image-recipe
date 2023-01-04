@@ -58,6 +58,9 @@ if [ ! -f /usr/lib/systemd/system/neon-reset.service ]; then
 fi
 
 # Check for USB Automount
-# TODO
+if [ ! -f /etc/auto.usb ]; then
+  echo "Adding autofs"
+  bash neon-image-recipe/patches/add_autofs.sh
+fi
 
 rm -rf neon-image-recipe && echo "Cleaned up recipe patches"
