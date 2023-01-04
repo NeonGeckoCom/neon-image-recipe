@@ -32,8 +32,7 @@
 ################################################################################
 
 echo "NEON_CORE_REF=dev">/etc/neon/versions.conf
-# TODO: Update to master branch ref
-wget https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/FEAT_CoreUpdateVersioning/10_updater/overlay/usr/lib/systemd/system/neon-updater.service -O /tmp/neon-updater.service
+wget https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/master/10_updater/overlay/usr/lib/systemd/system/neon-updater.service -O /tmp/neon-updater.service
 if [ -f /tmp/neon-updater.service ]; then
   mv /tmp/neon-updater.service /usr/lib/systemd/system/
   systemctl daemon-reload
