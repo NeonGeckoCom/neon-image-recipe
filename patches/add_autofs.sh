@@ -36,6 +36,6 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
-git clone https://github.com/neongeckocom/neon-image-recipe -b FEAT_MountUSB && echo "Downloaded Image Tools"
+git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
 sudo bash neon-image-recipe/12_automount_usb/configure_autofs.sh && echo "Installed and configured autofs"
 sudo systemctl restart autofs
