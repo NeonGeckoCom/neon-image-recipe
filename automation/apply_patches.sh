@@ -33,6 +33,10 @@
 # services, apt packages, and system configurations.
 ################################################################################
 
+if [ -d neon-image-recipe ]; then
+  rm -rf neon-image-recipe && echo "Removed old cloned recipe repo"
+fi
+
 # Clone the latest image recipe
 # TODO: Update branch
 git clone https://github.com/neongeckocom/neon-image-recipe -b FEAT_CoreUpdateVersioning && echo "Downloaded Image Tools"
@@ -55,3 +59,5 @@ fi
 
 # Check for USB Automount
 # TODO
+
+rm -rf neon-image-recipe && echo "Cleaned up recipe patches"
