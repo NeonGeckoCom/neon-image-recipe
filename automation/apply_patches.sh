@@ -27,45 +27,30 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-echo "UPDATE_SCREEN=\"/opt/neon/factory_reset.png\"">/etc/neon/update.conf
-systemctl start update-screen
-systemctl stop neon && echo "stopped neon service"
-systemctl stop gui-shell && echo "stopped gui shell"
+################################################################################
+# Dynamic script to apply patches to existing Neon images. By default, Neon OS
+# installations will run this script to ensure images have all expected systemd
+# services, apt packages, and system configurations.
+################################################################################
 
-if [ ! -d '/opt/neon/backup' ]; then
-  echo "No backup to restore!"
-  exit 2
+# Clone the latest image recipe
+git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
+
+# Check for updater service
+if [ ! -f /usr/lib/systemd/system/neon-updater.service ]; then
+  echo "Adding Updater Service"
+  bash neon-image-recipe/patches/add_updater_service.sh
+# Check for updater version handling patch
+elif [ ! -f /etc/neon/versions.conf ]; then
+  echo "Updating Update Version Handling"
+  bash neon-image-recipe/patches/patch_updater_version_handling.sh
 fi
 
-rm -rf /home/neon/venv
-rm -rf /home/neon/.config
-rm -rf /home/neon/.local
-rm -rf /home/neon/.cache
-echo "home folder removed"
-
-cp -r /opt/neon/backup/venv /home/neon/venv && echo "restored venv"
-cp -r /opt/neon/backup/.config /home/neon/.config && echo "restored .config"
-cp -r /opt/neon/backup/.local /home/neon/.local && echo "restored .local"
-cp -r /opt/neon/backup/.cache /home/neon/.cache && echo "restored .cache"
-echo "backup directory restored"
-
-cd /etc/neon || exit 10
-mv neon.yaml neon.bak
-wget https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/master/05_neon_core/overlay/etc/neon/neon.yaml && echo "Updated System Config"
-if [ ! -f /etc/neon/neon.yaml ]; then
-  echo "System config update failed! Rolling back"
-  mv neon.bak neon.yaml
+# Check for reset service
+if [ ! -f /usr/lib/systemd/system/neon-reset.service ]; then
+  echo "Adding Reset Service"
+  bash neon-image-recipe/patches/add_reset_service.sh
 fi
 
-mv neon.bak neon.yaml
-
-chown -R neon:neon /home/neon
-echo "Permissions restored"
-
-systemctl stop update-screen
-# Reset update.conf to default value
-echo "UPDATE_SCREEN=\"/opt/neon/updating.png\"">/etc/neon/update.conf
-
-systemctl start gui-shell && echo "Restarted GUI"
-systemctl start neon && echo "Restarted Neon"
-echo "Reset Completed"
+# Check for USB Automount
+# TODO

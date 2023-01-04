@@ -165,7 +165,8 @@ install updated Python packages, validate the core modules load properly and
 optionally roll back changes, and then restart core services.
 
 ## factory_reset
-Creates a backup of the installed environment and enables a reset service.
+Creates a backup of the installed environment and enables a reset service. This
+also resets `/etc/neon/neon.yaml` to a clean version from this repository.
 
 A backup of the installed `venv` will be created in `/opt/neon` and 
 `systemctl start neon-reset` will restore this backup to the default `/home/neon/venv`
@@ -183,6 +184,11 @@ The `patches` directory contains scripts used to patch existing installations to
 add new features or make them compatible with updates Python modules. These files
 are intended to be referenced by updater scripts and should not be used during 
 image creation.
+
+## Automatically applying patches
+`automation/apply_patches.sh` will determine which patches are not yet applied
+and apply them. This can be used with update services to ensure an image built
+with this repository is updated to include any added build steps
 
 # Deprecated Scripts
 
