@@ -68,6 +68,7 @@ get_choice() {
         8) bash 08_splash_screen/configure_splash.sh;;
         10) bash 10_updater/configure_updates.sh;;
         11) bash 11_factory_reset/configure_reset.sh;;
+        12) bash 12_automount_usb/configure_autofs.sh;;
         *) ;;
     esac
 }
