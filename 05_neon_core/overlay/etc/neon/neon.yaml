@@ -70,7 +70,6 @@ skills:
   blacklisted_skills:
     - skill-ovos-setup.openvoiceos
     - skill-messaging.neongeckocom
-    - skill-launcher.neongeckocom
     - skill-custom_conversation.neongeckocom
     - skill-instructions.neongeckocom
   # TODO: extra_directories here is the default, can it be removed?
