@@ -65,7 +65,6 @@ pip install https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deeps
 export NEON_IN_SETUP="true"
 pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF:-dev}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi]" || exit 11
 echo "Core Installed"
-cat /etc/neon/neon.yaml
 neon-install-default-skills && echo "Default git skills installed" || exit 2
 
 # Clean pip caches
