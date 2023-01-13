@@ -52,6 +52,8 @@ print_opts() {
     echo "7. Camera"
     echo "8. Splash Screen"
     echo "10. Neon Updater"
+    echo "11. Factory Reset Service"
+    echo "12. Automount USB Drive"
 }
 
 get_choice() {
