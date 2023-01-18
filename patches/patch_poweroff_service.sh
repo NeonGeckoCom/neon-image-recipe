@@ -30,8 +30,7 @@
 ################################################################################
 # One-time script to patch the poweroff service to support rebooting the Mark 2
 ################################################################################
-wget https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/PATCH_FixRestartService/03_sj201/overlay/usr/lib/systemd/system/poweroff.service -O /tmp/poweroff.service
-# TODO: Update above to 'master' branch
+wget https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/master/03_sj201/overlay/usr/lib/systemd/system/poweroff.service -O /tmp/poweroff.service
 if [ -f /tmp/poweroff.service ]; then
   mv /tmp/poweroff.service /usr/lib/systemd/system/
   systemctl daemon-reload

@@ -38,8 +38,7 @@ if [ -d neon-image-recipe ]; then
 fi
 
 # Clone the latest image recipe
-git clone https://github.com/neongeckocom/neon-image-recipe -b PATCH_FixRestartService && echo "Downloaded Image Tools"
-# TODO: Remove branch above left for testing
+git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
 
 # Check for updater service
 if [ ! -f /usr/lib/systemd/system/neon-updater.service ]; then
