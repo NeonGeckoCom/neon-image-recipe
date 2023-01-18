@@ -28,45 +28,11 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ################################################################################
-# Dynamic script to apply patches to existing Neon images. By default, Neon OS
-# installations will run this script to ensure images have all expected systemd
-# services, apt packages, and system configurations.
+# One-time script to patch the poweroff service to support rebooting the Mark 2
 ################################################################################
-
-if [ -d neon-image-recipe ]; then
-  rm -rf neon-image-recipe && echo "Removed old cloned recipe repo"
+wget https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/PATCH_FixRestartService/03_sj201/overlay/usr/lib/systemd/system/poweroff.service -O /tmp/poweroff.service
+# TODO: Update above to 'master' branch
+if [ -f /tmp/neon-updater.service ]; then
+  mv /tmp/poweroff.service /usr/lib/systemd/system/
+  systemctl daemon-reload
 fi
-
-# Clone the latest image recipe
-git clone https://github.com/neongeckocom/neon-image-recipe -b PATCH_FixRestartService && echo "Downloaded Image Tools"
-# TODO: Remove branch above left for testing
-
-# Check for updater service
-if [ ! -f /usr/lib/systemd/system/neon-updater.service ]; then
-  echo "Adding Updater Service"
-  bash neon-image-recipe/patches/add_updater_service.sh
-# Check for updater version handling patch
-elif [ ! -f /etc/neon/versions.conf ]; then
-  echo "Updating Update Version Handling"
-  bash neon-image-recipe/patches/patch_updater_version_handling.sh
-fi
-
-# Check for reset service
-if [ ! -f /usr/lib/systemd/system/neon-reset.service ]; then
-  echo "Adding Reset Service"
-  bash neon-image-recipe/patches/add_reset_service.sh
-fi
-
-# Check for USB Automount
-if [ ! -f /etc/auto.usb ]; then
-  echo "Adding autofs"
-  bash neon-image-recipe/patches/add_autofs.sh
-fi
-
-# Check for old poweroff service
-if ! grep -q "Conflicts=reboot.target" /usr/lib/systemd/system/poweroff.service; then
-  echo "Patching Reboot"
-  bash neon-image-recipe/patches/patch_poweroff_service.sh
-fi
-
-rm -rf neon-image-recipe && echo "Cleaned up recipe patches"
