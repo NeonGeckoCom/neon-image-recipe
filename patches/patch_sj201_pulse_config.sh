@@ -28,51 +28,12 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ################################################################################
-# Dynamic script to apply patches to existing Neon images. By default, Neon OS
-# installations will run this script to ensure images have all expected systemd
-# services, apt packages, and system configurations.
+# One-time script to fix swapped mic channels for Mark2 devices
 ################################################################################
+wget https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/PATCH_FixSwappedVFChannels/03_sj201/overlay/etc/pulse/system.pa -O /tmp/system.pa
+# TODO: Update branch to master
 
-if [ -d neon-image-recipe ]; then
-  rm -rf neon-image-recipe && echo "Removed old cloned recipe repo"
+if [ -f /tmp/system.pa ]; then
+  mv /tmp/system.pa /etc/pulse/
+  systemctl restart pulseaudio
 fi
-
-# Clone the latest image recipe
-git clone https://github.com/neongeckocom/neon-image-recipe -b PATCH_FixSwappedVFChannels && echo "Downloaded Image Tools"
-# TODO: Remove branch spec for testing
-
-# Check for updater service
-if [ ! -f /usr/lib/systemd/system/neon-updater.service ]; then
-  echo "Adding Updater Service"
-  bash neon-image-recipe/patches/add_updater_service.sh
-# Check for updater version handling patch
-elif [ ! -f /etc/neon/versions.conf ]; then
-  echo "Updating Update Version Handling"
-  bash neon-image-recipe/patches/patch_updater_version_handling.sh
-fi
-
-# Check for reset service
-if [ ! -f /usr/lib/systemd/system/neon-reset.service ]; then
-  echo "Adding Reset Service"
-  bash neon-image-recipe/patches/add_reset_service.sh
-fi
-
-# Check for USB Automount
-if [ ! -f /etc/auto.usb ]; then
-  echo "Adding autofs"
-  bash neon-image-recipe/patches/add_autofs.sh
-fi
-
-# Check for old poweroff service
-if ! grep -q "Conflicts=reboot.target" /usr/lib/systemd/system/poweroff.service; then
-  echo "Patching Reboot"
-  bash neon-image-recipe/patches/patch_poweroff_service.sh
-fi
-
-# Check for old pulse system.pa
-if grep -q "load-module module-combine-sink sink_name=OpenVoiceOS" /etc/pulse/system.pa; then
-  echo "Patching old SJ201 system.pa file"
-  bash neon-image-recipe/patches/patch_sj201_pulse_config.sh
-fi
-
-rm -rf neon-image-recipe && echo "Cleaned up recipe patches"
