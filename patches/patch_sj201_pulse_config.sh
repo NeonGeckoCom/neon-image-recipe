@@ -30,8 +30,7 @@
 ################################################################################
 # One-time script to fix swapped mic channels for Mark2 devices
 ################################################################################
-wget https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/PATCH_FixSwappedVFChannels/03_sj201/overlay/etc/pulse/system.pa -O /tmp/system.pa
-# TODO: Update branch to master
+wget https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/master/03_sj201/overlay/etc/pulse/system.pa -O /tmp/system.pa
 
 if [ -f /tmp/system.pa ]; then
   mv /tmp/system.pa /etc/pulse/
