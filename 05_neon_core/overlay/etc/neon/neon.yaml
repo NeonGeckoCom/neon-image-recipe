@@ -110,6 +110,8 @@ ready_settings:
   - audio
   - gui_service
   - internet
+  - network_skills
+  - internet_skills
 #  - setup
 server:
   backend_type: offline
