@@ -74,4 +74,10 @@ if grep -q "load-module module-combine-sink sink_name=OpenVoiceOS" /etc/pulse/sy
   bash neon-image-recipe/patches/patch_sj201_pulse_config.sh
 fi
 
+# Remove web_cache config
+if [ -f /home/neon/.config/neon/web_cache.json ]; then
+  echo "Removing web_cache.json"
+  rm -f /home/neon/.config/neon/web_cache.json
+fi
+
 rm -rf neon-image-recipe && echo "Cleaned up recipe patches"
