@@ -35,7 +35,7 @@
 rm /home/neon/.local/share/OVOS/ColorSchemes/neon_scheme.json
 cp neon-image-recipe/04_embedded_shell/overlay/home/neon/.config/OpenVoiceOS/OvosShell.conf /home/neon/.config/OpenVoiceOS/OvosShell.conf
 cp neon-image-recipe/04_embedded_shell/overlay/home/neon/.local/share/OVOS/ColorSchemes/*.json /home/neon/.local/share/OVOS/ColorSchemes/
-cp neon-image-recipe/04_embedded_shell/overlay/ext/xdg/OvosTheme /etc/xdg/OvosTheme
+cp neon-image-recipe/04_embedded_shell/overlay/etc/xdg/OvosTheme /etc/xdg/OvosTheme
 echo "Added new themes"
 
 # Remove extra themes to clean up customization menu
