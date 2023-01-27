@@ -31,9 +31,9 @@
 # One-time script to patch the default Neon theme
 ################################################################################
 
-rm /home/neon/.config/OpenVoiceOS/OvosShell.conf
 cp neon-image-recipe/04_embedded_shell/overlay/home/neon/.config/OpenVoiceOS/OvosShell.conf /home/neon/.config/OpenVoiceOS/OvosShell.conf
 cp neon-image-recipe/04_embedded_shell/overlay/home/neon/.local/share/OVOS/ColorSchemes/*.json /home/neon/.local/share/OVOS/ColorSchemes/
+cp neon-image-recipe/04_embedded_shell/overlay/ext/xdg/OvosTheme /etc/xdg/OvosTheme
 
 rm -rf neon-image-recipe
 
