@@ -32,7 +32,7 @@
 ################################################################################
 
 cp neon-image-recipe/04_embedded_shell/overlay/home/neon/.config/OpenVoiceOS/OvosShell.conf /home/neon/.config/OpenVoiceOS/
-cp neon-image-recipe/04_embedded_shell/overlay/.local/share/OVOS/ColorSchemes/*.json /home/neon/.local/share/OVOS/ColorSchemes/
+cp neon-image-recipe/04_embedded_shell/overlay/home/neon/.local/share/OVOS/ColorSchemes/*.json /home/neon/.local/share/OVOS/ColorSchemes/
 
 rm -rf neon-image-recipe
 
