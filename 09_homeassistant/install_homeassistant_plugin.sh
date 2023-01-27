@@ -30,6 +30,14 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
+if [ ! -d /home/neon/.local/share/applications ]; then
+  mkdir -p /home/neon/.local/share/applications
+fi
+
+if [ ! -d /home/neon/.local/share/icons ]; then
+  mkdir -p /home/neon/.local/share/icons
+fi
+
 . /home/neon/venv/bin/activate
 
 git clone https://github.com/neondaniel/ovos-PHAL-plugin-homeassistant
@@ -37,7 +45,7 @@ cd ovos-PHAL-plugin-homeassistant || exit 10
 cp res/desktop/ovos-phal-homeassistant.desktop /home/neon/.local/share/applications/
 cp res/icon/ovos-phal-homeassistant.svg /home/neon/.local/share/icons/
 pip install .
-pip install https://github.com/OpenVoiceOS/ovos-PHAL-plugin-oauth
+pip install git+https://github.com/OpenVoiceOS/ovos-PHAL-plugin-oauth
 cd .. || exit 10
 rm -rf ovos-PHAL-plugin-homeassistant
 
