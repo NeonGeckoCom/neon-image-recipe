@@ -5,13 +5,6 @@ secondaryColor=#2C7909
 textColor=#F1F1F1
 themeStyle=dark
 
-[ColorScheme]
-name=Neon Orange
-primaryColor=#
-secondaryColor=#
-textColor=#
-themeStyle=dark
-
 [SelectedScheme]
 name=Neon Green
 path=/home/neon/.local/share/OVOS/ColorSchemes/neon_green.json
