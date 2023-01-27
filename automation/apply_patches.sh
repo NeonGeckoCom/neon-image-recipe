@@ -76,7 +76,7 @@ if grep -q "load-module module-combine-sink sink_name=OpenVoiceOS" /etc/pulse/sy
 fi
 
 # Check for missing theme files
-if [ ! -f /home/neon/.local/share/OVOS/ColorSchemes/neon_orange.json ]; then
+if [ -f /home/neon/.local/share/OVOS/ColorSchemes/neon_scheme.json ]; then
   echo "Patching theme files"
   bash neon-image-recipe/patches/patch_default_theme.sh
 fi
