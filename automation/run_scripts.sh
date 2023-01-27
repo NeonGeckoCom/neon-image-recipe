@@ -90,6 +90,7 @@ if [ ${1} == "all" ]; then
     fi
     bash 10_updater/configure_updates.sh
     bash 11_factory_reset/configure_reset.sh
+    bash 12_automount_usb/configure_autofs.sh
     exit 0
 fi
 
