@@ -138,6 +138,7 @@ system:
     remote:
       - gui_websocket:host
       - websocket:host
+      - ready_settings
     user:
       - gui_websocket:host
       - websocket:host
