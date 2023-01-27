@@ -1,6 +1,6 @@
 {
   "name": "Neon Orange",
-  "primaryColor": "#313131",
-  "secondaryColor": "#FF8600",
-  "textColor": "#F1F1F1"
+  "primaryColor": "#FF313131",
+  "secondaryColor": "#FFFF8600",
+  "textColor": "#FFF1F1F1"
 }
