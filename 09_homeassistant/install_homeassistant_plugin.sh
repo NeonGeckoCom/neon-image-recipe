@@ -40,7 +40,7 @@ fi
 
 . /home/neon/venv/bin/activate
 
-git clone https://github.com/neondaniel/ovos-PHAL-plugin-homeassistant
+git clone https://github.com/openvoiceos/ovos-PHAL-plugin-homeassistant
 cd ovos-PHAL-plugin-homeassistant || exit 10
 cp res/desktop/ovos-phal-homeassistant.desktop /home/neon/.local/share/applications/
 cp res/icon/ovos-phal-homeassistant.svg /home/neon/.local/share/icons/
