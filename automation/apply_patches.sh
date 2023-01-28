@@ -38,7 +38,8 @@ if [ -d neon-image-recipe ]; then
 fi
 
 # Clone the latest image recipe
-git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
+git clone https://github.com/neongeckocom/neon-image-recipe -b FEAT_UpdateGUIConfig && echo "Downloaded Image Tools"
+# TODO: Update to default branch
 
 # Check for updater service
 if [ ! -f /usr/lib/systemd/system/neon-updater.service ]; then
@@ -72,6 +73,12 @@ fi
 if grep -q "load-module module-combine-sink sink_name=OpenVoiceOS" /etc/pulse/system.pa; then
   echo "Patching old SJ201 system.pa file"
   bash neon-image-recipe/patches/patch_sj201_pulse_config.sh
+fi
+
+# Check for missing theme files
+if [ -f /home/neon/.local/share/OVOS/ColorSchemes/neon_scheme.json ]; then
+  echo "Patching theme files"
+  bash neon-image-recipe/patches/patch_default_theme.sh
 fi
 
 # Remove web_cache config

@@ -102,6 +102,12 @@ make install
 cd "${BASE_DIR}" || exit 10
 rm -rf mycroft-gui
 
+# Remove extra themes to clean up customization menu
+rm /usr/share/OVOS/ColorSchemes/manjaro_scheme.json
+rm /usr/share/OVOS/ColorSchemes/ruby_scheme.json
+rm /usr/share/OVOS/ColorSchemes/slate_scheme.json
+rm /usr/share/OVOS/ColorSchemes/sunset_scheme.json
+
 # Permission overlay files and enable gui service
 chmod -R ugo+x /usr/bin
 chown -R neon:neon /home/neon
