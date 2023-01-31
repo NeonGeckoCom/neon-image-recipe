@@ -72,6 +72,7 @@ skills:
     - skill-messaging.neongeckocom
     - skill-custom_conversation.neongeckocom
     - skill-instructions.neongeckocom
+    - skill-audio_record.neongeckocom
   # TODO: extra_directories here is the default, can it be removed?
   extra_directories:
     - /home/neon/.local/share/neon/skills
