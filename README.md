@@ -179,6 +179,13 @@ Installs and configures `autofs` to automatically mount an attached USB drive.
 `cleanup.sh` removes any temporary files from the mounted image before unmounting it.
 After running `cleanup.sh`, the image is ready to burn to a drive and boot.
 
+# Repository Structure
+This repository contains branches associated with `NeonCore` releases. When a
+Neon Core release is published, the latest `master` branch of this repository
+is preserved in a branch matching the Neon Core version and may be referenced in
+scripts or automation. This allows patches to be deprecated from the `master`
+branch over time without breaking older released images.
+
 # Patches
 The `patches` directory contains scripts used to patch existing installations to
 add new features or make them compatible with updates Python modules. These files
