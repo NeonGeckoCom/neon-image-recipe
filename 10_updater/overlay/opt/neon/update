@@ -29,10 +29,10 @@
 
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-core_ref=${1:-dev}
+core_ref=${1:-master}
 venv_path="/home/neon/venv"
 backup_path="/home/neon/.cache/neon/venv_backup"
-pip_spec="git+https://github.com/neongeckocom/neoncore@${core_ref}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi]"
+pip_spec="neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi] @ git+https://github.com/neongeckocom/neoncore@${core_ref}"
 timestamp=$(date +"%Y-%m-%d_%H-%M")
 update_log_path="/home/neon/.local/state/neon/${timestamp}_update"
 
