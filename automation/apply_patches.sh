@@ -38,8 +38,7 @@ if [ -d neon-image-recipe ]; then
 fi
 
 # Clone the latest image recipe
-git clone https://github.com/neongeckocom/neon-image-recipe -b FEAT_UpdateGUIConfig && echo "Downloaded Image Tools"
-# TODO: Update to default branch
+git clone https://github.com/neongeckocom/neon-image-recipe -b 22.10.2 && echo "Downloaded Image Tools"
 
 # Check for updater service
 if [ ! -f /usr/lib/systemd/system/neon-updater.service ]; then
