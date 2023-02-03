@@ -5,6 +5,7 @@ After=neon.service
 After=neon-bus.service
 Before=neon-skills.service
 Before=neon-enclosure.service
+LogNamespace=neon
 
 [Service]
 Type=notify

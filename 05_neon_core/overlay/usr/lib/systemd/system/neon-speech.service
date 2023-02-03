@@ -3,6 +3,7 @@ Description=Neon Speech
 PartOf=neon.service
 After=neon.service
 After=neon-bus.service
+LogNamespace=neon
 
 [Service]
 Type=notify

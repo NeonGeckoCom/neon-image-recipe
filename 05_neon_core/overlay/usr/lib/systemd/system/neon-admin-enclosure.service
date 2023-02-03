@@ -2,6 +2,7 @@
 Description=Neon Admin Enclosure
 PartOf=neon.service
 After=neon-bus.service
+LogNamespace=neon
 
 [Service]
 Type=notify
