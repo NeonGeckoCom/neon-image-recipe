@@ -4,6 +4,7 @@ PartOf=neon.service
 After=neon.service
 After=neon-bus.service
 After=neon-gui.service
+LogNamespace=neon
 
 [Service]
 Type=notify

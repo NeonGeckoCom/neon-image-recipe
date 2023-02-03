@@ -38,8 +38,8 @@ docker run \
 -v /dev/loop99:/dev/loop99 \
 -v /dev/loop99p1:/dev/loop99p1 \
 -v /dev/loop99p2:/dev/loop99p2 \
--e CORE_REF=${CORE_REF:-dev} \
--e RECIPE_REF=${RECIPE_REF:-master} \
+-e CORE_REF=${CORE_REF:-master} \
+-e RECIPE_REF=${RECIPE_REF:-dev} \
 -e BASE_IMAGE=${BASE_IMAGE:-debian-base-image-rpi4} \
 -e MAKE_THREADS=${MAKE_THREADS:-4} \
 --privileged \
@@ -181,10 +181,13 @@ After running `cleanup.sh`, the image is ready to burn to a drive and boot.
 
 # Repository Structure
 This repository contains branches associated with `NeonCore` releases. When a
-Neon Core release is published, the latest `master` branch of this repository
+Neon Core release is published, the latest `dev` branch of this repository
 is preserved in a branch matching the Neon Core version and may be referenced in
-scripts or automation. This allows patches to be deprecated from the `master`
+scripts or automation. This allows patches to be deprecated from the `dev`
 branch over time without breaking older released images.
+
+Note that the `master` branch is essentially frozen to maintain compatibility
+with older images that had that branch hard-coded in automation.
 
 # Patches
 The `patches` directory contains scripts used to patch existing installations to
