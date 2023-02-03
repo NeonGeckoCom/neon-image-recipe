@@ -31,7 +31,7 @@
 # One-time script to patch the neon update service to configure core branch refs
 ################################################################################
 
-echo "NEON_CORE_REF=dev">/etc/neon/versions.conf
+echo "NEON_CORE_REF=master">/etc/neon/versions.conf
 wget https://raw.githubusercontent.com/NeonGeckoCom/neon-image-recipe/master/10_updater/overlay/usr/lib/systemd/system/neon-updater.service -O /tmp/neon-updater.service
 if [ -f /tmp/neon-updater.service ]; then
   mv /tmp/neon-updater.service /usr/lib/systemd/system/

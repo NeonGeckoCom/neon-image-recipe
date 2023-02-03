@@ -38,8 +38,7 @@ if [ -d neon-image-recipe ]; then
 fi
 
 # Clone the latest image recipe
-git clone https://github.com/neongeckocom/neon-image-recipe -b FEAT_UpdateGUIConfig && echo "Downloaded Image Tools"
-# TODO: Update to default branch
+git clone https://github.com/neongeckocom/neon-image-recipe -b master && echo "Downloaded Image Tools"
 
 # Check for updater service
 if [ ! -f /usr/lib/systemd/system/neon-updater.service ]; then
@@ -49,6 +48,9 @@ if [ ! -f /usr/lib/systemd/system/neon-updater.service ]; then
 elif [ ! -f /etc/neon/versions.conf ]; then
   echo "Updating Update Version Handling"
   bash neon-image-recipe/patches/patch_updater_version_handling.sh
+elif grep -q "dev" /etc/neon/versions.conf; then
+  echo "Updating 'dev' to 'master' update branch"
+  echo "NEON_CORE_REF=master">/etc/neon/versions.conf
 fi
 
 # Check for reset service
