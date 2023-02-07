@@ -27,45 +27,16 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-build_dir=${1}
-cd "${build_dir}" || exit 10
+BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${BASE_DIR}" || exit 10
 
-# Re-enable restart prompts
-if [ -f mnt/etc/apt/apt.conf.d/.99needrestart ]; then
-    sudo mv mnt/etc/apt/apt.conf.d/.99needrestart mnt/etc/apt/apt.conf.d/99needrestart
-fi
+apt update
+apt install -y initramfs-tools
 
-# Cleanup overridden resolv.conf
-sudo rm mnt/etc/resolv.conf
-if [ -f mnt/etc/.resolv.conf ]; then
-    sudo mv mnt/etc/.resolv.conf mnt/etc/resolv.conf
-fi
+# Copy overlay files (default configuration)
+cp -rf overlay/* / || exit 2
 
-# Cleanup root bashrc
-sudo rm mnt/root/.bashrc
-if [ -f mnt/root/bashrc ]; then
-    echo "Restoring root .bashrc file"
-    sudo mv mnt/root/bashrc mnt/root/.bashrc
-fi
+chmod +x /etc/initramfs-tools/scripts/init-bottom/aufs
+chmod -R +x /usr/sbin/
 
-# Replace swapfile for build
-if [ -f "${build_dir}/swapfile" ]; then
-    echo "replacing swapfile"
-    sudo mv "${build_dir}/swapfile" mnt/swapfile
-fi
-
-#sudo mv mnt/root/bashrc mnt/root/.bashrc
-sudo rm -rf mnt/tmp/*
-echo "Temporary files removed"
-sudo umount mnt/boot/firmware || echo "boot partition not mounted"
-sudo umount mnt/run/systemd/resolve || exit 10
-
-# Make squashFS
-mksquashfs mnt neon.squashfs -noappend
-rm -r mnt/*
-mv neon.squashfs mnt/
-
-sudo umount mnt || exit 10
-rm -r mnt
-sudo losetup -d /dev/loop99
-echo "Image unmounted"
+update-initramfs -u
