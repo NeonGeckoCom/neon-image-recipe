@@ -44,7 +44,7 @@ curl https://forslund.github.io/mycroft-desktop-repo/mycroft-desktop.gpg.key | a
 echo "deb http://forslund.github.io/mycroft-desktop-repo bionic main" | tee /etc/apt/sources.list.d/mycroft-desktop.list
 apt update
 apt install -y sox gcc libfann-dev swig libssl-dev portaudio19-dev git libpulse-dev \
-    espeak-ng g++ wireless-tools plasma-nm unzip ffmpeg make mimic python3.10-dev python3.10-venv || exit 1
+    espeak-ng g++ wireless-tools plasma-nm unzip ffmpeg make mimic || exit 1
 
 # Cleanup apt caches
 rm -rf /var/cache/apt/archives/*

@@ -30,26 +30,10 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
-if [ ! -d /home/neon/.local/share/applications ]; then
-  mkdir -p /home/neon/.local/share/applications
-fi
+# Copy overlay files (Homeassistant Shortcut)
+cp -rf overlay/* / || exit 2
 
-if [ ! -d /home/neon/.local/share/icons ]; then
-  mkdir -p /home/neon/.local/share/icons
-fi
-
-. /home/neon/venv/bin/activate
-
-git clone https://github.com/openvoiceos/ovos-PHAL-plugin-homeassistant
-cd ovos-PHAL-plugin-homeassistant || exit 10
-cp res/desktop/ovos-phal-homeassistant.desktop /home/neon/.local/share/applications/
-cp res/icon/ovos-phal-homeassistant.svg /home/neon/.local/share/icons/
-pip install .
-pip install git+https://github.com/OpenVoiceOS/ovos-PHAL-plugin-oauth
-cd .. || exit 10
-rm -rf ovos-PHAL-plugin-homeassistant
-
-# Make sure installed packages are properly owned
+# Make sure overlay files are properly owned
 chown -R neon:neon /home/neon
 
-echo "Homeassistant plugin installed"
+echo "Homeassistant shortcut created"
