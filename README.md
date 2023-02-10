@@ -157,6 +157,11 @@ Enables a custom splash screen and disables on-device TTY at boot.
 
 On boot, a static image should be shown until the GUI Shell starts.
 
+## homeassistant
+Installs the HomeAssistant plugin and shortcuts.
+
+In the homescreen App Drawer, a Homeassistant icon will launch a GUI app.
+
 ## updater
 Enables an updater service to update python packages.
 

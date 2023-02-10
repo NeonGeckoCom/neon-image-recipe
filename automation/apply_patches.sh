@@ -80,6 +80,16 @@ if [ -f /home/neon/.local/share/OVOS/ColorSchemes/neon_scheme.json ]; then
   bash neon-image-recipe/patches/patch_default_theme.sh
 fi
 
+# Add Homeassistant shortcut
+. /home/neon/venv/bin/activate
+pip show ovos-phal-plugin-homeassistant
+if [ "${?}" == "0" ]; then
+  echo "Homeassistant plugin installed"
+  if [ ! -f /home/neon/.local/share/applications/ovos-phal-homeassistant.desktop ]; then
+    bash neon-image-recipe/patches/add_homeassistant_shortcut.sh
+  fi
+fi
+
 # Remove web_cache config
 if [ -f /home/neon/.config/neon/web_cache.json ]; then
   echo "Removing web_cache.json"
