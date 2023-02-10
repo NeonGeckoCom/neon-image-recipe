@@ -51,6 +51,7 @@ print_opts() {
     echo "6. Dashboard"
     echo "7. Camera"
     echo "8. Splash Screen"
+    echo "9. Homeassistant Plugin"
     echo "10. Neon Updater"
     echo "11. Factory Reset Service"
     echo "12. Automount USB Drive"
@@ -68,6 +69,7 @@ get_choice() {
         6) bash 06_dashboard/install_ovos_dashboard.sh;;
         7) bash 07_camera/configure_camera.sh;;
         8) bash 08_splash_screen/configure_splash.sh;;
+        9) bash 09_homeassistant/install_homeassistant_plugin.sh;;
         10) bash 10_updater/configure_updates.sh;;
         11) bash 11_factory_reset/configure_reset.sh;;
         12) bash 12_automount_usb/configure_autofs.sh;;
@@ -88,6 +90,7 @@ if [ ${1} == "all" ]; then
         bash 07_camera/configure_camera.sh
         bash 08_splash_screen/configure_splash.sh
     fi
+    bash 09_homeassistant/install_homeassistant_plugin.sh
     bash 10_updater/configure_updates.sh
     bash 11_factory_reset/configure_reset.sh
     bash 12_automount_usb/configure_autofs.sh
