@@ -35,7 +35,7 @@ dist=$(grep "^Distributor ID:" <<<"$(lsb_release -a)" | cut -d':' -f 2 | tr -d '
 if [ "${dist}" == 'Ubuntu' ]; then
     add-apt-repository -y ppa:deadsnakes/ppa
     apt update
-    apt install -y python3.7-dev python3.7-venv
+    apt install -y python3.10-dev python3.10-venv
 fi
 
 # install system packages
@@ -50,7 +50,7 @@ apt install -y sox gcc libfann-dev swig libssl-dev portaudio19-dev git libpulse-
 rm -rf /var/cache/apt/archives/*
 
 # Configure venv for deepspeech compat.
-python3.7 -m venv "/home/neon/venv" || exit 10
+python3.10 -m venv "/home/neon/venv" || exit 10
 . /home/neon/venv/bin/activate
 pip install --upgrade pip wheel
 
