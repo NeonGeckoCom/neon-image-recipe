@@ -66,7 +66,7 @@ mksquashfs mnt neon.squashfs -noappend
 sudo umount mnt || exit 10
 rm -r mnt
 parted /dev/loop99 rm 2
-parted -a minimal /dev/loop99 mkpart primary squashfs 2048 && echo "Created Root partition"
+parted -a minimal /dev/loop99 mkpart primary ext4 2048 && echo "Created Root partition"
 sudo dd if=neon.squashfs of=/dev/loop99p2
 parted -a minimal /dev/loop99 mkpart primary ext4 1024 && echo "Created User partition"
 sudo losetup -d /dev/loop99
