@@ -78,8 +78,8 @@ sudo lsblk -f /dev/loop99
 sudo dd if=neon.squashfs of=/dev/loop99p2 && echo "Wrote squashFS partition"
 
 ## Set Partition UUIDs
-#sudo tune2fs -U "030e6032-3183-4f12-9b43-9aa2124175f6" /dev/loop99p2
-#sudo tune2fs -U "92c4ecf5-af98-468f-bcbd-c3c8f33a3275" /dev/loop99p3
+sudo tune2fs -U "030e6032-3183-4f12-9b43-9aa2124175f6" /dev/loop99p2
+sudo tune2fs -U "92c4ecf5-af98-468f-bcbd-c3c8f33a3275" /dev/loop99p3
 
 sudo losetup -d /dev/loop99
 echo "Image unmounted"
