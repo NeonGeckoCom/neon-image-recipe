@@ -69,18 +69,18 @@ sudo parted /dev/loop99 rm 2
 sudo lsblk -f /dev/loop99
 
 sudo parted -a minimal /dev/loop99 mkpart primary ext4 64 2048 && echo "Created Root partition"
-sudo parted /dev/loop99 name 2 root
+#sudo parted /dev/loop99 name 2 root
 sudo lsblk -f /dev/loop99
 
 sudo parted -a minimal /dev/loop99 mkpart primary ext4 2048 2176 && echo "Created User partition"
-sudo parted /dev/loop99 name 3 user
+#sudo parted /dev/loop99 name 3 user
 sudo lsblk -f /dev/loop99
 
-## Remount file to write SquashFS image to new partition
-#image_file="$(sudo losetup --list --noheadings -O BACK-FILE /dev/loop99)"
-#sudo losetup -d /dev/loop99 && echo "Unmounted ${image_file}"
-#sudo losetup -P /dev/loop99 "${image_file}" && echo "Remounted ${image_file}"
-
+# Remount file to write SquashFS image to new partition
+image_file="$(sudo losetup --list --noheadings -O BACK-FILE /dev/loop99)"
+sudo losetup -d /dev/loop99 && echo "Unmounted ${image_file}"
+sudo losetup -P /dev/loop99 "${image_file}" && echo "Remounted ${image_file}"
+sudo lsblk -f /dev/loop99
 
 sudo dd if=neon.squashfs of=/dev/loop99p2 && echo "Wrote squashFS partition"
 
