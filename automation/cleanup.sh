@@ -66,14 +66,27 @@ mksquashfs mnt neon.squashfs -noappend
 sudo umount mnt || exit 10
 rm -r mnt
 sudo parted /dev/loop99 rm 2
-sudo parted -a minimal /dev/loop99 mkpart primary ext4 64 2048 && echo "Created Root partition"
-sudo parted -a minimal /dev/loop99 mkpart primary ext4 2048 3072 && echo "Created User partition"
+sudo lsblk -f /dev/loop99
 
-# Remount file to write SquashFS image to new partition
-image_file="$(sudo losetup --list --noheadings -O BACK-FILE /dev/loop99)"
-sudo losetup -d /dev/loop99
-sudo losetup -P /dev/loop99 "${image_file}"
+sudo parted -a minimal /dev/loop99 mkpart primary ext4 64 2048 && echo "Created Root partition"
+sudo parted /dev/loop99 name 2 root
+sudo lsblk -f /dev/loop99
+
+sudo parted -a minimal /dev/loop99 mkpart primary ext4 2048 2176 && echo "Created User partition"
+sudo parted /dev/loop99 name 3 user
+sudo lsblk -f /dev/loop99
+
+## Remount file to write SquashFS image to new partition
+#image_file="$(sudo losetup --list --noheadings -O BACK-FILE /dev/loop99)"
+#sudo losetup -d /dev/loop99 && echo "Unmounted ${image_file}"
+#sudo losetup -P /dev/loop99 "${image_file}" && echo "Remounted ${image_file}"
+
+
 sudo dd if=neon.squashfs of=/dev/loop99p2 && echo "Wrote squashFS partition"
+
+## Set Partition UUIDs
+#sudo tune2fs -U "030e6032-3183-4f12-9b43-9aa2124175f6" /dev/loop99p2
+#sudo tune2fs -U "92c4ecf5-af98-468f-bcbd-c3c8f33a3275" /dev/loop99p3
 
 sudo losetup -d /dev/loop99
 echo "Image unmounted"
