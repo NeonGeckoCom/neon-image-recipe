@@ -67,7 +67,13 @@ sudo umount mnt || exit 10
 rm -r mnt
 sudo parted /dev/loop99 rm 2
 sudo parted -a minimal /dev/loop99 mkpart primary ext4 64 2048 && echo "Created Root partition"
-sudo dd if=neon.squashfs of=/dev/loop99p2 && echo "Wrote squashFS partition"
 sudo parted -a minimal /dev/loop99 mkpart primary ext4 2048 3072 && echo "Created User partition"
+
+# Remount file to write SquashFS image to new partition
+image_file="$(sudo losetup --list --noheadings -O BACK-FILE /dev/loop99)"
+sudo losetup -d /dev/loop99
+sudo losetup -P /dev/loop99 "${image_file}"
+sudo dd if=neon.squashfs of=/dev/loop99p2 && echo "Wrote squashFS partition"
+
 sudo losetup -d /dev/loop99
 echo "Image unmounted"
