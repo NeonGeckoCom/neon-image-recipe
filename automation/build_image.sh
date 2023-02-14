@@ -52,7 +52,7 @@ base_image_compressed="${build_dir}/${base_image}.img.xz"
 # debian_bullseye.img.xz, ubuntu_22_04.img.xz
 if [ ! -f "${base_image_compressed}" ]; then
     echo "Downloading Base Image ${base_image}"
-    wget "https://2222.us/app/files/neon_images/pi/${base_image}.img.xz"
+    wget -q "https://2222.us/app/files/neon_images/pi/${base_image}.img.xz"
 fi
 
 # Decompress xz image archive
