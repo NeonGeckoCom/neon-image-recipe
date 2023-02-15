@@ -68,12 +68,13 @@ sudo umount mnt/run/systemd/resolve || exit 10
 
 # Make squashFS
 mksquashfs mnt neon.squashfs -noappend
-root_filesize=$(($(stat --printf="%s" neon.squashfs) / 1000000))  # 1000*1000=1000000 (B->MB)
-echo "Root FS=${root_filesize}MiB"
-echo "Root FS=$((root_filesize * 1000000))B"
-root_part_end=$((root_filesize + 64 + 32))  # 64M boot, 32M buffer
 sudo umount mnt || exit 10
 rm -r mnt
+
+# Determine RootFS Size
+root_filesize=$(($(stat --printf="%s" neon.squashfs) / 1000000))  # 1000*1000=1000000 (B->MB)
+echo "Root FS=${root_filesize}MiB"
+root_part_end=$((root_filesize + 64 + 16))  # 64M boot, 16M buffer
 
 # Repartition image
 sudo parted /dev/loop99 rm 2
