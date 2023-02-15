@@ -84,6 +84,7 @@ cp -r "${recipe_dir}/08_splash_screen" mnt/tmp/
 cp -r "${recipe_dir}/10_updater" mnt/tmp/
 cp -r "${recipe_dir}/11_factory_reset" mnt/tmp/
 cp -r "${recipe_dir}/12_automount_usb" mnt/tmp/
+cp -r "${recipe_dir}/13_squashfs" mnt/tmp/
 
 # Copy interactive script into base image
 cp "${BASE_DIR}/run_scripts.sh" mnt/tmp
