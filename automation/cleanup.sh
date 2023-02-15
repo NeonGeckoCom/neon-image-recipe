@@ -68,14 +68,16 @@ sudo umount mnt/run/systemd/resolve || exit 10
 
 # Make squashFS
 mksquashfs mnt neon.squashfs -noappend
-
+root_filesize=$(stat --printf="%s" output/1676419828_neon.img.xz)
+root_part_end=$(($((root_filesize / 1048576)) + 65))  # 1024*1024=1048576
+echo "Root FS=${root_part_end}MB"
 sudo umount mnt || exit 10
 rm -r mnt
 
 # Repartition image
 sudo parted /dev/loop99 rm 2
-sudo parted -a minimal /dev/loop99 mkpart primary ext4 64 2048 && echo "Created Root partition"
-sudo parted -a minimal /dev/loop99 mkpart primary ext4 2048 2176 && echo "Created User partition"
+sudo parted -a minimal /dev/loop99 mkpart primary ext4 64 ${root_part_end} && echo "Created Root partition"
+sudo parted -a minimal /dev/loop99 mkpart primary ext4 ${root_part_end} $((root_part_end + 1)) && echo "Created User partition"
 
 # Remount file to write SquashFS image to new partition
 image_file="$(sudo losetup --list --noheadings -O BACK-FILE /dev/loop99)"
