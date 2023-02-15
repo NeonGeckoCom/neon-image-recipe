@@ -68,7 +68,7 @@ sudo umount mnt/run/systemd/resolve || exit 10
 
 # Make squashFS
 mksquashfs mnt neon.squashfs -noappend
-root_filesize=$(stat --printf="%s" output/1676419828_neon.img.xz)
+root_filesize=$(stat --printf="%s" neon.squashfs)
 root_part_end=$(($((root_filesize / 1048576)) + 65))  # 1024*1024=1048576
 echo "Root FS=${root_part_end}MB"
 sudo umount mnt || exit 10
