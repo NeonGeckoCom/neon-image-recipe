@@ -41,6 +41,7 @@ docker run \
 --privileged \
 --network=host \
 --name=neon-image-builder \
+--rm -d \
 neon-image-builder
 ```
 
