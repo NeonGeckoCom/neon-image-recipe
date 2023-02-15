@@ -60,7 +60,7 @@ echo "Temporary files removed"
 
 # Update cmdline to handle squashfs partitions
 part_uuid=$(sudo blkid /dev/loop99 | cut -d'"' -f2)
-sed -ie "s|root=/dev/sda2 rootfstype=ext4|root=PARTUUID=${part_uuid}-02 rootfstype=squashfs ro writable=PARTUUID=${part_uuid}-03 init=/usr/sbin/pre-init|d" mnt/boot/cmdline.txt && \
+sed -ie "s|root=/dev/sda2 rootfstype=ext4|root=PARTUUID=${part_uuid}-02 rootfstype=squashfs ro writable=PARTUUID=${part_uuid}-03 init=/usr/sbin/pre-init|g" mnt/boot/cmdline.txt && \
 echo "Updated cmdline.txt"
 
 sudo umount mnt/boot/firmware || echo "boot partition not mounted"
