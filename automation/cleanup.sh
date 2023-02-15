@@ -73,14 +73,14 @@ sudo parted -a minimal /dev/loop99 mkpart primary ext4 2048 2176 && echo "Create
 image_file="$(sudo losetup --list --noheadings -O BACK-FILE /dev/loop99)"
 sudo losetup -d /dev/loop99 && echo "Unmounted ${image_file}"
 sudo losetup -P /dev/loop99 "${image_file}" && echo "Remounted ${image_file}"
-sudo lsblk -f /dev/loop99
 
 sudo dd if=neon.squashfs of=/dev/loop99p2 && echo "Wrote squashFS partition"
+sudo mkfs.ext4 /dev/loop99p3 && echo "Formatted User partition"
 
 ## Set Partition UUIDs
-tune2fs -L "ro_root" /dev/loop99p2
-sudo tune2fs -U "030e6032-3183-4f12-9b43-9aa2124175f6" /dev/loop99p2
-tune2fs -L "rw_user" /dev/loop99p3
+#sudo tune2fs -L "ro_root" /dev/loop99p2
+#sudo tune2fs -U "030e6032-3183-4f12-9b43-9aa2124175f6" /dev/loop99p2
+sudo tune2fs -L "rw_user" /dev/loop99p3
 sudo tune2fs -U "92c4ecf5-af98-468f-bcbd-c3c8f33a3275" /dev/loop99p3
 
 sudo losetup -d /dev/loop99
