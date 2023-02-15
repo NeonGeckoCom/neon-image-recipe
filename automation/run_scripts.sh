@@ -81,9 +81,9 @@ if [ ${1} == "all" ]; then
         bash 02_network_manager/setup_wifi_connect.sh
         bash 03_sj201/setup_sj201.sh
     fi
-    bash 04_embedded_shell/install_gui_shell.sh
-    bash 05_neon_core/install_requirements.sh
-    bash 06_dashboard/install_ovos_dashboard.sh
+#    bash 04_embedded_shell/install_gui_shell.sh
+#    bash 05_neon_core/install_requirements.sh
+#    bash 06_dashboard/install_ovos_dashboard.sh
     if [ "${dist}" == 'Ubuntu' ]; then
         bash 07_camera/configure_camera.sh
         bash 08_splash_screen/configure_splash.sh
