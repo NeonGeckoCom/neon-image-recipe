@@ -172,6 +172,10 @@ location before restarting services.
 ## automount_usb
 Installs and configures `autofs` to automatically mount an attached USB drive.
 
+## squashfs
+Configures OS configuration to support a SquashFS root file system. The actual file system changes happen outside of
+the chroot image, but this configures `fstab` and `cmdline.txt` to be ready for those changes.
+
 ## Clean Up
 `cleanup.sh` removes any temporary files from the mounted image before unmounting it.
 After running `cleanup.sh`, the image is ready to burn to a drive and boot.
