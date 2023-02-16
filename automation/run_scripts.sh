@@ -73,6 +73,7 @@ get_choice() {
         10) bash 10_updater/configure_updates.sh;;
         11) bash 11_factory_reset/configure_reset.sh;;
         12) bash 12_automount_usb/configure_autofs.sh;;
+        13) bash 13_squashfs/configure_squashfs.sh;;
         *) ;;
     esac
 }
@@ -94,6 +95,7 @@ if [ ${1} == "all" ]; then
     bash 10_updater/configure_updates.sh
     bash 11_factory_reset/configure_reset.sh
     bash 12_automount_usb/configure_autofs.sh
+    bash 13_squashfs/configure_squashfs.sh
     exit 0
 fi
 

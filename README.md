@@ -29,15 +29,11 @@ Then, run the container to create a Neon Image. Set `CORE_REF` to the branch of
 you want to use. Set `MAKE_THREADS` to the number of threads to use for `make` processes.
 ```shell
 sudo mknod /dev/loop99 b 7 99
-sudo losetup -P /dev/loop99 {image}
-# TODO: Above is just creating p1/p2 files; can this be done via mknod or something?
 
 docker run \
 -v /home/${USER}/output:/output:rw \
 -v /run/systemd/resolve:/run/systemd/resolve \
--v /dev/loop99:/dev/loop99 \
--v /dev/loop99p1:/dev/loop99p1 \
--v /dev/loop99p2:/dev/loop99p2 \
+-v /dev:/dev \
 -e CORE_REF=${CORE_REF:-master} \
 -e RECIPE_REF=${RECIPE_REF:-dev} \
 -e BASE_IMAGE=${BASE_IMAGE:-debian-base-image-rpi4} \
@@ -45,6 +41,7 @@ docker run \
 --privileged \
 --network=host \
 --name=neon-image-builder \
+--rm -d \
 neon-image-builder
 ```
 
@@ -179,6 +176,10 @@ location before restarting services.
 
 ## automount_usb
 Installs and configures `autofs` to automatically mount an attached USB drive.
+
+## squashfs
+Configures OS configuration to support a SquashFS root file system. The actual file system changes happen outside of
+the chroot image, but this configures `fstab` and `cmdline.txt` to be ready for those changes.
 
 ## Clean Up
 `cleanup.sh` removes any temporary files from the mounted image before unmounting it.
