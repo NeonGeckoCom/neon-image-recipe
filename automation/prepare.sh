@@ -45,7 +45,7 @@ cd "${build_dir}" || exit 10
 # Mount base image
 mkdir "${build_dir}/mnt"
 sudo losetup -d /dev/loop99 || echo "Nothing to unmount"
-sudo losetup -P /dev/loop99 "${image_file}"
+sudo losetup -P /dev/loop99 "${image_file}" && echo "Mounted ${image_file}"
 sudo mount /dev/loop99p2 "${build_dir}/mnt"
 sudo mount /dev/loop99p1 "${build_dir}/mnt/boot/firmware"
 
@@ -85,6 +85,7 @@ cp -r "${recipe_dir}/09_homeassistant" mnt/tmp/
 cp -r "${recipe_dir}/10_updater" mnt/tmp/
 cp -r "${recipe_dir}/11_factory_reset" mnt/tmp/
 cp -r "${recipe_dir}/12_automount_usb" mnt/tmp/
+cp -r "${recipe_dir}/13_squashfs" mnt/tmp/
 
 # Copy interactive script into base image
 cp "${BASE_DIR}/run_scripts.sh" mnt/tmp
