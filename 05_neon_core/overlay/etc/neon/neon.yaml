@@ -79,6 +79,7 @@ skills:
   default_skills:
   # TODO: Defaults are just patching skills not yet pip installable
   - https://github.com/JarbasSkills/skill-icanhazdadjokes/tree/dev
+  - https://github.com/mikejgray/neon-homeassistant-skill/tree/main
 PHAL:
   ovos-PHAL-plugin-balena-wifi:
     enabled: false
