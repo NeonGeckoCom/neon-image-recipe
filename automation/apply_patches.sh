@@ -90,6 +90,12 @@ if [ "${?}" == "0" ]; then
   fi
 fi
 
+# Check for Precise
+if [ ! -f /home/neon/.local/share/neon/hey-mycroft.pb ]; then
+  echo "Downloading Precise"
+  bash neon-image-recipe/patches/get_precise_binary.sh
+fi
+
 # Remove web_cache config
 if [ -f /home/neon/.config/neon/web_cache.json ]; then
   echo "Removing web_cache.json"
