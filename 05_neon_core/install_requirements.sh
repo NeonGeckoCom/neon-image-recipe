@@ -77,6 +77,16 @@ cd /home/neon/.local/share/neon || exit 10
 unzip vosk-model-small-en-us-0.15.zip
 rm vosk-model-small-en-us-0.15.zip
 
+# Precise engine and models
+cd /home/neon/.local/share || exit 10
+wget https://github.com/MycroftAI/mycroft-precise/releases/download/v0.3.0/precise-engine_0.3.0_aarch64.tar.gz
+tar xvf precise-engine_0.3.0_aarch64.tar.gz && echo "precise engine unpacked"
+rm precise-engine_0.3.0_aarch64.tar.gz
+
+cd neon || exit 10
+wget https://github.com/MycroftAI/precise-data/raw/models-dev/hey-mycroft.tar.gz
+tar xvf hey-mycroft.tar.gz && echo "ww model unpacked"
+
 export XDG_CONFIG_HOME="/home/neon/.config"
 export XDG_DATA_HOME="/home/neon/.local/share"
 export XDG_CACHE_HOME="/home/neon/.cache"

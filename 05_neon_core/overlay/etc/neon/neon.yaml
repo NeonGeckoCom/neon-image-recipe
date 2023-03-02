@@ -34,6 +34,9 @@ hotwords:
     active: false
   hey_neon:
     model_folder: /home/neon/.local/share/neon/vosk-model-small-en-us-0.15
+  hey_mycroft:
+    model: /home/neon/.local/share/neon/hey-mycroft.pb
+    binary_path: /home/neon/.local/share/precise-engine/precise-engine
 sounds:
   start_listening: snd/start_listening.wav
   acknowledge: snd/acknowledge.mp3
