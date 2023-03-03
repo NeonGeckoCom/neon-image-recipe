@@ -37,8 +37,10 @@ if [ -d neon-image-recipe ]; then
   rm -rf neon-image-recipe && echo "Removed old cloned recipe repo"
 fi
 
+branch=${1:-dev}
+
 # Clone the latest image recipe
-git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
+git clone https://github.com/neongeckocom/neon-image-recipe -b "${branch}" && echo "Downloaded Image Tools from ${branch}"
 
 # Check for updater service
 if [ ! -f /usr/lib/systemd/system/neon-updater.service ]; then
@@ -72,6 +74,12 @@ fi
 if grep -q "load-module module-combine-sink sink_name=OpenVoiceOS" /etc/pulse/system.pa; then
   echo "Patching old SJ201 system.pa file"
   bash neon-image-recipe/patches/patch_sj201_pulse_config.sh
+fi
+
+# Check for old neon services
+if ! grep -q "TimeoutStopSec=60" /usr/lib/systemd/system/neon-speech.service; then
+  echo "Patching Service Timeout"
+  bash neon-image-recipe/patches/patch_service_timeout.sh
 fi
 
 # Check for missing theme files
