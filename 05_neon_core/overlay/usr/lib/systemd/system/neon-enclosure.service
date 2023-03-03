@@ -8,13 +8,13 @@ LogNamespace=neon
 
 [Service]
 Type=notify
+TimeoutStartSec=300
 TimeoutStopSec=30
 Restart=always
 User=neon
 EnvironmentFile=/etc/neon/neon_env.conf
 WorkingDirectory=/opt/neon
 ExecStart=/usr/libexec/neon-enclosure.py
-#StandardOutput=append:/home/neon/logs/enclosure.log
-#StandardError=inherit
+
 [Install]
 WantedBy=neon.service

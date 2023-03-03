@@ -9,13 +9,12 @@ LogNamespace=neon
 
 [Service]
 Type=notify
+TimeoutStartSec=300
 TimeoutStopSec=30
 Restart=always
 User=neon
 WorkingDirectory=/opt/neon
 ExecStart=/usr/libexec/neon-gui.py
-#StandardOutput=append:/home/neon/logs/gui.log
-#StandardError=inherit
 
 [Install]
 WantedBy=neon.service

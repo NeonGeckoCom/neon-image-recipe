@@ -74,6 +74,12 @@ if grep -q "load-module module-combine-sink sink_name=OpenVoiceOS" /etc/pulse/sy
   bash neon-image-recipe/patches/patch_sj201_pulse_config.sh
 fi
 
+# Check for old neon services
+if ! grep -q "TimeoutStopSec=60" /usr/lib/systemd/system/neon-skills.service; then
+  echo "Patching Service Timeout"
+  bash neon-image-recipe/patches/patch_service_timeout.sh
+fi
+
 # Check for missing theme files
 if [ -f /home/neon/.local/share/OVOS/ColorSchemes/neon_scheme.json ]; then
   echo "Patching theme files"
