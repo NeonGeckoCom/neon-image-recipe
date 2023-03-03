@@ -37,8 +37,10 @@ if [ -d neon-image-recipe ]; then
   rm -rf neon-image-recipe && echo "Removed old cloned recipe repo"
 fi
 
+branch=${1:-dev}
+
 # Clone the latest image recipe
-git clone https://github.com/neongeckocom/neon-image-recipe && echo "Downloaded Image Tools"
+git clone https://github.com/neongeckocom/neon-image-recipe -b "${branch}" && echo "Downloaded Image Tools from ${branch}"
 
 # Check for updater service
 if [ ! -f /usr/lib/systemd/system/neon-updater.service ]; then
