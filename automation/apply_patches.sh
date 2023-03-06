@@ -70,6 +70,12 @@ if ! grep -q "Conflicts=reboot.target" /usr/lib/systemd/system/poweroff.service;
   bash neon-image-recipe/patches/patch_poweroff_service.sh
 fi
 
+# Check for old poweroff script
+if ! grep -q "sleep 300" /opt/neon/poweroff.sh; then
+  echo "Patching poweroff script"
+  bash neon-image-recipe/patches/patch_poweroff_script.sh
+fi
+
 # Check for old pulse system.pa
 if grep -q "load-module module-combine-sink sink_name=OpenVoiceOS" /etc/pulse/system.pa; then
   echo "Patching old SJ201 system.pa file"
