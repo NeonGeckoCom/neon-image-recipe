@@ -27,14 +27,15 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-revision=$(sj201 get-revision)
+################################################################################
+# Patch poweroff service to continually set fan speed to 0
+################################################################################
 
-if [ "${revision}" == "10" ]; then
-    echo "Setting screen brightness to 0"
-    echo 0 > /sys/class/backlight/rpi_backlight/brightness
-    echo "Setting fan speed to 0"
-    while true; do
-        sj201 set-fan-speed 0
-        sleep 300
-    done
-fi
+BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${BASE_DIR}" || exit 10
+
+sudo cp ../03_sj201/overlay/opt/neon/poweroff.sh /opt/neon/poweroff.sh
+sudo chmod ugo+x /opt/neon/poweroff.sh
+sudo rm -rf neon-image-recipe
+sudo systemctl daemon-reload
+echo "poweroff script updated"
