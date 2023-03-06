@@ -77,7 +77,7 @@ if grep -q "load-module module-combine-sink sink_name=OpenVoiceOS" /etc/pulse/sy
 fi
 
 # Check for old neon services
-if ! grep -q "TimeoutStopSec=60" /usr/lib/systemd/system/neon-speech.service; then
+if ! grep -q "TimeoutStartSec" /usr/lib/systemd/system/neon-speech.service; then
   echo "Patching Service Timeout"
   bash neon-image-recipe/patches/patch_service_timeout.sh
 fi
