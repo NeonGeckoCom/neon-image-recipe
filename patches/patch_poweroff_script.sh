@@ -34,8 +34,8 @@
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
-sudo cp ../03_sj201/overlay/opt/neon/poweroff.sh /opn/neon/poweroff.sh
-
+sudo cp ../03_sj201/overlay/opt/neon/poweroff.sh /opt/neon/poweroff.sh
+sudo chmod ugo+x /opt/neon/poweroff.sh
 sudo rm -rf neon-image-recipe
 sudo systemctl daemon-reload
 echo "poweroff script updated"
