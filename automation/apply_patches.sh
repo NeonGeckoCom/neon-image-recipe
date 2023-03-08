@@ -117,6 +117,8 @@ if [ -f /home/neon/.config/neon/web_cache.json ]; then
 fi
 
 echo "PATCHING update script!!"
+BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "${BASE_DIR}" || exit 10
 cp neon-image-recipe/10_updater/opt/neon/update /opt/neon/update
 chmod ugo+x /opt/neon/update
 
