@@ -116,4 +116,8 @@ if [ -f /home/neon/.config/neon/web_cache.json ]; then
   rm -f /home/neon/.config/neon/web_cache.json
 fi
 
+echo "PATCHING update script!!"
+cp neon-image-recipe/10_updater/opt/neon/update /opt/neon/update
+chmod ugo+x /opt/neon/update
+
 rm -rf neon-image-recipe && echo "Cleaned up recipe patches"

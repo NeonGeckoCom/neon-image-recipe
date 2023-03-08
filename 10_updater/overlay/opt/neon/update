@@ -67,7 +67,7 @@ do_python_update() {
   . "${venv_path}/bin/activate"
   mkdir -p "${update_log_path}"
   pip install --upgrade pip
-  pip install --quiet --report - --upgrade "${pip_spec}" > "${update_log_path}/pip_report.json"
+  pip install --quiet --report - --upgrade "${pip_spec}" ovos-utils==0.0.28 ovos-workshop==0.0.11 > "${update_log_path}/pip_report.json"
   deactivate
   chown -R neon:neon /home/neon
 }
@@ -104,3 +104,5 @@ systemctl start gui-shell
 systemctl start neon
 # Reset update.conf to default value
 echo "UPDATE_SCREEN=\"/opt/neon/updating.png\"">/etc/neon/update.conf
+
+# Applied Patch 22.10.3
