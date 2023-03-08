@@ -34,8 +34,28 @@ try:
     from neon_gui.service import NeonGUIService
     from neon_speech.service import NeonSpeechClient
     from neon_enclosure.service import NeonHardwareAbstractionLayer
-    exit(0)
 except Exception as e:
     print(e)
     print("Modules failed to load")
+    exit(2)
+
+
+from neon_core.util.runtime_utils import use_neon_core
+
+
+@use_neon_core
+def check_configuration():
+    from ovos_config.config import Configuration
+    for config_path in [Configuration.default.path,
+                        Configuration.system.path]:
+        print(config_path)
+        assert config_path.endswith("/neon.yaml")
+
+
+try:
+    check_configuration()
+    print("Configuration validated")
+except Exception as e:
+    print(e)
+    print("Configuration check failed")
     exit(2)

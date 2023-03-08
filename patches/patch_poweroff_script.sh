@@ -36,6 +36,6 @@ cd "${BASE_DIR}" || exit 10
 
 sudo cp ../03_sj201/overlay/opt/neon/poweroff.sh /opt/neon/poweroff.sh
 sudo chmod ugo+x /opt/neon/poweroff.sh
-sudo rm -rf neon-image-recipe
+
 sudo systemctl daemon-reload
 echo "poweroff script updated"

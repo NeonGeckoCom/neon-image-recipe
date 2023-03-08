@@ -110,6 +110,12 @@ if [ ! -f /home/neon/.local/share/neon/hey-mycroft.pb ]; then
   bash neon-image-recipe/patches/get_precise_binary.sh
 fi
 
+# Patch update config validation
+if ! grep -q "def check_configuration" /opt/neon/check_neon_modules.py; then
+  echo "Patching configuration check"
+  bash neon-image-recipe/patches/patch_update_configuration_check.sh
+fi
+
 # Remove web_cache config
 if [ -f /home/neon/.config/neon/web_cache.json ]; then
   echo "Removing web_cache.json"
