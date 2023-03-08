@@ -37,7 +37,7 @@ if [ -d neon-image-recipe ]; then
   rm -rf neon-image-recipe && echo "Removed old cloned recipe repo"
 fi
 
-branch=${1:-dev}
+branch=${1:-"22.10.3"}
 
 # Clone the latest image recipe
 git clone https://github.com/neongeckocom/neon-image-recipe -b "${branch}" && echo "Downloaded Image Tools from ${branch}"
