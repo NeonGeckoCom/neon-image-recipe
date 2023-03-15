@@ -93,6 +93,7 @@ cp "${BASE_DIR}/run_scripts.sh" mnt/tmp
 # Copy variables into base image
 echo "export CORE_REF=${CORE_REF:-dev}" > mnt/tmp/vars.sh
 echo "export MAKE_THREADS=${MAKE_THREADS:-4}" >> mnt/tmp/vars.sh
+echo "export SQUASH_FS=${SQUASH_FS:-true}" >> mnt/tmp/vars.sh
 
 # Configure bashrc so script runs on login (chroot)
 if [ "${3}" == "-y" ]; then
