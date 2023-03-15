@@ -32,7 +32,7 @@
 # with Homeassistant, but acquired it via an update
 ################################################################################
 
-git clone https://github.com/neondaniel/ovos-PHAL-plugin-homeassistant
+git clone https://github.com/openvoiceos/ovos-PHAL-plugin-homeassistant
 cp ovos-PHAL-plugin-homeassistant/res/desktop/ovos-phal-homeassistant.desktop /home/neon/.local/share/applications/
 cp ovos-PHAL-plugin-homeassistant/res/icon/ovos-phal-homeassistant.svg /home/neon/.local/share/icons/
 rm -rf ovos-PHAL-plugin-homeassistant

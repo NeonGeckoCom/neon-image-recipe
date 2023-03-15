@@ -95,13 +95,9 @@ if [ -f /home/neon/.local/share/OVOS/ColorSchemes/neon_scheme.json ]; then
 fi
 
 # Add Homeassistant shortcut
-. /home/neon/venv/bin/activate
-pip show ovos-phal-plugin-homeassistant
-if [ "${?}" == "0" ]; then
-  echo "Homeassistant plugin installed"
-  if [ ! -f /home/neon/.local/share/applications/ovos-phal-homeassistant.desktop ]; then
-    bash neon-image-recipe/patches/add_homeassistant_shortcut.sh
-  fi
+if [ ! -f /home/neon/.local/share/applications/ovos-phal-homeassistant.desktop ]; then
+  echo "Adding missing Homeassistant Shortcut"
+  bash neon-image-recipe/patches/add_homeassistant_shortcut.sh
 fi
 
 # Check for Precise
