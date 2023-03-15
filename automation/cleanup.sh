@@ -66,7 +66,7 @@ echo "Updated cmdline.txt"
 sudo umount mnt/boot/firmware || echo "boot partition not mounted"
 sudo umount mnt/run/systemd/resolve || exit 10
 
-if [ ${SQUASH_FS} == "true" ]; then
+if [ "${SQUASH_FS}" == "true" ]; then
   # Make squashFS
   mksquashfs mnt neon.squashfs -noappend
   sudo umount mnt || exit 10
@@ -96,7 +96,6 @@ if [ ${SQUASH_FS} == "true" ]; then
 else
   sudo umount mnt || exit 10
   rm -r mnt
-  sudo losetup -d /dev/loop99 && echo "Unmounted ${image_file}"
 fi
 sudo losetup -d /dev/loop99
 echo "Image unmounted"
