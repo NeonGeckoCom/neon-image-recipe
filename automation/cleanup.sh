@@ -58,40 +58,46 @@ fi
 sudo rm -rf mnt/tmp/*
 echo "Temporary files removed"
 
-# Update cmdline to handle squashfs partitions
-part_uuid=$(sudo blkid /dev/loop99 | cut -d'"' -f2)
-sed -ie "s|root=/dev/sda2 rootfstype=ext4|root=PARTUUID=${part_uuid}-02 rootfstype=squashfs ro writable=PARTUUID=${part_uuid}-03 init=/usr/sbin/pre-init|g" mnt/boot/firmware/cmdline.txt && \
-echo "Updated cmdline.txt"
+if [ "${SQUASH_FS}" == "true" ]; then
+  # Update cmdline to handle squashfs partitions
+  part_uuid=$(sudo blkid /dev/loop99 | cut -d'"' -f2)
+  sed -ie "s|root=/dev/sda2 rootfstype=ext4|root=PARTUUID=${part_uuid}-02 rootfstype=squashfs ro writable=PARTUUID=${part_uuid}-03 init=/usr/sbin/pre-init|g" mnt/boot/firmware/cmdline.txt && \
+  echo "Updated cmdline.txt"
+fi
 
 sudo umount mnt/boot/firmware || echo "boot partition not mounted"
 sudo umount mnt/run/systemd/resolve || exit 10
 
-# Make squashFS
-mksquashfs mnt neon.squashfs -noappend
-sudo umount mnt || exit 10
-rm -r mnt
+if [ "${SQUASH_FS}" == "true" ]; then
+  # Make squashFS
+  mksquashfs mnt neon.squashfs -noappend
+  sudo umount mnt || exit 10
+  rm -r mnt
 
-# Determine RootFS Size
-root_filesize=$(($(stat --printf="%s" neon.squashfs) / 1000000))  # 1000*1000=1000000 (B->MB)
-echo "Root FS=${root_filesize}MiB"
-root_part_end=$((root_filesize + 64 + 16))  # 64M boot, 16M buffer
+  # Determine RootFS Size
+  root_filesize=$(($(stat --printf="%s" neon.squashfs) / 1000000))  # 1000*1000=1000000 (B->MB)
+  echo "Root FS=${root_filesize}MiB"
+  root_part_end=$((root_filesize + 64 + 16))  # 64M boot, 16M buffer
 
-# Repartition image
-sudo parted /dev/loop99 rm 2
-sudo parted -a minimal /dev/loop99 mkpart primary ext4 64 ${root_part_end} && echo "Created Root partition"
-sudo parted -a minimal /dev/loop99 mkpart primary ext4 ${root_part_end} $((root_part_end + 1)) && echo "Created User partition"
+  # Repartition image
+  sudo parted /dev/loop99 rm 2
+  sudo parted -a minimal /dev/loop99 mkpart primary ext4 64 ${root_part_end} && echo "Created Root partition"
+  sudo parted -a minimal /dev/loop99 mkpart primary ext4 ${root_part_end} $((root_part_end + 1)) && echo "Created User partition"
 
-# Remount file to write SquashFS image to new partition
-image_file="$(sudo losetup --list --noheadings -O BACK-FILE /dev/loop99)"
-sudo losetup -d /dev/loop99 && echo "Unmounted ${image_file}"
-sudo losetup -P /dev/loop99 "${image_file}" && echo "Remounted ${image_file}"
+  # Remount file to write SquashFS image to new partition
+  image_file="$(sudo losetup --list --noheadings -O BACK-FILE /dev/loop99)"
+  sudo losetup -d /dev/loop99 && echo "Unmounted ${image_file}"
+  sudo losetup -P /dev/loop99 "${image_file}" && echo "Remounted ${image_file}"
 
-sudo dd if=neon.squashfs of=/dev/loop99p2 && echo "Wrote squashFS partition"
-sudo mkfs.ext4 /dev/loop99p3 && echo "Formatted User partition"
+  sudo dd if=neon.squashfs of=/dev/loop99p2 && echo "Wrote squashFS partition"
+  sudo mkfs.ext4 /dev/loop99p3 && echo "Formatted User partition"
 
-# Set static user partition Label and UUID
-sudo tune2fs -L "rw_user" /dev/loop99p3
-sudo tune2fs -U "92c4ecf5-af98-468f-bcbd-c3c8f33a3275" /dev/loop99p3
-
+  # Set static user partition Label and UUID
+  sudo tune2fs -L "rw_user" /dev/loop99p3
+  sudo tune2fs -U "92c4ecf5-af98-468f-bcbd-c3c8f33a3275" /dev/loop99p3
+else
+  sudo umount mnt || exit 10
+  rm -r mnt
+fi
 sudo losetup -d /dev/loop99
 echo "Image unmounted"

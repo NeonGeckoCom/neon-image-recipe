@@ -38,6 +38,7 @@ docker run \
 -e RECIPE_REF=${RECIPE_REF:-dev} \
 -e BASE_IMAGE=${BASE_IMAGE:-debian-base-image-rpi4} \
 -e MAKE_THREADS=${MAKE_THREADS:-4} \
+-e SQUASH_FS=${SQUASH_FS:-true} \
 --privileged \
 --network=host \
 --name=neon-image-builder \
