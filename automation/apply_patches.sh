@@ -113,7 +113,7 @@ if [ -f /home/neon/.config/neon/web_cache.json ]; then
 fi
 
 # Check for patched update script
-if ! grep -q "# Applied Patch " /opt/neon/update; then
+if grep -q "# Applied Patch " /opt/neon/update; then
   echo "Overwriting Patched Update Script"
   cp neon-image-recipe/10_updater/overlay/opt/neon/update /opt/neon/update
 chmod ugo+x /opt/neon/update
