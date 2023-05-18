@@ -3,16 +3,16 @@ Description=Neon Speech
 PartOf=neon.service
 After=neon.service
 After=neon-bus.service
-LogNamespace=neon
 
 [Service]
 Type=notify
 TimeoutStartSec=300
-TimeoutStopSec=30
+TimeoutStopSec=60
 Restart=always
 User=neon
 WorkingDirectory=/opt/neon
 ExecStart=/usr/libexec/neon-speech.py
+LogNamespace=neon
 
 [Install]
 WantedBy=neon.service

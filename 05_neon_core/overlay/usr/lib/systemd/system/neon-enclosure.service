@@ -4,17 +4,17 @@ PartOf=neon.service
 After=neon.service
 After=neon-bus.service
 After=neon-gui.service
-LogNamespace=neon
 
 [Service]
 Type=notify
 TimeoutStartSec=300
-TimeoutStopSec=30
+TimeoutStopSec=60
 Restart=always
 User=neon
 EnvironmentFile=/etc/neon/neon_env.conf
 WorkingDirectory=/opt/neon
 ExecStart=/usr/libexec/neon-enclosure.py
+LogNamespace=neon
 
 [Install]
 WantedBy=neon.service
