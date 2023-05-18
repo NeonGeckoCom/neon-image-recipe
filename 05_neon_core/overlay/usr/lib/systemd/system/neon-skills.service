@@ -7,7 +7,7 @@ After=neon-bus.service
 [Service]
 Type=notify
 TimeoutStartSec=600
-TimeoutStopSec=60
+TimeoutStopSec=90
 Restart=always
 User=neon
 WorkingDirectory=/opt/neon
