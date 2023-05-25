@@ -135,7 +135,7 @@ logs:
       - botocore
     info: []
     debug: []
-debug: True
+debug: False
 
 system:
   protected_keys:

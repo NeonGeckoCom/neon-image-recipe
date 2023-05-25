@@ -38,4 +38,4 @@ try:
 except Exception as e:
     print(e)
     print("Modules failed to load")
-    exit(2)
+    exit(3)
