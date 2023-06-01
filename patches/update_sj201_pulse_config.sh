@@ -32,4 +32,4 @@
 ################################################################################
 cd "${BASE_DIR}" || exit 10
 
-sudo cp ../05_neon_core/overlay/etc/pulse/sj201-system.pa /etc/pulse/
+sudo cp ../03_sj201/overlay/etc/pulse/sj201-system.pa /etc/pulse/
