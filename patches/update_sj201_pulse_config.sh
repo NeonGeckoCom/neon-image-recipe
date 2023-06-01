@@ -28,8 +28,9 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ################################################################################
-# One-time script to fix swapped mic channels for Mark2 devices
+# Script to ensure SJ201 Pulse Config is current
 ################################################################################
+BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "${BASE_DIR}" || exit 10
 
-sudo cp ../05_neon_core/overlay/etc/pulse/system.pa
+sudo cp ../03_sj201/overlay/etc/pulse/sj201-system.pa /etc/pulse/
