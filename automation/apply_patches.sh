@@ -82,6 +82,13 @@ if grep -q "load-module module-combine-sink sink_name=OpenVoiceOS" /etc/pulse/sy
   bash neon-image-recipe/patches/patch_sj201_pulse_config.sh
 fi
 
+# Check for sj201 config
+if [ -f /etc/pulse/sj201-system.pa ]; then
+  echo "Update SJ201 Audio Config"
+  bash neon-image-recipe/patches/update_sj201_pulse_config.sh
+
+fi
+
 # Check for old neon services
 if ! grep -q "TimeoutStartSec" /usr/lib/systemd/system/neon-speech.service; then
   echo "Patching Service Timeout"
