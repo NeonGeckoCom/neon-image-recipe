@@ -132,4 +132,11 @@ if grep -q "# Applied Patch " /opt/neon/update; then
 chmod ugo+x /opt/neon/update
 fi
 
+# Check for installed ovos-utils alpha dependency
+utils="$(pip list | grep ovos-utils)"
+if grep -q "0.0.34a" <<< "${utils}"; then
+  echo "Installing stable ovos-utils"
+  /home/neon/venv/bin/pip install --upgrade ovos-utils==0.0.34
+fi
+
 rm -rf neon-image-recipe && echo "Cleaned up recipe patches"
