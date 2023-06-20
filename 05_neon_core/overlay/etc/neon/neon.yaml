@@ -35,8 +35,13 @@ hotwords:
   hey_neon:
     model_folder: /home/neon/.local/share/neon/vosk-model-small-en-us-0.15
   hey_mycroft:
-    model: /home/neon/.local/share/neon/hey-mycroft.pb
-    binary_path: /home/neon/.local/share/precise-engine/precise-engine
+    module: ovos-ww-plugin-precise-lite
+    model: https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite
+    listen: True
+    expected_duration: 3
+    trigger_level: 3
+    sensitivity: 0.5
+
 sounds:
   start_listening: snd/start_listening.wav
   acknowledge: snd/acknowledge.mp3

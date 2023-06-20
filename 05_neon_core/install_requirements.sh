@@ -70,12 +70,15 @@ neon-install-default-skills && echo "Default git skills installed" || exit 2
 # Clean pip caches
 rm -rf /root/.cache/pip
 
-# Download model files
+# Download vosk model
 mkdir -p /home/neon/.local/share/neon
 wget -O /home/neon/.local/share/neon/vosk-model-small-en-us-0.15.zip https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip
 cd /home/neon/.local/share/neon || exit 10
 unzip vosk-model-small-en-us-0.15.zip
 rm vosk-model-small-en-us-0.15.zip
+
+# Precise lite model
+wget -O /home/neon/.local/share/precise-lite/hey_mycroft.tflite https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite
 
 # Precise engine and models
 cd /home/neon/.local/share || exit 10
