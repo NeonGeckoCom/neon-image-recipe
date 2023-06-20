@@ -132,4 +132,10 @@ if grep -q "# Applied Patch " /opt/neon/update; then
 chmod ugo+x /opt/neon/update
 fi
 
+# Check for tflite model
+if [ ! -f /home/neon/.local/share/precise-lite/hey_mycroft.tflite ]; then
+  echo "Downloading default tflite WW model"
+  wget -O /home/neon/.local/share/precise-lite/hey_mycroft.tflite https://github.com/OpenVoiceOS/precise-lite-models/raw/master/wakewords/en/hey_mycroft.tflite
+fi
+
 rm -rf neon-image-recipe && echo "Cleaned up recipe patches"
