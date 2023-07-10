@@ -78,11 +78,13 @@ get_choice() {
     esac
 }
 
-if [ ${1} == "all" ]; then
+if [ "${1}" == "all" ]; then
     bash 01_core_configuration/configure_default_user.sh
     if [ "${dist}" == 'Ubuntu' ]; then
         bash 02_network_manager/setup_wifi_connect.sh
         bash 03_sj201/setup_sj201.sh
+    else
+        cp 03_sj201/overlay/etc/pulse/sj201-system.pa /etc/pulse/
     fi
     bash 04_embedded_shell/install_gui_shell.sh
     bash 05_neon_core/install_requirements.sh
