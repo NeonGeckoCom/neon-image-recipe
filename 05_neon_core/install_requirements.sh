@@ -95,6 +95,9 @@ export XDG_CONFIG_HOME="/home/neon/.config"
 export XDG_DATA_HOME="/home/neon/.local/share"
 export XDG_CACHE_HOME="/home/neon/.cache"
 
+rm -rf /home/neon/.cache/pip
+apt clean
+
 # TODO: Unknown patching
 rm /home/neon/.local/share/neon/qemu_*
 
