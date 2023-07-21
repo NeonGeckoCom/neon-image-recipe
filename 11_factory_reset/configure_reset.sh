@@ -36,6 +36,9 @@ cp -rf overlay/* / || exit 2
 # Ensure executable
 chmod +x /opt/neon/reset
 
+# TODO: Unknown patching
+rm /home/neon/.local/share/neon/qemu_*
+
 # Copy default files to backup location
 cp -r /home/neon /opt/neon/backup
 

@@ -61,9 +61,10 @@ cp -rf overlay/* / || exit 2
 cd /home/neon || exit 2
 
 # Install core and skills
-pip install https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-cp37-cp37m-linux_aarch64.whl
+#pip install https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-cp37-cp37m-linux_aarch64.whl
 export NEON_IN_SETUP="true"
-pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF:-dev}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi]" || exit 11
+# TODO: ovos-config 23.7.20 Patch
+pip install ovos-config==0.0.11a5 "git+https://github.com/neongeckocom/neoncore@${CORE_REF:-dev}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi]" || exit 11
 echo "Core Installed"
 neon-install-default-skills && echo "Default git skills installed" || exit 2
 
@@ -82,17 +83,21 @@ wget -O /home/neon/.local/share/precise-lite/hey_mycroft.tflite https://github.c
 
 # Precise engine and models
 cd /home/neon/.local/share || exit 10
-wget https://github.com/MycroftAI/mycroft-precise/releases/download/v0.3.0/precise-engine_0.3.0_aarch64.tar.gz
-tar xvf precise-engine_0.3.0_aarch64.tar.gz && echo "precise engine unpacked"
-rm precise-engine_0.3.0_aarch64.tar.gz
+#wget https://github.com/MycroftAI/mycroft-precise/releases/download/v0.3.0/precise-engine_0.3.0_aarch64.tar.gz
+#tar xvf precise-engine_0.3.0_aarch64.tar.gz && echo "precise engine unpacked"
+#rm precise-engine_0.3.0_aarch64.tar.gz
 
 cd neon || exit 10
 wget https://github.com/MycroftAI/precise-data/raw/models-dev/hey-mycroft.tar.gz
 tar xvf hey-mycroft.tar.gz && echo "ww model unpacked"
+rm -rf hey-mycroft.tar.gz
 
 export XDG_CONFIG_HOME="/home/neon/.config"
 export XDG_DATA_HOME="/home/neon/.local/share"
 export XDG_CACHE_HOME="/home/neon/.cache"
+
+rm -rf /home/neon/.cache/pip && echo "cleared pip cache" || echo "no pip cache to clear``"
+apt clean && echo "cleaned apt caches" || echo "failed to clear apt cache"
 
 # TODO: Below init neon_core default fallbacks but CLIs should add an option to init configured fallbacks
 # Init TTS model
