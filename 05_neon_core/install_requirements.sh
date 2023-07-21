@@ -63,8 +63,8 @@ cd /home/neon || exit 2
 # Install core and skills
 #pip install https://github.com/mozilla/DeepSpeech/releases/download/v0.9.3/deepspeech-0.9.3-cp37-cp37m-linux_aarch64.whl
 export NEON_IN_SETUP="true"
-pip install ovos-config==0.0.11a5  # TODO: 23.7.20 Patch
-pip install "git+https://github.com/neongeckocom/neoncore@${CORE_REF:-dev}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi]" || exit 11
+# TODO: ovos-config 23.7.20 Patch
+pip install ovos-config==0.0.11a5 "git+https://github.com/neongeckocom/neoncore@${CORE_REF:-dev}#egg=neon_core[core_modules,skills_required,skills_essential,skills_default,skills_extended,pi]" || exit 11
 echo "Core Installed"
 neon-install-default-skills && echo "Default git skills installed" || exit 2
 
@@ -94,6 +94,9 @@ tar xvf hey-mycroft.tar.gz && echo "ww model unpacked"
 export XDG_CONFIG_HOME="/home/neon/.config"
 export XDG_DATA_HOME="/home/neon/.local/share"
 export XDG_CACHE_HOME="/home/neon/.cache"
+
+# TODO: Unknown patching
+rm /home/neon/.local/share/neon/qemu_*
 
 # TODO: Below init neon_core default fallbacks but CLIs should add an option to init configured fallbacks
 # Init TTS model
