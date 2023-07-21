@@ -90,16 +90,17 @@ rm precise-engine_0.3.0_aarch64.tar.gz
 cd neon || exit 10
 wget https://github.com/MycroftAI/precise-data/raw/models-dev/hey-mycroft.tar.gz
 tar xvf hey-mycroft.tar.gz && echo "ww model unpacked"
+rm -rf hey-mycroft.tar.gz
 
 export XDG_CONFIG_HOME="/home/neon/.config"
 export XDG_DATA_HOME="/home/neon/.local/share"
 export XDG_CACHE_HOME="/home/neon/.cache"
 
-rm -rf /home/neon/.cache/pip
-apt clean
+rm -rf /home/neon/.cache/pip && echo "cleared pip cache" || echo "no pip cache to clear``"
+apt clean && echo "cleaned apt caches" || echo "failed to clear apt cache"
 
 # TODO: Unknown patching
-rm /home/neon/.local/share/neon/qemu_*
+rm /home/neon/.local/share/neon/qemu_* || echo "no qemu file to clean"
 
 # TODO: Below init neon_core default fallbacks but CLIs should add an option to init configured fallbacks
 # Init TTS model
