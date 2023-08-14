@@ -28,7 +28,7 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ################################################################################
-# Patch Neon Core service units to allow more time to start
+# Patch Neon Core service units to latest versions
 ################################################################################
 
 BASE_DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"

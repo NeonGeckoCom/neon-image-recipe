@@ -13,6 +13,7 @@ User=neon
 WorkingDirectory=/opt/neon
 ExecStart=/usr/libexec/neon-skills.py
 LogNamespace=neon
+EnvironmentFile=/etc/neon/neon_env.conf
 
 [Install]
 WantedBy=neon.service

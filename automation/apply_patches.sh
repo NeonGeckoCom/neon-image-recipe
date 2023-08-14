@@ -101,6 +101,11 @@ if ! grep -q "TimeoutStopSec=60" /usr/lib/systemd/system/neon-speech.service; th
   bash neon-image-recipe/patches/patch_service_timeout.sh
 fi
 
+if ! grep -q "EnvironmentFile=/etc/neon/neon_env.conf" /usr/lib/systemd/system/neon-speech.service; then
+  echo "Patching Service env file"
+  bash neon-image-recipe/patches/patch_service_timeout.sh
+fi
+
 # Check for missing theme files
 if [ -f /home/neon/.local/share/OVOS/ColorSchemes/neon_scheme.json ]; then
   echo "Patching theme files"
