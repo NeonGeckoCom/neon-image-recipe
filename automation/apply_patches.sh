@@ -104,6 +104,8 @@ fi
 if ! grep -q "EnvironmentFile=/etc/neon/neon_env.conf" /usr/lib/systemd/system/neon-speech.service; then
   echo "Patching Service env file"
   bash neon-image-recipe/patches/patch_service_timeout.sh
+  echo "OVOS_CONFIG_FILENAME=\"neon.yaml\"">>/opt/neon/neon_env.conf
+  echo "OVOS_CONFIG_BASE_FOLDER=\"neon\"">>/opt/neon/neon_env.conf
 fi
 
 # Check for missing theme files
