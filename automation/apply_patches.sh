@@ -101,8 +101,8 @@ if ! grep -q "TimeoutStopSec=60" /usr/lib/systemd/system/neon-speech.service; th
   bash neon-image-recipe/patches/patch_service_timeout.sh
 fi
 
-if ! grep -q "EnvironmentFile=/etc/neon/neon_env.conf" /usr/lib/systemd/system/neon-speech.service; then
-  echo "Patching Service env file"
+if ! grep -q "OVOS_CONFIG_FILENAME=neon.yaml" /etc/neon/neon_env.conf; then
+  echo "Patching neon_env file"
   bash neon-image-recipe/patches/patch_service_timeout.sh
   echo "OVOS_CONFIG_FILENAME=\"neon.yaml\"">>/opt/neon/neon_env.conf
   echo "OVOS_CONFIG_BASE_FOLDER=\"neon\"">>/opt/neon/neon_env.conf
