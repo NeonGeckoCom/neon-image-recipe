@@ -1,3 +1,7 @@
+## Deprecation Notice
+This project is deprecated and has been replaced by [neon-debos](https://github.com/NeonGeckoCom/neon_debos).
+
+
 # neon-image-recipe
 Make a Pi image from scratch.
 - [Core Configuration](#core_configuration) - Base configuration of ubuntu server
